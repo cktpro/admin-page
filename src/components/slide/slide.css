@@ -1,0 +1,19 @@
+.slide{
+    width: fit-content;
+    white-space: nowrap;
+    height: 100vh;
+    background-color: antiquewhite
+}
+.menu-slide>li>a{
+    text-decoration: none;
+    color: inherit;
+}
+.menu-slide>li {
+    color: #737791;
+    border-radius: 16px;
+    padding: 16px 24px;
+}
+.menu-slide >li:hover,.menu-slide>.active{
+    background-color: #5D5FEF;
+    color: #FFFFFF;
+}
