@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useCallback, useState } from "react";
+import { Link } from "react-router-dom";
 import { LOCATIONS } from "constants/index";
 // import style
 import "./slide.css";
@@ -8,84 +8,150 @@ function Slide(props) {
     {
       label: "Dashboard",
       active: false,
-      src:LOCATIONS.DASHBOARD
+      src: LOCATIONS.DASHBOARD,
+      icon:require('assets/icon-slide/dashboard-svgrepo-com.png')
     },
     {
-      label: "Order",
+      label: "Đơn Hàng",
       active: false,
-      src:LOCATIONS.ORDER
+      icon:require('assets/icon-slide/choices-order-svgrepo-com.png'),
+      sub: [
+        { label: "Đanh sánh đơn hàng", src: LOCATIONS.ORDER },
+        {
+          label: "Chi tiết đơn hàng",
+          src: LOCATIONS.ORDER_DETAIL,
+        },
+        {
+          label: "Tạo đơn hàng offline",
+          src: LOCATIONS.CREATE_ORDER_OFF,
+        },
+        {
+          label: "Tạo đơn hàng trực tuyến",
+          src: LOCATIONS.CREATE_ORDER_ON,
+        },
+      ],
     },
     {
-      label: "Products",
+      label: "Sản Phẩm",
       active: false,
-      src:LOCATIONS.PRODUCTS
+      icon:require('assets/icon-slide/phone-svgrepo-com.png'),
+      sub: [
+        { label: "Đanh sánh sản phẩm", src: LOCATIONS.PRODUCTS },
+        {
+          label: "Chi tiết sản phẩm",
+          src: LOCATIONS.PRODUCT_DETAIL,
+        },
+        {
+          label: "Thêm sản phẩm mới",
+          src: LOCATIONS.CREATE_PRODUCT,
+        },
+        {
+          label: "Cập nhật sản phẩm",
+          src: LOCATIONS.UPDATE_PRODUCT,
+        },
+      ],
     },
     {
-      label: "Sales Report",
+      label: "Categories",
       active: false,
-      src:LOCATIONS.SALES_REPORT
+      icon:require('assets/icon-slide/category-management-svgrepo-com.png'),
+      sub: [
+        { label: "Đanh sánh category", src: LOCATIONS.CATEGORY },
+        {
+          label: "Thêm mới category",
+          src: LOCATIONS.CREATE_CATEGORY,
+        },
+        {
+          label: "Cập nhật category",
+          src: LOCATIONS.UPDATE_CATEGORY,
+        },
+      ],
     },
     {
-      label: "Messages",
+      label: "Thông Báo",
       active: false,
-      src:LOCATIONS.MESSAGES
+      icon:require('assets/icon-slide/notification-svgrepo-com.png'),
+      src: LOCATIONS.MESSAGES,
     },
     {
-      label: "Setting",
+      label: "Cài Đặt",
       active: false,
-      src:LOCATIONS.SETTING
+      icon:require('assets/icon-slide/setting-setting-svgrepo-com.png'),
+      src: LOCATIONS.SETTING,
     },
     {
       label: "Sign Out",
       active: false,
-      src:LOCATIONS.SIGNOUT
+      icon:require('assets/icon-slide/door-svgrepo-com.png'),
+      src: LOCATIONS.SIGNOUT,
     },
   ]);
-  const location=useLocation()
-  
-  const [prevItem,setPrevItem]=useState(0)
-  const activeItem =useCallback((index) => {
-    const newList=[...list]
-    if (prevItem===index) {
-        
-    newList[index].active=true
-    setList(newList)
+
+  const [prevItem, setPrevItem] = useState(0);
+  const activeSubItem = useCallback((index) => {
+    const newList = [...list];
+    if (newList[index].isExtend) {
+      newList[index].isExtend= false
     }else{
-        setPrevItem(index)
-    newList[index].active=true
-    newList[prevItem].active=false
-    setList(newList)
+      newList[index].isExtend= true;
     }
-  }, [list,prevItem]);
-  useEffect(()=>{
-    if(location.pathname!=="/"){
-        const index= list.findIndex(obj=>obj.src===location.pathname)
-        if(index){
-            setPrevItem(index)
-            const newList=[...list]
-        newList[index].active=true
-        }
-    }
-  },[list,location])
+    
+      setList(newList);
+  }, [list]);
+  const activeItem = useCallback(
+    (index) => {
+      const newList = [...list];
+      if (prevItem === index) {
+        newList[index].active = true;
+        setList(newList);
+      } else {
+        setPrevItem(index);
+        newList[index].active = true;
+        newList[prevItem].active = false;
+        setList(newList);
+      }
+      console.log('◀◀◀ newList ▶▶▶',newList);
+    },
+    [list, prevItem]
+  );
   return (
     <div className="slide">
-      <div className="d-flex flex-column justify-content-center align-items-center ">
-        <h4 className="py-3">E-Shop</h4>
-        <ul className="menu-slide d-flex flex-column gap-3 list-unstyled mx-4">
+      <div className="d-flex flex-column justify-content-center  ">
+        <h4 className="text-center py-3">E-Shop</h4>
+        <ul className="menu-slide d-flex flex-column gap-2 list-unstyled">
           {list.map((item, idx) => {
-            return (
-              <li key={idx} className={item.active?"active":""} >
-                <Link  onClick={()=>activeItem(idx)}  to={`${item.src}`}>{item.label}</Link>
-              </li>
-            );
+            
+            if(item?.sub){
+              return <li onClick={()=>activeSubItem(idx)} key={idx} >
+              <Link className={item.active ? "active" : ""}>
+                <div className="px-3">
+                  <img style={{width:"24px",height:"24px"}} src={`${item.icon}`} alt="" />
+                  {item.label}
+                </div>
+              </Link>
+              <ul className={`${!item.isExtend?"d-none":""} d-flex flex-column gap-2 list-unstyled mx-2`}>
+                {item.sub.map((sub,index)=>{
+                  return(
+                    <li key={index}>
+                      <Link onClick={() => activeItem(idx)} to={`${sub.src}`}>
+                        {sub.label}
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </li>
+            }
+            
+             return (
+                 <li className="px-3" key={idx} >
+                   <img style={{width:"24px",height:"24px"}} src={`${item.icon}`} alt="" />
+                      <Link className={item.active ? "active" : ""} onClick={() => activeItem(idx)} to={`${item.src}`}>
+                        {item.label}
+                      </Link>
+                    </li>
+              );
           })}
-          {/* <li ><Link>Dashboard</Link></li>
-                    <li><Link>Order</Link></li>
-                    <li><Link>Products</Link></li>
-                    <li><Link>Sales Report</Link></li>
-                    <li><Link>Messages</Link></li>
-                    <li><Link>Setting</Link></li>
-                    <li><Link>Sign Out</Link></li> */}
         </ul>
       </div>
     </div>

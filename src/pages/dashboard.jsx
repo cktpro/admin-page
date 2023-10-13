@@ -3,7 +3,7 @@ import React from 'react';
 function Dashboard(props) {
     return (
         <>
-            This is Dashboard
+        This is Dashboard
         </>
     );
 }

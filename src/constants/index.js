@@ -3,7 +3,7 @@ export const LOCATIONS = {
   DASHBOARD: "/dashboard",
   ORDER: "/order",
   PRODUCTS: "/products",
-  SALES_REPORT: "/sales-report",
+  CATEGORY: "/categories",
   SETTING:'/setting',
   MESSAGES:'/messages',
   SIGNOUT:'/singout'

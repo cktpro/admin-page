@@ -1,5 +1,5 @@
 .slide{
-    width: fit-content;
+    width: 200px;
     white-space: nowrap;
     height: 100vh;
     background-color: antiquewhite
@@ -10,10 +10,9 @@
 }
 .menu-slide>li {
     color: #737791;
-    border-radius: 16px;
-    padding: 16px 24px;
+    padding: 16px 0px;
 }
-.menu-slide >li:hover,.menu-slide>.active{
+.menu-slide >li>a:hover,.menu-slide>li> .active{
     background-color: #5D5FEF;
     color: #FFFFFF;
 }

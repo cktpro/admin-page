@@ -17,10 +17,11 @@ function Layout(props) {
           <Header />
         </div>
         <div>
-          <main>
+          <main className="layout m-2">
             <Outlet />
+            <Footer />
           </main>
-          <Footer />
+          
         </div>
       </div>
       {/* <Header />
