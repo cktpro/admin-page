@@ -1,35 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "components/header";
 import { Outlet } from "react-router-dom";
 import Footer from "components/footer";
 import Slide from "components/slide";
 // import styles
-import "./layout.css";
+import "./layout.scss";
 function Layout(props) {
+  const [collapsed, setCollapsed] = useState(false);
   return (
-    <div className="d-flex flex-row">
+    <div className="w-100 flex-column">
       <div>
-        <Slide />r
+        <Header>
+          <button
+            className="btn-mobile"
+            onClick={() => {
+              setCollapsed((prev) => !prev);
+            }}
+          >
+            <img
+              src={require("assets/icon-slide/menu-svgrepo-com.png")}
+              alt=""
+            ></img>
+          </button>
+        </Header>
       </div>
-
-      <div className="w-100 flex-column">
-        <div>
-          <Header />
-        </div>
-        <div>
-          <main className="layout m-2">
+      <div className="d-flex">
+        <Slide collapsed={collapsed} />
+        <main
+          onScroll={() => {
+            setCollapsed((prev) => !prev);
+          }}
+          onClick={() => {
+            setCollapsed((prev) => !prev);
+          }}
+          className="w-100 "
+        >
+          <div className="layout m-1">
             <Outlet />
             <Footer />
-          </main>
-          
-        </div>
+          </div>
+        </main>
       </div>
-      {/* <Header />
-      <main>
-        <Slide/>
-      <Outlet />
-      </main>
-      <Footer /> */}
     </div>
   );
 }

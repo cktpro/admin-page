@@ -1,160 +1,99 @@
 import React, { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
-import { LOCATIONS } from "constants/index";
+import { Link, NavLink } from "react-router-dom";
+import menuList from "data/menuList";
 // import style
-import "./slide.css";
+import "./slide.scss";
 function Slide(props) {
-  const [list, setList] = useState([
-    {
-      label: "Dashboard",
-      active: false,
-      src: LOCATIONS.DASHBOARD,
-      icon:require('assets/icon-slide/dashboard-svgrepo-com.png')
-    },
-    {
-      label: "Đơn Hàng",
-      active: false,
-      icon:require('assets/icon-slide/choices-order-svgrepo-com.png'),
-      sub: [
-        { label: "Đanh sánh đơn hàng", src: LOCATIONS.ORDER },
-        {
-          label: "Chi tiết đơn hàng",
-          src: LOCATIONS.ORDER_DETAIL,
-        },
-        {
-          label: "Tạo đơn hàng offline",
-          src: LOCATIONS.CREATE_ORDER_OFF,
-        },
-        {
-          label: "Tạo đơn hàng trực tuyến",
-          src: LOCATIONS.CREATE_ORDER_ON,
-        },
-      ],
-    },
-    {
-      label: "Sản Phẩm",
-      active: false,
-      icon:require('assets/icon-slide/phone-svgrepo-com.png'),
-      sub: [
-        { label: "Đanh sánh sản phẩm", src: LOCATIONS.PRODUCTS },
-        {
-          label: "Chi tiết sản phẩm",
-          src: LOCATIONS.PRODUCT_DETAIL,
-        },
-        {
-          label: "Thêm sản phẩm mới",
-          src: LOCATIONS.CREATE_PRODUCT,
-        },
-        {
-          label: "Cập nhật sản phẩm",
-          src: LOCATIONS.UPDATE_PRODUCT,
-        },
-      ],
-    },
-    {
-      label: "Categories",
-      active: false,
-      icon:require('assets/icon-slide/category-management-svgrepo-com.png'),
-      sub: [
-        { label: "Đanh sánh category", src: LOCATIONS.CATEGORY },
-        {
-          label: "Thêm mới category",
-          src: LOCATIONS.CREATE_CATEGORY,
-        },
-        {
-          label: "Cập nhật category",
-          src: LOCATIONS.UPDATE_CATEGORY,
-        },
-      ],
-    },
-    {
-      label: "Thông Báo",
-      active: false,
-      icon:require('assets/icon-slide/notification-svgrepo-com.png'),
-      src: LOCATIONS.MESSAGES,
-    },
-    {
-      label: "Cài Đặt",
-      active: false,
-      icon:require('assets/icon-slide/setting-setting-svgrepo-com.png'),
-      src: LOCATIONS.SETTING,
-    },
-    {
-      label: "Sign Out",
-      active: false,
-      icon:require('assets/icon-slide/door-svgrepo-com.png'),
-      src: LOCATIONS.SIGNOUT,
-    },
-  ]);
+  const { collapsed } = props;
+  const [list, setList] = useState(menuList);
 
-  const [prevItem, setPrevItem] = useState(0);
-  const activeSubItem = useCallback((index) => {
-    const newList = [...list];
-    if (newList[index].isExtend) {
-      newList[index].isExtend= false
-    }else{
-      newList[index].isExtend= true;
-    }
-    
-      setList(newList);
-  }, [list]);
-  const activeItem = useCallback(
+  const [prevIndex, setPrevIndex] = useState(0);
+  const activeSubItem = useCallback(
     (index) => {
       const newList = [...list];
-      if (prevItem === index) {
-        newList[index].active = true;
-        setList(newList);
+
+      if (prevIndex !== index) {
+        newList[prevIndex].isExtend = false;
+        newList[index].isExtend = true;
       } else {
-        setPrevItem(index);
-        newList[index].active = true;
-        newList[prevItem].active = false;
-        setList(newList);
+        const isExtend = newList[index].isExtend;
+        newList[index].isExtend = !isExtend;
       }
-      console.log('◀◀◀ newList ▶▶▶',newList);
+      setPrevIndex(index);
+      // if (newList[index].isExtend) {
+      //   newList[index].isExtend = false;
+      // } else {
+      //   newList[index].isExtend = true;
+      // }
+      // newList[index].isExtend =
+      // console.log('◀◀◀ newList ▶▶▶',newList);
+
+      setList(newList);
     },
-    [list, prevItem]
+    [list, prevIndex]
   );
+
   return (
-    <div className="slide">
-      <div className="d-flex flex-column justify-content-center  ">
-        <h4 className="text-center py-3">E-Shop</h4>
-        <ul className="menu-slide d-flex flex-column gap-2 list-unstyled">
-          {list.map((item, idx) => {
-            
-            if(item?.sub){
-              return <li onClick={()=>activeSubItem(idx)} key={idx} >
-              <Link className={item.active ? "active" : ""}>
-                <div className="px-3">
-                  <img style={{width:"24px",height:"24px"}} src={`${item.icon}`} alt="" />
-                  {item.label}
-                </div>
-              </Link>
-              <ul className={`${!item.isExtend?"d-none":""} d-flex flex-column gap-2 list-unstyled mx-2`}>
-                {item.sub.map((sub,index)=>{
-                  return(
-                    <li key={index}>
-                      <Link onClick={() => activeItem(idx)} to={`${sub.src}`}>
-                        {sub.label}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </li>
-            }
-            
-             return (
-                 <li className="px-3" key={idx} >
-                   <img style={{width:"24px",height:"24px"}} src={`${item.icon}`} alt="" />
-                      <Link className={item.active ? "active" : ""} onClick={() => activeItem(idx)} to={`${item.src}`}>
+    <>
+      <div className={`${collapsed ? "slide active" : "slide"}`}>
+        <div className="d-flex flex-column justify-content-center  ">
+          <ul className="menu-slide d-flex flex-column list-unstyled">
+            {list.map((item, idx) => {
+              if (item.sub) {
+                // to={`${item.src}`}
+                return (
+                  <li className="px-3" key={idx}>
+                    <Link onClick={() => activeSubItem(idx)}>
+                    <div className="d-flex gap-2">
+                        <img
+                          style={{ width: "24px", height: "24px" }}
+                          src={`${item.icon}`}
+                          alt=""
+                        />
                         {item.label}
-                      </Link>
-                    </li>
+                      </div>
+                      <img
+                        style={{ width: "20px", height: "20px" }}
+                        src={require("assets/icon-slide/arrow-down-svgrepo-com.png")}
+                        alt=""
+                      />
+                    </Link>
+                    <ul
+                      className={`${
+                        !item.isExtend ? "d-none" : "sub-menu"
+                      }  flex-column gap-2 list-unstyled`}
+                    >
+                      {item.sub.map((sub, index) => {
+                        return (
+                          <li className="sub-list" key={index}>
+                            <NavLink to={`${sub.src}`}>{sub.label}</NavLink>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </li>
+                );
+              }
+
+              return (
+                <li className="px-3" key={idx}>
+                  <NavLink to={`${item.src}`}>
+                    <div className="d-flex gap-2">
+                      <img
+                        style={{ width: "24px", height: "24px" }}
+                        src={`${item.icon}`}
+                        alt=""
+                      />
+                      {item.label}
+                    </div>
+                  </NavLink>
+                </li>
               );
-          })}
-        </ul>
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
