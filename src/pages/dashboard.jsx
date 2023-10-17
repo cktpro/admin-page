@@ -48,7 +48,7 @@ function Dashboard(props) {
   return (
     <>
       <div className="row">
-        <div className="col-lg-4 col-xs-12">
+        <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
           <h2> Doanh thu 2023</h2>
           <div className="mixed-chart">
             <Chart
@@ -59,7 +59,7 @@ function Dashboard(props) {
             />
           </div>
         </div>
-        <div className="col-lg-4 col-xs-12">
+        <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
           <h2>Thống kê đơn hàng</h2>
           <Chart
             options={donut.options}
@@ -69,7 +69,7 @@ function Dashboard(props) {
           />
         </div>
       
-      <div className="col-lg-4 col-xs-12">
+      <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
         <h2> Doanh thu 2023</h2>
         <Chart
           options={state.options}
@@ -78,7 +78,7 @@ function Dashboard(props) {
           width="100%"
         />
       </div>
-      <div className="col-lg-4 col-xs-12">
+      <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
         <h2>Tổng số sản phẩm đã bán ra</h2>
         <Chart
           options={circle.options}
