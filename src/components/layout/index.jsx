@@ -28,10 +28,10 @@ function Layout(props) {
         <Slide collapsed={collapsed} />
         <main
           onScroll={() => {
-            setCollapsed((prev) => !prev);
+            setCollapsed(false);
           }}
           onClick={() => {
-            setCollapsed((prev) => !prev);
+            setCollapsed(false);
           }}
           className="w-100 "
         >

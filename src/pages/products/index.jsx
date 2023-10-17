@@ -13,27 +13,34 @@ const columns = [
       if (record.image)
         return (
           <Link to={`/product_detail/${record._id}`}>
-            <div className="img-products">
+            <div className="d-flex align-items-center img-products">
               <img
                 src={`${url}${record.image.location.split("public", 2)[1]}`}
                 alt={record.image.name}
                 width="80px"
                 height="80px"
+
               />
-              {record.name}
+              <div>
+              <p className="m-0">{record.name}</p>
+              <p className="m-0 text-black-50">{record.category.name}</p>
+              </div>
             </div>
           </Link>
         );
       //<img src={`http://localhost:3005${record.image.location.split('public',2)[1]}`} alt="" width="100px" height="100px"/>
       return (
-        <div>
+        <div className="d-flex align-items-center img-products">
           <img
             src={require("assets/images/avatar-header.jpg")}
             alt=""
             width="80px"
             height="80px"
           />
-          {record.name}
+          <div>
+              <p className="m-0">{record.name}</p>
+              <p className="m-0 text-black-50">{record.category.name}</p>
+              </div>
         </div>
       );
     },
@@ -124,8 +131,17 @@ const columns = [
 
   {
     title: "Số lượng còn",
-    dataIndex: "stock",
+    render: (record) =>  (
+     <span className={`${record.stock>100?"text-success":`${record.stock>50?"text-warning":"text-danger"}`}`}>{record.stock}</span>
+    ),
     sorter: (a, b) => a.stock - b.stock,
+  },
+  {
+    title: "Ngày tạo",
+    render: (record) => {
+      return  <span>{(new Date(record.createdAt)).toLocaleString('en-GB')}</span>
+      
+    }
   },
   {
     title: "Action",
@@ -160,7 +176,7 @@ function ProductList() {
   },[]);
   return (
     <>
-      <div className="d-flex justify-content-between my-1">
+      <div style={{ minWidth: "600px" }} className="d-flex justify-content-between my-1">
         <h3>Danh sách sản phẩm</h3>
         <div>
           <button type="button" className="btn btn-primary">
@@ -173,7 +189,6 @@ function ProductList() {
         rowSelection={rowSelection}
         columns={columns}
         dataSource={product}
-        style={{ minWidth: "600px" }}
       />
     </>
   );
