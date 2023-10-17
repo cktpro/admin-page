@@ -6,7 +6,7 @@ export const LOCATIONS = {
   CREATE_ORDER_OFF:'/create_order_offline',
   CREATE_ORDER_ON:'/create_order_online',
   PRODUCTS: "/products",
-  PRODUCT_DETAIL: "/product_detail",
+  PRODUCT_DETAIL: '/product_detail/:id',
   ADD_PRODUCT:'/add_product',
   UPDATE_PRODUCT:'/update_product',
   CATEGORY: "/categories",
