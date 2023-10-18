@@ -1,6 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table } from "antd";
-import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 import { Link } from "react-router-dom";
 import { getProduct } from "api/productApi";
 
@@ -156,6 +155,7 @@ const columns = [
 ];
 
 function ProductList() {
+  const[isLoading,setIsLoading]=useState(null)
   const [product, setProduct] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const onSelectChange = (newSelectedRowKeys) => {
@@ -169,8 +169,10 @@ function ProductList() {
 
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true)
       const res = await getProduct();
       setProduct(res.data.payload);
+      setIsLoading(false)
     };
     fetchData();
   },[]);
@@ -184,12 +186,12 @@ function ProductList() {
           </button>
         </div>
       </div>
-      <Table
+      {!isLoading?<Table
         rowKey="_id"
         rowSelection={rowSelection}
         columns={columns}
         dataSource={product}
-      />
+      />:<span >Loading...</span>}
     </>
   );
 }
