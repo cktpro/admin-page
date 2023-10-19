@@ -5,6 +5,7 @@ import NotFoundPage from 'pages/notFoundPage';
 import ProductList from 'pages/products';
 import ProductDetail from 'pages/products/detail';
 import CreateProduct from 'pages/products/createProduct';
+import OrderListPage from 'pages/ordersPage';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
@@ -14,7 +15,8 @@ export const routers = [
         element: < Layout / > ,
         children: [
              { isRoot: true, name: "Dashboard Page", element: < Dashboard / > },
-             { path: LOCATIONS.DASHBOARD, name: "Not Found Page", element: <Dashboard / > },
+             { path: LOCATIONS.DASHBOARD, name: "Dashboard Page", element: <Dashboard / > },
+             { path: LOCATIONS.ORDER, name: "Dashboard Page", element: <OrderListPage / > },
              { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList/ > },
              { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail/ > },
              { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct/ > },
