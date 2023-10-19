@@ -1,3 +1,7 @@
+// svg arrow right
+// Created by Man Nguyen
+// 19/10/2023
+
 import React from "react";
 
 function ArrowRight() {

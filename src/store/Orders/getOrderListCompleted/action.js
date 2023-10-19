@@ -1,3 +1,7 @@
+// actionGetAllOrdersCompleted
+// Created by Man Nguyen
+// 19/10/2023
+
 import * as ActionTypes from './actionTypes';
 
 export const actionGetAllOrdersCompleted = (payload) => ({ //lấy data từ api
