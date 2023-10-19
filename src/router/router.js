@@ -3,9 +3,10 @@ import Layout from 'components/layout';
 import Dashboard from 'pages/dashboard';
 import NotFoundPage from 'pages/notFoundPage';
 import ProductList from 'pages/products';
-import ProductDetail from 'pages/products/detail';
+import ProductDetail from 'pages/products/productDetail';
 import CreateProduct from 'pages/products/createProduct';
 import OrderListPage from 'pages/ordersPage';
+import UpdateProduct from 'pages/products/updateProduct';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
@@ -20,6 +21,7 @@ export const routers = [
              { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList/ > },
              { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail/ > },
              { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct/ > },
+             { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct/ > },
              { path: '*', name: "Not Found Page", element: <NotFoundPage / > }
         ]
     },

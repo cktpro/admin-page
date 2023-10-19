@@ -8,7 +8,7 @@ export const LOCATIONS = {
   PRODUCTS: "/products",
   PRODUCT_DETAIL: '/product_detail/:id',
   ADD_PRODUCT: '/add_product',
-  UPDATE_PRODUCT: '/update_product',
+  UPDATE_PRODUCT: '/update_product/:id',
   CATEGORY: "/categories",
   ADD_CATEGORY: '/add_category',
   UPDATE_CATEGORY: '/update_category',
