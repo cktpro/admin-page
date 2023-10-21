@@ -217,7 +217,7 @@ function StatusDelivering() {
 
                       <div className="col-2 custom_col cover_order_collapsed_price">
                         <span className="order_collapsed_price">
-                          {item?.price} VNĐ
+                          {numeral(item?.price).format("0,0")} VNĐ
                         </span>
                       </div>
                     </div>
