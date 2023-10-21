@@ -1,3 +1,7 @@
+// Table Orders Rejected
+// Created by Man Nguyen
+// 19/10/2023
+
 import React, { useCallback, useEffect, useState } from "react";
 import { Space, Table, Button, Pagination } from "antd";
 import { EditOutlined } from "@ant-design/icons";
@@ -90,11 +94,18 @@ function StatusRejected() {
       render: (text, record, index) => (
         <div className="cover_cus_info">
           <div className="cover_cus_avatar">
-            <img className="d-block w-100" src={require("assets/images/avatar_2.jpg")} alt="..." />
+            <img
+              className="d-block w-100"
+              src={require("assets/images/avatar_2.jpg")}
+              alt="..."
+            />
           </div>
+
           <div className="cover_cus_name">
             <span>{record?.customer?.fullName}</span>
-            <span className="cus_email">{record?.customer?.email}</span>
+            <span className="cus_phoneNumber">
+              {record?.customer?.phoneNumber}
+            </span>
           </div>
         </div>
       ),

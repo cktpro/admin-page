@@ -18,7 +18,11 @@ export const LOCATIONS = {
 };
 
 // pageSize pagination of orders
+// Created by Man Nguyen
+// 19/10/2023
 export const pageSize = 5;
 
 // listStatus of orders status menu 
+// Created by Man Nguyen
+// 19/10/2023
 export const listStatus = ['WAITING', 'COMPLETED', 'CANCELED', 'REJECTED', 'DELIVERING'];

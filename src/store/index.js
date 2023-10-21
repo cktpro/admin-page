@@ -1,3 +1,7 @@
+// declare redux and saga
+// Created by Man Nguyen
+// 19/10/2023
+
 /* quy phạm khai báo store sử dụng Saga */
 import { legacy_createStore as createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';

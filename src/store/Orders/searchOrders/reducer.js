@@ -1,6 +1,6 @@
-// actionGetAllOrdersCompleted
+// actionsearchOrders
 // Created by Man Nguyen
-// 19/10/2023
+// 20/10/2023
 
 import * as ActionTypes from './actionTypes';
 import { pageSize } from "constants/index"
@@ -17,18 +17,18 @@ const defaultState = {
     },
 };
 
-const orderCompletedReducer = (state = defaultState, action) => {
+const searchOrdersReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case ActionTypes.GET_ALL_ORDERS_COMPLETED:
+        case ActionTypes.SEARCH_ORDERS:
             return { ...state, isLoading: true };
 
-        case ActionTypes.GET_ALL_ORDERS_COMPLETED_SUCCESS:
+        case ActionTypes.SEARCH_ORDERS_SUCCESS:
             return { ...state, payload: action.payload, isLoading: false };
 
-        case ActionTypes.GET_ALL_ORDERS_COMPLETED_FAILED:
+        case ActionTypes.SEARCH_ORDERS_FAILED:
             return { ...state, payload: action.payload, isLoading: false };
 
-        case ActionTypes.RESET_GET_ALL_ORDERS_COMPLETED:
+        case ActionTypes.RESET_SEARCH_ORDERS:
             return { ...state, payload: defaultState.payload, isLoading: false };
 
         default:
@@ -36,4 +36,4 @@ const orderCompletedReducer = (state = defaultState, action) => {
     }
 };
 
-export default orderCompletedReducer;
+export default searchOrdersReducer;

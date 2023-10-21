@@ -1,8 +1,8 @@
-// Table Order List
+// Table search orders result
 // Created by Man Nguyen
-// 19/10/2023
+// 20/10/2023
 
-import React, { useCallback } from "react";
+import React from "react";
 import { Space, Table, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import numeral from "numeral";
@@ -12,12 +12,10 @@ import { Link } from "react-router-dom";
 import { LOCATIONS } from "constants/index";
 import "./tableOrderList.scss";
 
-function TableOrderList(props) {
-  const { orderList } = props;
+function SearchOrderResult(props) {
+  const { searchResult } = props;
 
-  const handleClickFastView = useCallback(() => {
-  }, []);
-
+  // declare columns of table
   const columns = [
     {
       title: "Order",
@@ -45,7 +43,9 @@ function TableOrderList(props) {
 
           <div className="cover_cus_name">
             <span>{record?.customer?.fullName}</span>
-            <span className="cus_phoneNumber">{record?.customer?.phoneNumber}</span>
+            <span className="cus_phoneNumber">
+              {record?.customer?.phoneNumber}
+            </span>
           </div>
         </div>
       ),
@@ -115,14 +115,16 @@ function TableOrderList(props) {
 
   return (
     <>
-      <Table
-        rowKey="_id"
-        columns={columns}
-        dataSource={orderList}
-        pagination={false}
-      />
+      <div className="cover_table_orderlist">
+        <Table
+          rowKey="_id"
+          columns={columns}
+          dataSource={searchResult.payload}
+          pagination={false}
+        />
+      </div>
     </>
   );
 }
 
-export default TableOrderList;
+export default SearchOrderResult;
