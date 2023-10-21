@@ -1,79 +1,19 @@
-// Table Orders Rejected
+// Table search orders result
 // Created by Man Nguyen
-// 19/10/2023
+// 20/10/2023
 
-import React, { useCallback, useEffect, useState } from "react";
-import { Space, Table, Button, Pagination } from "antd";
+import React from "react";
+import { Space, Table, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import numeral from "numeral";
 import "numeral/locales/vi";
 import { Link } from "react-router-dom";
 
 import { LOCATIONS } from "constants/index";
-import { useDispatch, useSelector } from "react-redux";
-import { actionGetAllOrdersRejected } from "store/Orders/getOrderListRejected/action";
 import "./tableOrderList.scss";
 
-function StatusRejected() {
-  // declare useDispatch
-  const dispatch = useDispatch();
-
-  // declare resGetAllOrdersRejected of orderRejectedReducer state
-  const resGetAllOrdersRejected = useSelector(
-    (state) => state.orderRejectedReducer.payload
-  );
-
-  // declare defaultPagination of get all order completed
-  const defaultPagination = {
-    total: resGetAllOrdersRejected?.total || 0,
-    page: resGetAllOrdersRejected?.page || 1,
-    pageSize: resGetAllOrdersRejected?.pageSize || 10,
-  };
-
-  // manage order list completed
-  const [ordersListRejected, setOrdersListRejected] = useState([]);
-
-  // manage condition
-  const [condition, setCondition] = useState({
-    ...defaultPagination,
-    status: "REJECTED",
-  });
-
-  // get all order completed
-  const getAllOrders = useCallback(() => {
-    dispatch(actionGetAllOrdersRejected(condition));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, condition.page]);
-
-  // do get all order completed
-  useEffect(() => {
-    getAllOrders();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [condition.page]);
-
-  // assign OrdersList completed
-  useEffect(() => {
-    setOrdersListRejected(resGetAllOrdersRejected);
-
-    // console.log('««««« ordersListRejected »»»»»', ordersListRejected);
-
-    setCondition((prev) => ({
-      ...prev,
-      total: resGetAllOrdersRejected?.total,
-      page: resGetAllOrdersRejected?.page,
-      pageSize: resGetAllOrdersRejected?.pageSize,
-    }));
-
-    // window.scrollTo(0, 0);
-  }, [resGetAllOrdersRejected]);
-
-  const onChangePage = useCallback((page, pageSize) => {
-    setCondition((prev) => ({
-      ...prev,
-      page,
-      pageSize,
-    }));
-  }, []);
+function SearchOrderResult(props) {
+  const { searchResult } = props;
 
   // declare columns of table
   const columns = [
@@ -179,22 +119,12 @@ function StatusRejected() {
         <Table
           rowKey="_id"
           columns={columns}
-          dataSource={ordersListRejected.payload}
+          dataSource={searchResult.payload}
           pagination={false}
-        />
-      </div>
-
-      <div className="cover_pagination_orderlist">
-        <Pagination
-          defaultCurrent={1}
-          total={condition.total}
-          pageSize={condition.pageSize}
-          onChange={onChangePage}
-          current={condition.page}
         />
       </div>
     </>
   );
 }
 
-export default StatusRejected;
+export default SearchOrderResult;

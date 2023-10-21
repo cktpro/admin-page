@@ -14,6 +14,8 @@ import orderDeliveringReducer from './Orders/getOrderListDelivering/reducer';
 
 import getNumOfOrdersStatusReducer from './Orders/getNumOfStatus/reducer';
 
+import searchOrdersReducer from './Orders/searchOrders/reducer';
+
 const rootReducer = combineReducers({
   orderReducer,
   orderCompletedReducer,
@@ -23,6 +25,8 @@ const rootReducer = combineReducers({
   orderDeliveringReducer,
 
   getNumOfOrdersStatusReducer,
+
+  searchOrdersReducer,
 });
 
 export default rootReducer;

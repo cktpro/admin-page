@@ -42,7 +42,7 @@ function TableOrderList(props) {
 
           <div className="cover_cus_name">
             <span>{record?.customer?.fullName}</span>
-            <span className="cus_email">{record?.customer?.email}</span>
+            <span className="cus_phoneNumber">{record?.customer?.phoneNumber}</span>
           </div>
         </div>
       ),

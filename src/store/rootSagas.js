@@ -14,6 +14,8 @@ import ordersDelivering from './Orders/getOrderListDelivering/saga';
 
 import ordersStatusSaga from './Orders/getNumOfStatus/saga';
 
+import searchOrdersSaga from './Orders/searchOrders/saga';
+
 export default function* rootSaga() {
   yield all([
     fork(ordersSaga),
@@ -24,5 +26,7 @@ export default function* rootSaga() {
     fork(ordersDelivering),
 
     fork(ordersStatusSaga),
+
+    fork(searchOrdersSaga),
   ]);
 }

@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Pagination } from "antd";
+import { debounce } from "lodash";
 
 import "./orderList.scss";
 import { LOCATIONS } from "constants/index";
@@ -21,6 +22,14 @@ import StatusWaiting from "./tableOrderList/statusWaiting";
 import StatusCanceled from "./tableOrderList/statusCanceled";
 import StatusRejected from "./tableOrderList/statusRejected";
 import StatusDelivering from "./tableOrderList/statusDelivering";
+import SearchIcon from "components/svg/search";
+import {
+  actionResetsearchOrders,
+  actionsearchOrders,
+} from "store/Orders/searchOrders/action";
+import SearchOrderResult from "./tableOrderList/searchOrdersResult";
+import CancelIcon from "components/svg/cancel";
+import ClearIcon from "components/svg/clear";
 
 function OrderList() {
   // declare useDispatch
@@ -35,6 +44,9 @@ function OrderList() {
   // declare inputEndDateRef of input end date
   const inputEndDateRef = useRef(null);
 
+  // declare inputSearchRef of input search orders
+  const inputSearchRef = useRef(null);
+
   // declare resGetAllOrders of orderReducer state
   const resGetAllOrders = useSelector((state) => state.orderReducer.payload);
 
@@ -43,15 +55,30 @@ function OrderList() {
     (state) => state.getNumOfOrdersStatusReducer
   );
 
+  // declare resSearchOrders of searchOrdersReducer state
+  const resSearchOrders = useSelector(
+    (state) => state.searchOrdersReducer.payload
+  );
+
   // declare defaultPagination of get all order
   const defaultPagination = {
-    total: resGetAllOrders?.total || 0,
-    page: resGetAllOrders?.page || 1,
-    pageSize: resGetAllOrders?.pageSize || 10,
+    total: 0,
+    page: 1,
+    pageSize: 5,
+  };
+
+  // declare defaultPaginationSearchOrders of search orders
+  const defaultPaginationSearchOrders = {
+    total: 0,
+    page: 1,
+    pageSize: 5,
   };
 
   // manage order list
   const [ordersList, setOrdersList] = useState([]);
+
+  // manage order search list
+  const [ordersSearchList, setOrdersSearchList] = useState([]);
 
   // currentItem of order status
   const [currentItem, setCurrentItem] = useState("All");
@@ -62,11 +89,22 @@ function OrderList() {
   // manage endDate
   const [endDate, setEndDate] = useState("");
 
-  // manage searchOrder
+  // manage input search Order
   const [searchOrder, setSearchOrder] = useState("");
+
+  // manage user is doing search or not
+  const [isDoSearchOrder, setIsDoSearchOrder] = useState(false);
+
+  // show warning when user does not entered text to search input but click button search
+  const [isShowWarning, setIsShowWarning] = useState(false);
 
   // manage pagination
   const [pagination, setPagination] = useState(defaultPagination);
+
+  // manage pagination Search orders
+  const [paginationSearch, setPaginationSearch] = useState(
+    defaultPaginationSearchOrders
+  );
 
   // manage num of orders statuses
   const [totalWaiting, setTotalWaiting] = useState(0);
@@ -83,9 +121,17 @@ function OrderList() {
 
   // do get all order
   useEffect(() => {
-    getAllOrders();
+    // handle first load and user click cancel on condition find status when searchOrder = null
+    if (
+      currentItem === "All" &&
+      searchOrder === "" &&
+      startDate === "" &&
+      endDate === ""
+    ) {
+      getAllOrders();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination.page]);
+  }, [pagination.page, currentItem]);
 
   // assign OrdersList
   useEffect(() => {
@@ -101,10 +147,12 @@ function OrderList() {
     // window.scrollTo(0, 0);
   }, [resGetAllOrders]);
 
+  // get num of all order status be render on menu status (num next to status)
   const getNumOfStatus = useCallback(() => {
     dispatch(actionGetNumOfOrdersStatus());
   }, [dispatch]);
 
+  // getNumOfStatus when first load
   useEffect(() => {
     getNumOfStatus();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,6 +175,15 @@ function OrderList() {
   // handle onChangePage of pagination
   const onChangePage = useCallback((page, pageSize) => {
     setPagination((prev) => ({
+      ...prev,
+      page,
+      pageSize,
+    }));
+  }, []);
+
+  // handle onChangePageSearch of pagination
+  const onChangePageSearch = useCallback((page, pageSize) => {
+    setPaginationSearch((prev) => ({
       ...prev,
       page,
       pageSize,
@@ -188,25 +245,61 @@ function OrderList() {
     }
   }, []);
 
+  // asign Input To State base label using debounce to delay 1s before run
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const asignInputToState = useCallback(
+    debounce((label, value) => {
+      if (label === "start_date") {
+        setStartDate(value);
+      } else if (label === "end_date") {
+        setEndDate(value);
+      } else if (label === "search_order") {
+        setSearchOrder(value);
+      }
+    }, 1000),
+    []
+  );
+
   // handle change input filter group
-  const handleChangeInput = useCallback((e, label) => {
-    console.log("««««« label »»»»»", label);
-    if (label === "start_date") {
-      setStartDate(e.target.value);
-    } else if (label === "end_date") {
-      setEndDate(e.target.value);
-    } else if (label === "search_order") {
-      setSearchOrder(e.target.value);
-    }
-  }, []);
+  const handleChangeInput = useCallback(
+    (e, label) => {
+      if (label === "start_date") {
+        const value = e.target.value;
 
-  // useEffect(() => {
-  // console.log('««««« startDate »»»»»', startDate);
-  // console.log('««««« endDate »»»»»', endDate);
-  // console.log('««««« searchOrder »»»»»', searchOrder);
-  // }, [endDate, searchOrder, startDate]);
+        asignInputToState(label, value);
+      } else if (label === "end_date") {
+        const value = e.target.value;
 
+        asignInputToState(label, value);
+      } else if (label === "search_order") {
+        const value = e.target.value;
+
+        asignInputToState(label, value);
+      }
+    },
+    [asignInputToState]
+  );
+
+  // to render table order base currentItem of order status and search orders result
   const renderOrdersTable = useCallback(() => {
+    if (isDoSearchOrder) {
+      return (
+        <>
+          <SearchOrderResult searchResult={ordersSearchList} />
+
+          <div className="cover_pagination_orderlist">
+            <Pagination
+              defaultCurrent={1}
+              total={resSearchOrders.total}
+              pageSize={resSearchOrders.pageSize}
+              onChange={onChangePageSearch}
+              current={paginationSearch.page}
+            />
+          </div>
+        </>
+      );
+    }
+
     switch (currentItem) {
       case "All":
         return (
@@ -245,7 +338,170 @@ function OrderList() {
       default:
         return null;
     }
-  }, [currentItem, onChangePage, ordersList?.payload, pagination.page, pagination.pageSize, pagination.total]);
+  }, [
+    currentItem,
+    isDoSearchOrder,
+    onChangePage,
+    onChangePageSearch,
+    ordersList?.payload,
+    ordersSearchList,
+    pagination.page,
+    pagination.pageSize,
+    pagination.total,
+    paginationSearch.page,
+    resSearchOrders.pageSize,
+    resSearchOrders.total,
+  ]);
+
+  useEffect(() => {
+    if (isShowWarning) {
+      const timer = setTimeout(() => {
+        setIsShowWarning(false);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isShowWarning]);
+
+  // handle click status on menu order
+  const handleClickStatus = useCallback(
+    (item) => {
+      setCurrentItem(item);
+      setIsDoSearchOrder(false);
+      inputStartDateRef.current.value = "";
+      inputEndDateRef.current.value = "";
+      inputSearchRef.current.value = "";
+      setSearchOrder("");
+      setStartDate("");
+      setEndDate("");
+      dispatch(actionResetsearchOrders());
+    },
+    [dispatch]
+  );
+
+  // handle click cancel on condition find status
+  const handleClickCancelOnStatus = useCallback(() => {
+    setCurrentItem("All");
+  }, []);
+
+  // handle click cancel on condition find StartDate
+  const handleClickCancelOnStartDate = useCallback(() => {
+    setStartDate("");
+    inputStartDateRef.current.value = "";
+  }, []);
+
+  // handle click cancel on condition find EndDate
+  const handleClickCancelOnEndDate = useCallback(() => {
+    setEndDate("");
+    inputEndDateRef.current.value = "";
+  }, []);
+
+  // handle handle Search When Click Cancel on condition find status
+  const doSearchOrders = useCallback(
+    (conditionFind) => {
+      dispatch(actionsearchOrders(conditionFind));
+
+      setIsDoSearchOrder(true);
+    },
+    [dispatch]
+  );
+
+  // update conditionFind and do search when currentItem and input search is changed
+  useEffect(() => {
+    if (searchOrder !== "" || startDate !== "" || endDate !== "") {
+      const conditionFind = {
+        status: currentItem,
+        query: searchOrder,
+        startDate: startDate,
+        endDate: endDate,
+        page: defaultPaginationSearchOrders.page,
+        pageSize: defaultPaginationSearchOrders.pageSize,
+      };
+
+      doSearchOrders(conditionFind);
+    } else {
+      dispatch(actionResetsearchOrders());
+
+      setIsDoSearchOrder(false);
+
+      getAllOrders();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    currentItem,
+    startDate,
+    endDate,
+    searchOrder,
+    dispatch,
+    doSearchOrders,
+    getAllOrders,
+  ]);
+
+  // update conditionFind and do search when paginationSearch.page is changed
+  useEffect(() => {
+    if (searchOrder !== "" || startDate !== "" || endDate !== "") {
+      const conditionFind = {
+        status: currentItem,
+        query: searchOrder,
+        startDate: startDate,
+        endDate: endDate,
+        page: paginationSearch.page,
+        pageSize: paginationSearch.pageSize,
+      };
+
+      doSearchOrders(conditionFind);
+    } else {
+      dispatch(actionResetsearchOrders());
+
+      setIsDoSearchOrder(false);
+
+      getAllOrders();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    paginationSearch.page,
+    dispatch,
+    paginationSearch.pageSize,
+    doSearchOrders,
+    getAllOrders,
+  ]);
+
+  // setOrdersSearchList when resSearchOrders is changed
+  useEffect(() => {
+    if (resSearchOrders.payload && resSearchOrders.payload.length > 0) {
+      setOrdersSearchList(resSearchOrders);
+    } else {
+      dispatch(actionResetsearchOrders());
+
+      setOrdersSearchList(resSearchOrders);
+
+      setPaginationSearch((prev) => ({
+        ...prev,
+        total: defaultPaginationSearchOrders.total,
+        page: defaultPaginationSearchOrders.page,
+        pageSize: defaultPaginationSearchOrders.pageSize,
+      }));
+    }
+  }, [
+    defaultPaginationSearchOrders.page,
+    defaultPaginationSearchOrders.pageSize,
+    defaultPaginationSearchOrders.total,
+    dispatch,
+    resSearchOrders,
+  ]);
+
+  // handle click clear btn
+  const handleClickClear = useCallback(() => {
+    setCurrentItem("All");
+    setIsDoSearchOrder(false);
+    inputStartDateRef.current.value = "";
+    inputEndDateRef.current.value = "";
+    inputSearchRef.current.value = "";
+    setSearchOrder("");
+    setStartDate("");
+    setEndDate("");
+    dispatch(actionResetsearchOrders());
+  }, [dispatch]);
 
   return (
     // Order List
@@ -286,7 +542,7 @@ function OrderList() {
             <ul ref={scrollRef} className="ul_order_status">
               {/* status all */}
               <li
-                onClick={() => setCurrentItem("All")}
+                onClick={() => handleClickStatus("All")}
                 className={
                   currentItem === "All"
                     ? "li_order_status_active"
@@ -306,7 +562,7 @@ function OrderList() {
                 return (
                   <li
                     key={index}
-                    onClick={() => setCurrentItem(item)}
+                    onClick={() => handleClickStatus(item)}
                     className={
                       currentItem === item
                         ? "li_order_status_active"
@@ -357,7 +613,9 @@ function OrderList() {
                 onChange={(e) => handleChangeInput(e, "start_date")}
               />
 
-              <label htmlFor="start_date">Ngày bắt đầu</label>
+              <label className="label_input_group" htmlFor="start_date">
+                Ngày bắt đầu
+              </label>
             </div>
 
             {/* input end date */}
@@ -374,22 +632,154 @@ function OrderList() {
                 onChange={(e) => handleChangeInput(e, "end_date")}
               />
 
-              <label htmlFor="end_date">Ngày kết thúc</label>
+              <label className="label_input_group" htmlFor="end_date">
+                Ngày kết thúc
+              </label>
             </div>
 
             {/* input search */}
-            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 custom_col cover_input">
+            <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 custom_col cover_input cover_input_search">
+              <div className="search_icon">
+                <SearchIcon />
+              </div>
+
               <input
+                ref={inputSearchRef}
                 type="text"
                 className="form-control orders_input_search"
                 id="search_order"
                 name="search_order"
-                placeholder="Tìm khách hàng hoặc mã đơn hàng..."
+                placeholder="Tìm số điện thoại hoặc mã đơn hàng..."
                 onChange={(e) => handleChangeInput(e, "search_order")}
               />
             </div>
           </div>
 
+          {/* handle if user is doing search or not then reder this base it */}
+          {isDoSearchOrder ? (
+            <div className="row custom_row">
+              <div className="col-12 custom_col num_of_result">
+                <span>
+                  Tìm thấy <b>{resSearchOrders?.total || 0}</b> kết quả
+                </span>
+              </div>
+            </div>
+          ) : (
+            currentItem !== "All" && (
+              <div className="row custom_row">
+                <div className="col-12 custom_col num_of_result">
+                  <span>
+                    Tìm thấy <b>{renderNumOfStatus(currentItem) || 0} </b> kết
+                    quả
+                  </span>
+                </div>
+              </div>
+            )
+          )}
+
+          {/* handle render condition find when status = "All" or not */}
+          {currentItem !== "All" ? (
+            <div className="row custom_row">
+              <div className="col-12 custom_col condition_find">
+                <div className="cover_condition_list">
+                  <div className="cover_condition_find_status">
+                    Status:{" "}
+                    <span>
+                      {currentItem}{" "}
+                      <div
+                        onClick={handleClickCancelOnStatus}
+                        className="cover_cancel_icon"
+                      >
+                        <CancelIcon />
+                      </div>
+                    </span>
+                  </div>
+
+                  {startDate !== "" && (
+                    <div className="cover_condition_find_date">
+                      Start Date:{" "}
+                      <span>
+                        {startDate}
+                        <div
+                          onClick={handleClickCancelOnStartDate}
+                          className="cover_cancel_icon"
+                        >
+                          <CancelIcon />
+                        </div>
+                      </span>
+                    </div>
+                  )}
+
+                  {endDate !== "" && (
+                    <div className="cover_condition_find_date">
+                      End Date:{" "}
+                      <span>
+                        {endDate}
+                        <div
+                          onClick={handleClickCancelOnEndDate}
+                          className="cover_cancel_icon"
+                        >
+                          <CancelIcon />
+                        </div>
+                      </span>
+                    </div>
+                  )}
+
+                  <div onClick={handleClickClear} className="cover_btn_clear">
+                    <div className="btn_clear">
+                      <ClearIcon /> <span>Clear</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="row custom_row">
+              <div className="col-12 custom_col condition_find">
+                <div className="cover_condition_list">
+                  {startDate !== "" && (
+                    <div className="cover_condition_find_date">
+                      Start Date:{" "}
+                      <span>
+                        {startDate}
+                        <div
+                          onClick={handleClickCancelOnStartDate}
+                          className="cover_cancel_icon"
+                        >
+                          <CancelIcon />
+                        </div>
+                      </span>
+                    </div>
+                  )}
+
+                  {endDate !== "" && (
+                    <div className="cover_condition_find_date">
+                      End Date:{" "}
+                      <span>
+                        {endDate}
+                        <div
+                          onClick={handleClickCancelOnEndDate}
+                          className="cover_cancel_icon"
+                        >
+                          <CancelIcon />
+                        </div>
+                      </span>
+                    </div>
+                  )}
+
+                  {isDoSearchOrder && (
+                    <div onClick={handleClickClear} className="cover_btn_clear">
+                      <div className="btn_clear">
+                        <ClearIcon /> <span>Clear</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* render order table */}
           <div className="row custom_row">
             <div className="col-12 custom_col cover_table_orders">
               {renderOrdersTable()}
