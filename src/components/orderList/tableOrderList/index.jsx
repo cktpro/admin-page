@@ -2,7 +2,7 @@
 // Created by Man Nguyen
 // 19/10/2023
 
-import React from "react";
+import React, { useCallback } from "react";
 import { Space, Table, Button } from "antd";
 import { EditOutlined } from "@ant-design/icons";
 import numeral from "numeral";
@@ -14,6 +14,9 @@ import "./tableOrderList.scss";
 
 function TableOrderList(props) {
   const { orderList } = props;
+
+  const handleClickFastView = useCallback(() => {
+  }, []);
 
   const columns = [
     {
