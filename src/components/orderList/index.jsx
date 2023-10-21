@@ -101,11 +101,6 @@ function OrderList() {
   // manage pagination
   const [pagination, setPagination] = useState(defaultPagination);
 
-  // manage pagination Search orders
-  const [paginationSearch, setPaginationSearch] = useState(
-    defaultPaginationSearchOrders
-  );
-
   // manage num of orders statuses
   const [totalWaiting, setTotalWaiting] = useState(0);
   const [totalCompleted, setTotalCompleted] = useState(0);
@@ -181,14 +176,37 @@ function OrderList() {
     }));
   }, []);
 
+  // handle handle Search When Click Cancel on condition find status
+  const doSearchOrders = useCallback(
+    (conditionFind) => {
+      dispatch(actionsearchOrders(conditionFind));
+
+      setIsDoSearchOrder(true);
+    },
+    [dispatch]
+  );
+
   // handle onChangePageSearch of pagination
-  const onChangePageSearch = useCallback((page, pageSize) => {
-    setPaginationSearch((prev) => ({
-      ...prev,
-      page,
-      pageSize,
-    }));
-  }, []);
+  const onChangePageSearch = useCallback(
+    (page, pageSize) => {
+      // setPaginationSearch((prev) => ({
+      //   ...prev,
+      //   page,
+      //   pageSize,
+      // }));
+      const conditionFind = {
+        status: currentItem,
+        query: searchOrder,
+        startDate: startDate,
+        endDate: endDate,
+        page: page,
+        pageSize: pageSize,
+      };
+
+      doSearchOrders(conditionFind);
+    },
+    [currentItem, doSearchOrders, endDate, searchOrder, startDate]
+  );
 
   // rendering num of order have status = parram
   const renderNumOfStatus = useCallback(
@@ -293,7 +311,7 @@ function OrderList() {
               total={resSearchOrders.total}
               pageSize={resSearchOrders.pageSize}
               onChange={onChangePageSearch}
-              current={paginationSearch.page}
+              current={resSearchOrders.page}
             />
           </div>
         </>
@@ -348,7 +366,7 @@ function OrderList() {
     pagination.page,
     pagination.pageSize,
     pagination.total,
-    paginationSearch.page,
+    resSearchOrders.page,
     resSearchOrders.pageSize,
     resSearchOrders.total,
   ]);
@@ -396,16 +414,6 @@ function OrderList() {
     inputEndDateRef.current.value = "";
   }, []);
 
-  // handle handle Search When Click Cancel on condition find status
-  const doSearchOrders = useCallback(
-    (conditionFind) => {
-      dispatch(actionsearchOrders(conditionFind));
-
-      setIsDoSearchOrder(true);
-    },
-    [dispatch]
-  );
-
   // update conditionFind and do search when currentItem and input search is changed
   useEffect(() => {
     if (searchOrder !== "" || startDate !== "" || endDate !== "") {
@@ -424,7 +432,7 @@ function OrderList() {
 
       setIsDoSearchOrder(false);
 
-      getAllOrders();
+      // getAllOrders();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -438,33 +446,33 @@ function OrderList() {
   ]);
 
   // update conditionFind and do search when paginationSearch.page is changed
-  useEffect(() => {
-    if (searchOrder !== "" || startDate !== "" || endDate !== "") {
-      const conditionFind = {
-        status: currentItem,
-        query: searchOrder,
-        startDate: startDate,
-        endDate: endDate,
-        page: paginationSearch.page,
-        pageSize: paginationSearch.pageSize,
-      };
+  // useEffect(() => {
+  //   if (searchOrder !== "" || startDate !== "" || endDate !== "") {
+  //       const conditionFind = {
+  //         status: currentItem,
+  //         query: searchOrder,
+  //         startDate: startDate,
+  //         endDate: endDate,
+  //         page: paginationSearch.page,
+  //         pageSize: paginationSearch.pageSize,
+  //       };
 
-      doSearchOrders(conditionFind);
-    } else {
-      dispatch(actionResetsearchOrders());
+  //       doSearchOrders(conditionFind);
+  //   } else {
+  //     dispatch(actionResetsearchOrders());
 
-      setIsDoSearchOrder(false);
+  //     setIsDoSearchOrder(false);
 
-      getAllOrders();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    paginationSearch.page,
-    dispatch,
-    paginationSearch.pageSize,
-    doSearchOrders,
-    getAllOrders,
-  ]);
+  //     getAllOrders();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [
+  //   paginationSearch.page,
+  //   paginationSearch.pageSize,
+  //   dispatch,
+  //   doSearchOrders,
+  //   getAllOrders,
+  // ]);
 
   // setOrdersSearchList when resSearchOrders is changed
   useEffect(() => {
@@ -475,20 +483,28 @@ function OrderList() {
 
       setOrdersSearchList(resSearchOrders);
 
-      setPaginationSearch((prev) => ({
-        ...prev,
-        total: defaultPaginationSearchOrders.total,
-        page: defaultPaginationSearchOrders.page,
-        pageSize: defaultPaginationSearchOrders.pageSize,
-      }));
+      // setPaginationSearch((prev) => ({
+      //   ...prev,
+      //   total: defaultPaginationSearchOrders.total,
+      //   page: defaultPaginationSearchOrders.page,
+      //   pageSize: defaultPaginationSearchOrders.pageSize,
+      // }));
     }
   }, [
-    defaultPaginationSearchOrders.page,
-    defaultPaginationSearchOrders.pageSize,
-    defaultPaginationSearchOrders.total,
+    // defaultPaginationSearchOrders.page,
+    // defaultPaginationSearchOrders.pageSize,
+    // defaultPaginationSearchOrders.total,
     dispatch,
     resSearchOrders,
   ]);
+
+  // useEffect(() => {
+  //   console.log('««««« resSearchOrders »»»»»', resSearchOrders);
+  // }, [resSearchOrders]);
+
+  // useEffect(() => {
+  //   console.log("««««« paginationSearch »»»»»", paginationSearch);
+  // }, [paginationSearch]);
 
   // handle click clear btn
   const handleClickClear = useCallback(() => {
