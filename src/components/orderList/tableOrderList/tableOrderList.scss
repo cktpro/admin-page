@@ -161,3 +161,98 @@
     font-family: "Public Sans", sans-serif !important;
   }
 }
+
+.cover_item_order_collapsed {
+  background-color: rgb(255, 255, 255);
+  color: rgb(33, 43, 54);
+  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 8px;
+  box-shadow: none;
+  background-image: none;
+  margin: 12px;
+  border: groove 1px;
+  padding: 1rem !important;
+}
+
+.cover_img_product_name_category {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.cover_product_name_category {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.cover_order_collapsed_quantity {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cover_order_collapsed_price {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.order_collapsed_product_name {
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+}
+
+.order_collapsed_category {
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+  color: rgb(145, 158, 171);
+}
+
+.order_collapsed_quantity {
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+}
+
+.order_collapsed_price {
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+}
+
+.cover_img_order_collapsed {
+  width: 3rem;
+  height: 3rem;
+}
+
+.img_order_collapsed {
+  border-radius: 8px;
+}
+
+.btn_collapsed_order {
+  border: none;
+  border-radius: 100%;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: inherit;
+
+  &:hover {
+    background-color: rgb(239, 239, 239);
+  }
+
+  &:active {
+    background-color: rgb(222, 222, 222);
+  }
+}
