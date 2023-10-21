@@ -13,6 +13,7 @@ import { LOCATIONS } from "constants/index";
 import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllOrdersWaiting } from "store/Orders/getOrderListWaiting/action";
 import "./tableOrderList.scss";
+import ArrowDown from "components/svg/arrowDown";
 
 function StatusWaiting() {
   // declare useDispatch
@@ -154,23 +155,23 @@ function StatusWaiting() {
         <span className={`table_${text}`}>{text}</span>
       ),
     },
-
-    {
-      title: "Hành động",
-      key: "actions",
-      width: "1%",
-      render: (text, record, index) => {
-        return (
-          <Space>
-            <Button
-              type="dashed"
-              icon={<EditOutlined />}
-              // onClick={onSelectProduct(record)}
-            />
-          </Space>
-        );
-      },
-    },
+    Table.EXPAND_COLUMN,
+    // {
+    //   title: "Hành động",
+    //   key: "actions",
+    //   width: "1%",
+    //   render: (text, record, index) => {
+    //     return (
+    //       <Space>
+    //         <Button
+    //           type="dashed"
+    //           icon={<EditOutlined />}
+    //           onClick={handleClickFastView(record)}
+    //         />
+    //       </Space>
+    //     );
+    //   },
+    // },
   ];
 
   return (
@@ -179,6 +180,69 @@ function StatusWaiting() {
         <Table
           rowKey="_id"
           columns={columns}
+          expandable={{
+            expandedRowRender: (record) => (
+              <div className="order_collapsed">
+                {record?.orderDetails?.map((item, index) => {
+                  return (
+                    <div
+                      key={index}
+                      className="row custom_row cover_item_order_collapsed"
+                    >
+                      <div className="col-8 custom_col cover_img_product_name_category">
+                        <div className="cover_img_order_collapsed">
+                          <img
+                            className="d-block w-100 img_order_collapsed"
+                            src={require("assets/images/chuotda.webp")}
+                            alt="..."
+                          />
+                        </div>
+
+                        <div className="cover_product_name_category">
+                          <span className="order_collapsed_product_name">
+                            {item?.product?.name}
+                          </span>
+
+                          <span className="order_collapsed_category">
+                            {item?.product?.category?.name}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="col-2 custom_col cover_order_collapsed_quantity">
+                        <span className="order_collapsed_quantity">
+                          x{item?.quantity}
+                        </span>
+                      </div>
+
+                      <div className="col-2 custom_col cover_order_collapsed_price">
+                        <span className="order_collapsed_price">
+                          {item?.price} VNĐ
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ),
+          }}
+          expandIcon={({ expanded, onExpand, record }) =>
+            expanded ? (
+              <button
+                className="btn_collapsed_order"
+                onClick={(e) => onExpand(record, e)}
+              >
+                <ArrowDown />
+              </button>
+            ) : (
+              <button
+                className="btn_collapsed_order"
+                onClick={(e) => onExpand(record, e)}
+              >
+                <ArrowDown />
+              </button>
+            )
+          }
           dataSource={ordersListWaiting.payload}
           pagination={false}
         />

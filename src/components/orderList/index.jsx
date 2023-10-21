@@ -566,14 +566,14 @@ function OrderList() {
                 className="form-control input_group"
                 id="start_date"
                 name="start_date"
-                placeholder="Ngày bắt đầu"
+                placeholder="Từ ngày"
                 onFocus={() => changeType("start_date", "date")}
                 onBlur={() => changeType("start_date", "text")}
                 onChange={(e) => handleChangeInput(e, "start_date")}
               />
 
               <label className="label_input_group" htmlFor="start_date">
-                Ngày bắt đầu
+                Từ ngày
               </label>
             </div>
 
@@ -585,14 +585,14 @@ function OrderList() {
                 className="form-control input_group"
                 id="end_date"
                 name="end_date"
-                placeholder="Ngày kết thúc"
+                placeholder="Đến ngày"
                 onFocus={() => changeType("end_date", "date")}
                 onBlur={() => changeType("end_date", "text")}
                 onChange={(e) => handleChangeInput(e, "end_date")}
               />
 
               <label className="label_input_group" htmlFor="end_date">
-                Ngày kết thúc
+                Đến ngày
               </label>
             </div>
 
