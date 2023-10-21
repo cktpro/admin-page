@@ -189,11 +189,6 @@ function OrderList() {
   // handle onChangePageSearch of pagination
   const onChangePageSearch = useCallback(
     (page, pageSize) => {
-      // setPaginationSearch((prev) => ({
-      //   ...prev,
-      //   page,
-      //   pageSize,
-      // }));
       const conditionFind = {
         status: currentItem,
         query: searchOrder,
@@ -431,8 +426,6 @@ function OrderList() {
       dispatch(actionResetsearchOrders());
 
       setIsDoSearchOrder(false);
-
-      // getAllOrders();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -445,35 +438,6 @@ function OrderList() {
     getAllOrders,
   ]);
 
-  // update conditionFind and do search when paginationSearch.page is changed
-  // useEffect(() => {
-  //   if (searchOrder !== "" || startDate !== "" || endDate !== "") {
-  //       const conditionFind = {
-  //         status: currentItem,
-  //         query: searchOrder,
-  //         startDate: startDate,
-  //         endDate: endDate,
-  //         page: paginationSearch.page,
-  //         pageSize: paginationSearch.pageSize,
-  //       };
-
-  //       doSearchOrders(conditionFind);
-  //   } else {
-  //     dispatch(actionResetsearchOrders());
-
-  //     setIsDoSearchOrder(false);
-
-  //     getAllOrders();
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [
-  //   paginationSearch.page,
-  //   paginationSearch.pageSize,
-  //   dispatch,
-  //   doSearchOrders,
-  //   getAllOrders,
-  // ]);
-
   // setOrdersSearchList when resSearchOrders is changed
   useEffect(() => {
     if (resSearchOrders.payload && resSearchOrders.payload.length > 0) {
@@ -482,29 +446,8 @@ function OrderList() {
       dispatch(actionResetsearchOrders());
 
       setOrdersSearchList(resSearchOrders);
-
-      // setPaginationSearch((prev) => ({
-      //   ...prev,
-      //   total: defaultPaginationSearchOrders.total,
-      //   page: defaultPaginationSearchOrders.page,
-      //   pageSize: defaultPaginationSearchOrders.pageSize,
-      // }));
     }
-  }, [
-    // defaultPaginationSearchOrders.page,
-    // defaultPaginationSearchOrders.pageSize,
-    // defaultPaginationSearchOrders.total,
-    dispatch,
-    resSearchOrders,
-  ]);
-
-  // useEffect(() => {
-  //   console.log('««««« resSearchOrders »»»»»', resSearchOrders);
-  // }, [resSearchOrders]);
-
-  // useEffect(() => {
-  //   console.log("««««« paginationSearch »»»»»", paginationSearch);
-  // }, [paginationSearch]);
+  }, [dispatch, resSearchOrders]);
 
   // handle click clear btn
   const handleClickClear = useCallback(() => {
