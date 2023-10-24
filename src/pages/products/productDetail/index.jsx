@@ -18,6 +18,7 @@ function ProductDetail(props) {
       return <p className="text-warning fw-bold">Sắp hết hàng</p>;
     return <p className="text-danger fw-bold">Hết hàng</p>;
   }, []);
+  // Status Product
   const handleStatusProduct = useCallback(
     (date) => {
       if (new Date(product.createdAt).getMonth() === new Date().getMonth())

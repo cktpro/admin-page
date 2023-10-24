@@ -23,6 +23,7 @@ export const routers = [
              { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct/ > },
              { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct/ > },
              { path: '*', name: "Not Found Page", element: <NotFoundPage / > }
+             
         ]
     },
 ]
