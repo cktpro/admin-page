@@ -26,6 +26,7 @@ const searchOrdersReducer = (state = defaultState, action) => {
             return { ...state, payload: action.payload, isLoading: false };
 
         case ActionTypes.SEARCH_ORDERS_FAILED:
+            console.log('««««« action.payload »»»»»', action.payload);
             return { ...state, payload: action.payload, isLoading: false };
 
         case ActionTypes.RESET_SEARCH_ORDERS:
