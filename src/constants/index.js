@@ -20,7 +20,7 @@ export const LOCATIONS = {
 // pageSize pagination of orders
 // Created by Man Nguyen
 // 19/10/2023
-export const pageSize = 5;
+export const pageSize = 20;
 
 // listStatus of orders status menu 
 // Created by Man Nguyen

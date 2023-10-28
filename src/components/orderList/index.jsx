@@ -30,6 +30,7 @@ import {
 import SearchOrderResult from "./tableOrderList/searchOrdersResult";
 import CancelIcon from "components/svg/cancel";
 import ClearIcon from "components/svg/clear";
+import Loading from "components/svg/loading";
 
 function OrderList() {
   // declare useDispatch
@@ -47,31 +48,29 @@ function OrderList() {
   // declare inputSearchRef of input search orders
   const inputSearchRef = useRef(null);
 
-  // declare resGetAllOrders of orderReducer state
-  const resGetAllOrders = useSelector((state) => state.orderReducer.payload);
+  // declare resGetAllOrders.payload of orderReducer state
+  const resGetAllOrders = useSelector((state) => state.orderReducer);
 
   // declare resGetNumOfOrdersStatus of getNumOfOrdersStatusReducer state
   const resGetNumOfOrdersStatus = useSelector(
     (state) => state.getNumOfOrdersStatusReducer
   );
 
-  // declare resSearchOrders of searchOrdersReducer state
-  const resSearchOrders = useSelector(
-    (state) => state.searchOrdersReducer.payload
-  );
+  // declare resSearchOrders?.payload of searchOrdersReducer state
+  const resSearchOrders = useSelector((state) => state.searchOrdersReducer);
 
   // declare defaultPagination of get all order
   const defaultPagination = {
     total: 0,
     page: 1,
-    pageSize: 5,
+    pageSize: 20,
   };
 
   // declare defaultPaginationSearchOrders of search orders
   const defaultPaginationSearchOrders = {
     total: 0,
     page: 1,
-    pageSize: 5,
+    pageSize: 20,
   };
 
   // manage order list
@@ -95,9 +94,6 @@ function OrderList() {
   // manage user is doing search or not
   const [isDoSearchOrder, setIsDoSearchOrder] = useState(false);
 
-  // show warning when user does not entered text to search input but click button search
-  const [isShowWarning, setIsShowWarning] = useState(false);
-
   // manage pagination
   const [pagination, setPagination] = useState(defaultPagination);
 
@@ -108,11 +104,13 @@ function OrderList() {
   const [totalRejected, setTotalRejected] = useState(0);
   const [totalDelivering, setTotalDelivering] = useState(0);
 
+  // validate startDate and EndDate
+
   // get all order
   const getAllOrders = useCallback(() => {
     dispatch(actionGetAllOrders(pagination));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, pagination.page]);
+  }, [dispatch, pagination.page, pagination.pageSize]);
 
   // do get all order
   useEffect(() => {
@@ -126,21 +124,27 @@ function OrderList() {
       getAllOrders();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pagination.page, currentItem]);
+  }, [pagination.page, pagination.pageSize, currentItem]);
 
   // assign OrdersList
   useEffect(() => {
-    setOrdersList(resGetAllOrders);
+    setOrdersList(resGetAllOrders?.payload);
 
     setPagination((prev) => ({
       ...prev,
-      total: resGetAllOrders?.total,
-      page: resGetAllOrders?.page,
-      pageSize: resGetAllOrders?.pageSize,
+      total: resGetAllOrders?.payload?.total || defaultPagination.total,
+      page: resGetAllOrders?.payload?.page || defaultPagination.page,
+      pageSize:
+        resGetAllOrders?.payload?.pageSize || defaultPagination.pageSize,
     }));
 
     // window.scrollTo(0, 0);
-  }, [resGetAllOrders]);
+  }, [
+    defaultPagination.page,
+    defaultPagination.pageSize,
+    defaultPagination.total,
+    resGetAllOrders?.payload,
+  ]);
 
   // get num of all order status be render on menu status (num next to status)
   const getNumOfStatus = useCallback(() => {
@@ -303,10 +307,31 @@ function OrderList() {
           <div className="cover_pagination_orderlist">
             <Pagination
               defaultCurrent={1}
-              total={resSearchOrders.total}
-              pageSize={resSearchOrders.pageSize}
+              total={
+                resSearchOrders?.payload?.total ||
+                defaultPaginationSearchOrders.total
+              }
+              showTotal={(total, range) =>
+                `${range[0]} - ${range[1]} của ${total}`
+              }
+              pageSize={
+                resSearchOrders?.payload?.pageSize ||
+                defaultPaginationSearchOrders.pageSize
+              }
+              pageSizeOptions={[
+                1,
+                5,
+                10,
+                resSearchOrders?.payload?.total || 20,
+              ]}
+              showSizeChanger
+              locale={{ items_per_page: "dòng / trang" }}
+              responsive={true}
               onChange={onChangePageSearch}
-              current={resSearchOrders.page}
+              current={
+                resSearchOrders?.payload?.page ||
+                defaultPaginationSearchOrders.page
+              }
             />
           </div>
         </>
@@ -324,10 +349,29 @@ function OrderList() {
             <div className="cover_pagination_orderlist">
               <Pagination
                 defaultCurrent={1}
-                total={pagination.total}
-                pageSize={pagination.pageSize}
+                total={
+                  resGetAllOrders?.payload?.total || defaultPagination.total
+                }
+                showTotal={(total, range) =>
+                  `${range[0]} - ${range[1]} của ${total}`
+                }
+                pageSize={
+                  resGetAllOrders?.payload?.pageSize ||
+                  defaultPagination.pageSize
+                }
+                pageSizeOptions={[
+                  1,
+                  5,
+                  10,
+                  resGetAllOrders?.payload?.total || 20,
+                ]}
+                showSizeChanger //show button change page size
+                locale={{ items_per_page: "dòng / trang" }}
+                responsive={true}
                 onChange={onChangePage}
-                current={pagination.page}
+                current={
+                  resGetAllOrders?.payload?.page || defaultPagination.page
+                }
               />
             </div>
           </>
@@ -353,28 +397,24 @@ function OrderList() {
     }
   }, [
     currentItem,
+    defaultPagination.page,
+    defaultPagination.pageSize,
+    defaultPagination.total,
+    defaultPaginationSearchOrders.page,
+    defaultPaginationSearchOrders.pageSize,
+    defaultPaginationSearchOrders.total,
     isDoSearchOrder,
     onChangePage,
     onChangePageSearch,
     ordersList?.payload,
     ordersSearchList,
-    pagination.page,
-    pagination.pageSize,
-    pagination.total,
-    resSearchOrders.page,
-    resSearchOrders.pageSize,
-    resSearchOrders.total,
+    resGetAllOrders?.payload?.page,
+    resGetAllOrders?.payload?.pageSize,
+    resGetAllOrders?.payload?.total,
+    resSearchOrders?.payload?.page,
+    resSearchOrders?.payload?.pageSize,
+    resSearchOrders?.payload?.total,
   ]);
-
-  useEffect(() => {
-    if (isShowWarning) {
-      const timer = setTimeout(() => {
-        setIsShowWarning(false);
-      }, 2000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isShowWarning]);
 
   // handle click status on menu order
   const handleClickStatus = useCallback(
@@ -438,16 +478,19 @@ function OrderList() {
     getAllOrders,
   ]);
 
-  // setOrdersSearchList when resSearchOrders is changed
+  // setOrdersSearchList when resSearchOrders?.payload is changed
   useEffect(() => {
-    if (resSearchOrders.payload && resSearchOrders.payload.length > 0) {
-      setOrdersSearchList(resSearchOrders);
+    if (
+      resSearchOrders?.payload.payload &&
+      resSearchOrders?.payload.payload.length > 0
+    ) {
+      setOrdersSearchList(resSearchOrders?.payload);
     } else {
       dispatch(actionResetsearchOrders());
 
-      setOrdersSearchList(resSearchOrders);
+      setOrdersSearchList(resSearchOrders?.payload);
     }
-  }, [dispatch, resSearchOrders]);
+  }, [dispatch, resSearchOrders?.payload]);
 
   // handle click clear btn
   const handleClickClear = useCallback(() => {
@@ -474,7 +517,13 @@ function OrderList() {
         {/* Order List Path */}
         <div className="col-12 custom_col order_list_path">
           <span className="order_list_path_dashboard">
-            <Link to={LOCATIONS.DASHBOARD}>Dashboard</Link>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              to={LOCATIONS.DASHBOARD}
+            >
+              Dashboard
+            </Link>
           </span>
 
           <span className="order_list_path_dot">
@@ -563,18 +612,28 @@ function OrderList() {
               <input
                 ref={inputStartDateRef}
                 type="text"
-                className="form-control input_group"
+                className={`form-control input_group`}
                 id="start_date"
                 name="start_date"
                 placeholder="Từ ngày"
                 onFocus={() => changeType("start_date", "date")}
-                onBlur={() => changeType("start_date", "text")}
-                onChange={(e) => handleChangeInput(e, "start_date")}
+                onBlur={() => {
+                  changeType("start_date", "text");
+                }}
+                onChange={(e) => {
+                  handleChangeInput(e, "start_date");
+                }}
               />
 
               <label className="label_input_group" htmlFor="start_date">
                 Từ ngày
               </label>
+
+              {/* {isErrorInfo("start_date") && (
+                <div className="input_error">
+                  {validation.errors.start_date}
+                </div>
+              )} */}
             </div>
 
             {/* input end date */}
@@ -582,18 +641,26 @@ function OrderList() {
               <input
                 ref={inputEndDateRef}
                 type="text"
-                className="form-control input_group"
+                className={`form-control input_group`}
                 id="end_date"
                 name="end_date"
                 placeholder="Đến ngày"
                 onFocus={() => changeType("end_date", "date")}
-                onBlur={() => changeType("end_date", "text")}
-                onChange={(e) => handleChangeInput(e, "end_date")}
+                onBlur={() => {
+                  changeType("end_date", "text");
+                }}
+                onChange={(e) => {
+                  handleChangeInput(e, "end_date");
+                }}
               />
 
               <label className="label_input_group" htmlFor="end_date">
                 Đến ngày
               </label>
+
+              {/* {isErrorInfo("end_date") && (
+                <div className="input_error">{validation.errors.end_date}</div>
+              )} */}
             </div>
 
             {/* input search */}
@@ -619,7 +686,7 @@ function OrderList() {
             <div className="row custom_row">
               <div className="col-12 custom_col num_of_result">
                 <span>
-                  Tìm thấy <b>{resSearchOrders?.total || 0}</b> kết quả
+                  Tìm thấy <b>{resSearchOrders?.payload?.total || 0}</b> kết quả
                 </span>
               </div>
             </div>
@@ -741,7 +808,13 @@ function OrderList() {
           {/* render order table */}
           <div className="row custom_row">
             <div className="col-12 custom_col cover_table_orders">
-              {renderOrdersTable()}
+              {resGetAllOrders?.isLoading || resSearchOrders.isLoading ? (
+                <div className="cover_loading">
+                  <Loading />
+                </div>
+              ) : (
+                renderOrdersTable()
+              )}
             </div>
           </div>
         </div>
