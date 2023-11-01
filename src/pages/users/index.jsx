@@ -105,14 +105,14 @@ const columns = [
   //     //     ],
   //     //   },  
   //   ],
-  //   filterMode: "tree",
+  //   filterMode: "tree", 
   //   filterSearch: true,
   //   onFilter: (value, record) => record.name.includes(value),
   // },
 
   {
-    title: "firstName",
-    dataIndex: "firstName", // Assuming "Company" is the property name in your data
+    title: "Full Name",
+    dataIndex: "fullName",
     filters: [
       {
         text: "Starts with 1",
@@ -124,14 +124,20 @@ const columns = [
       },
       // Add more filter options as needed
     ],
-    onFilter: (value, record) => record.firstName.toString().startsWith(value),
+    onFilter: (value, record) => record.fullName.toString().startsWith(value),
     filterSearch: true,
     render: (id, record) => (
-      <Link to={`/details/${id}`}>{record.firstName}</Link>
+      <>
+        <Link to={`/details/${id}`}>{record.fullName}</Link>
+        <br />
+        <Link to={`/details/${id}`}>{record.gmail}</Link>
+      </>
     ),
   },
+  
+
   {
-    title: "Phone Number",
+    title: "phoneNumber",
     dataIndex: "phoneNumber", // Assuming phone number is the property name in your data
     filters: [
       {
@@ -144,19 +150,15 @@ const columns = [
       },
       // Add more filter options as needed
     ],
-    onFilter: (value, record) => record["Phone Number"].toString().startsWith(value),
+    onFilter: (value, record) => record["phoneNumber"].toString().startsWith(value),
     filterSearch: true,
     render: (id, record) => (
-      <Link to={`/details/${id}`}>{record["Phone Number"]}</Link>
+      <Link to={`/details/${id}`}>{record["phoneNumber"]}</Link>
     ),
   },
-
-
- 
-  
   {
-    title: "Role",
-    dataIndex: "Role", // Assuming "Role" is the property name in your data
+    title: "address",
+    dataIndex: "address", // Assuming "address" is the property name in your data
     filters: [
       {
         text: "Starts with 1",
@@ -168,16 +170,39 @@ const columns = [
       },
       // Add more filter options as needed
     ],
-    onFilter: (value, record) => record.Role.toString().startsWith(value),
+    onFilter: (value, record) => record.address.toString().startsWith(value),
+    filterSearch: true,
+    render: (id, record) => (
+      <Link to={`/details/${id}`}>{record.address}</Link>
+    ),
+  },
+
+ 
+  
+  {
+    title: "id",
+    dataIndex: "id", // Assuming "id" is the property name in your data
+    filters: [
+      {
+        text: "Starts with 1",
+        value: "1",
+      },
+      {
+        text: "Starts with 2",
+        value: "2",
+      },
+      // Add more filter options as needed
+    ],
+    onFilter: (value, record) => record.id.toString().startsWith(value),
   filterSearch: true,
   render: (id, record) => (
-    <Link to={`/details/${id}`}>{record.Role}</Link>
+    <Link to={`/details/${id}`}>{record.id}</Link>
   ),
   },
 
   {
-    title: "Trạng thái",
-    dataIndex: "status",
+    title: "Status",
+    dataIndex: "Status",
     render: (record) => (
       <span
         className={`${
@@ -193,7 +218,7 @@ const columns = [
         {record}
       </span>
     ),
-    sorter: (a, b) => a.status.localeCompare(b.status),
+    sorter: (a, b) => a.Status.localeCompare(b.Status),
   },
   
   {
