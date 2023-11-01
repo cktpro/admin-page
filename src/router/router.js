@@ -7,23 +7,25 @@ import ProductDetail from 'pages/products/productDetail';
 import CreateProduct from 'pages/products/createProduct';
 import OrderListPage from 'pages/ordersPage';
 import UpdateProduct from 'pages/products/updateProduct';
+import OrderDetailPage from 'pages/ordersPage/orderDetailPage';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
     {
         path: LOCATIONS.HOME_PAGE,
         name: "Layout",
-        element: < Layout / > ,
+        element: < Layout />,
         children: [
-             { isRoot: true, name: "Dashboard Page", element: < Dashboard / > },
-             { path: LOCATIONS.DASHBOARD, name: "Dashboard Page", element: <Dashboard / > },
-             { path: LOCATIONS.ORDER, name: "Dashboard Page", element: <OrderListPage / > },
-             { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList/ > },
-             { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail/ > },
-             { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct/ > },
-             { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct/ > },
-             { path: '*', name: "Not Found Page", element: <NotFoundPage / > }
-             
+            { isRoot: true, name: "Dashboard Page", element: < Dashboard /> },
+            { path: LOCATIONS.DASHBOARD, name: "Dashboard Page", element: <Dashboard /> },
+            { path: LOCATIONS.ORDER, name: "Orders", element: <OrderListPage /> },
+            { path: LOCATIONS.ORDER_DETAIL, name: "Order Detail", element: <OrderDetailPage /> },
+            { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList /> },
+            { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail /> },
+            { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct /> },
+            { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct /> },
+            { path: '*', name: "Not Found Page", element: <NotFoundPage /> }
+
         ]
     },
 ]

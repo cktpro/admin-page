@@ -215,7 +215,7 @@ function StatusCanceled() {
           <Link
             target="_blank"
             rel="noopener noreferrer"
-            to={`${LOCATIONS.PRODUCTS}/${record._id}`}
+            to={`${LOCATIONS.ORDER}/${record._id}`}
           >
             {text}
           </Link>
