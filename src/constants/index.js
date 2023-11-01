@@ -2,7 +2,7 @@ export const LOCATIONS = {
   HOME_PAGE: "/",
   DASHBOARD: "/dashboard",
   ORDER: "/order",
-  ORDER_DETAIL: '/order_detail',
+  ORDER_DETAIL: '/order/:id',
   CREATE_ORDER_OFF: '/create_order_offline',
   CREATE_ORDER_ON: '/create_order_online',
   PRODUCTS: "/products",
