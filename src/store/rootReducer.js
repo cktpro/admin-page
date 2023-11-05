@@ -18,6 +18,8 @@ import searchOrdersReducer from './Orders/searchOrders/reducer';
 
 import getOrderDetailReducer from './Orders/getOrderDetail/reducer';
 
+import searchCustomerOrderReducer from './Orders/searchCustomer/reducer';
+
 const rootReducer = combineReducers({
   orderReducer,
   orderCompletedReducer,
@@ -31,6 +33,8 @@ const rootReducer = combineReducers({
   searchOrdersReducer,
 
   getOrderDetailReducer,
+
+  searchCustomerOrderReducer,
 });
 
 export default rootReducer;
