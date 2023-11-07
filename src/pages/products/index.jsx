@@ -14,8 +14,10 @@ const columns = [
         return (
           <Link to={`/product_detail/${record._id}`}>
             <div className="d-flex align-items-center img-products">
+              
               <img
-                src={`${url}${record.image.location.split("public", 2)[1]}`}
+                // src={`${url}${record.image.location.split("public", 2)[1]}`}
+                src={`${record.image.location}`}
                 alt={record.image.name}
                 width="80px"
                 height="80px"
@@ -110,7 +112,7 @@ const columns = [
     // ],
     // onFilter: (value, record) => record.address.startsWith(value),
     // filterSearch: true,
-    sorter: (a, b) => a.discount - b.discount,
+    sorter: (e) => console.log('◀◀◀ e ▶▶▶',e),
   },
   {
     title: "Giá sale",
@@ -201,6 +203,7 @@ function ProductList() {
     };
     fetchData();
   }, []);
+  console.log('◀◀◀ product ▶▶▶',product);
   return (
     <>
       <div

@@ -11,6 +11,7 @@ function ProductDetail(props) {
   const [isLoading, setIsLoading] = useState(null);
   const [currentTab, setCurrentTab] = useState("btn-desc");
   const [product, setProduct] = useState([]);
+  const [productVarian,setProductVarian]=useState([])
   const params = useParams();
   const handleProductStock = useCallback((stock) => {
     if (stock >= 100) return <p className="text-success fw-bold">Còn hàng</p>;
@@ -35,7 +36,8 @@ function ProductDetail(props) {
       setIsLoading(true);
       const res = await getProductDetail(params.id);
       if (res?.data?.payload) {
-        setProduct(res.data.payload);
+        setProduct(res.data.payload[0]);
+        setProductVarian(res.data.payload[0].productVarians[0])
         setIsLoading(false);
       } else setIsLoading(0);
     };
@@ -67,7 +69,7 @@ function ProductDetail(props) {
             className="img-product-detail"
             src={
               product?.image
-                ? `${url}${product.image.location.split("public", 2)[1]}`
+                ? `${product.image.location}`
                 : require("assets/images/No-Image-Placeholder.png")
             }
             alt={product?.image ? `${product.image.name}` : "No image"}
@@ -88,7 +90,15 @@ function ProductDetail(props) {
                 <span>(330 review)</span>
               </div>
             </div>
-            <h2>${product.price}</h2>
+            <div className="my-3">
+              <select className="form-select form-select-sm w-75" onChange={(e)=>{setProductVarian(product.productVarians[e.target.value])}}>
+              {product.productVarians.map((item,idx)=>{
+                // return <option  className={`btn btn-outline-secondary ${item._id===productVarian._id?'active':''}`} key={idx} onClick={()=>setProductVarian(product.productVarians[idx])}  >{item.color} - {item.memory}</option>
+                return <option   key={idx} value={idx}  >{item.color} - {item.memory}</option>
+              })}
+              </select>
+            </div>
+            <h2>${productVarian.price}</h2>
             <p>{product.description}</p>
           </div>
         </div>
@@ -126,16 +136,16 @@ function ProductDetail(props) {
             {currentTab === "btn-desc" ? (
               <div className="p-2">
                 <h4>Specifications</h4>
-                <table className="table w-25">
-                  <tr>
-                    <td>Category:</td>
-                    <td>{product.category.name}</td>
-                  </tr>
-                  <tr>
-                    <td>Manufacture:</td>
-                    <td>{product.supplier.name}</td>
-                  </tr>
-                </table>
+                <div >
+                  <p>
+                    Category:
+                    {product.category.name}
+                  </p>
+                  <p>
+                    Manufacture:
+                    {product.supplier.name}
+                  </p>
+                </div>
                 <h4>Delyvery and Return</h4>
                 <p>Your order of $200 or more gets free standard delivery</p>
                 <ul>
