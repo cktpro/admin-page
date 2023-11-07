@@ -1,6 +1,6 @@
 // Table User Rejected
-// Created by Man Nguyen
-// 19/10/2023
+// Created by Hung dev
+// 07/11/2023
 
 import React, { useCallback, useEffect, useState } from "react";
 import { Space, Table, Button, Pagination } from "antd";

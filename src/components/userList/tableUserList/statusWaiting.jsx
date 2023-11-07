@@ -1,6 +1,6 @@
 // Table User Waiting
 // Created by Hung dev
-// 19/02/2023
+// 07/11/2023
 
 import React, { useCallback, useEffect, useState } from "react";
 import { Table, Pagination } from "antd";

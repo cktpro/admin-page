@@ -1,6 +1,6 @@
 // Table search user result
-// Created by Man Nguyen
-// 20/10/2023
+// Created by Hung dev
+// 07/11/2023
 
 import React, { useCallback, useEffect, useState } from "react";
 import { Table } from "antd";

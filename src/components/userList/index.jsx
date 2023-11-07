@@ -1,6 +1,6 @@
-// Index user List
-// Created by Man Nguyen
-// 19/10/2023
+// Index User List
+// Created by Hung dev
+// 07/11/2023
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
