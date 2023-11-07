@@ -7,9 +7,7 @@ import ProductList from 'pages/products';
 import CreateProduct from 'pages/products/createProduct';
 import ProductDetail from 'pages/products/productDetail';
 import UpdateProduct from 'pages/products/updateProduct';
-import CreUpUser from 'pages/users/CreUpUser';
-import UserList from 'pages/users';
-import UserAccount from 'pages/users/UserAccount';
+import UserListPage from 'pages/usersPage';
 
 
 export const routers = [
@@ -26,10 +24,7 @@ export const routers = [
             { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: < ProductDetail / > },
             { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: < CreateProduct / > },
             { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: < UpdateProduct / > },
-            { path: LOCATIONS.ADD_USER, name: "Add User", element: < CreUpUser / > },
-            { path: LOCATIONS.USER, name: "Userlist", element: < UserList / > },
-            { path: LOCATIONS.UPDATE_USER, name: "Update User", element: < CreUpUser / > },
-            { path: LOCATIONS.ACCOUNT_USER, name: "UserAccount", element: < UserAccount / > },
+            { path: LOCATIONS.USER, name: "Dashboard Page", element: < UserListPage / > },
             { path: '*', name: "Not Found Page", element: < NotFoundPage / > }
         ]
     },

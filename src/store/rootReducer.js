@@ -17,16 +17,16 @@ import getNumOfOrdersStatusReducer from './Orders/getNumOfStatus/reducer';
 import searchOrdersReducer from './Orders/searchOrders/reducer';
 
 const rootReducer = combineReducers({
-  orderReducer,
-  orderCompletedReducer,
-  orderWaitingReducer,
-  orderCanceledReducer,
-  orderRejectedReducer,
-  orderDeliveringReducer,
+    orderReducer,
+    orderCompletedReducer,
+    orderWaitingReducer,
+    orderCanceledReducer,
+    orderRejectedReducer,
+    orderDeliveringReducer,
 
-  getNumOfOrdersStatusReducer,
+    getNumOfOrdersStatusReducer,
 
-  searchOrdersReducer,
+    searchOrdersReducer,
 });
 
 export default rootReducer;

@@ -16,10 +16,13 @@ export const LOCATIONS = {
     MESSAGES: "/messages",
     SIGNOUT: "/singout",
     USER: "/users",
+    USER_DETAIL: "/user_detail",
     ADD_USER: "/add_user",
     UPDATE_USER: "/update_user",
-    USERS: '/users',
+    USER: '/user',
     ACCOUNT_USER: '/account_user',
+    CREATE_USER_OFF: "/create_user_offline",
+    CREATE_USER_ON: "/create_user_online",
 
 };
 

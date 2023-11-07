@@ -17,16 +17,16 @@ import ordersStatusSaga from './Orders/getNumOfStatus/saga';
 import searchOrdersSaga from './Orders/searchOrders/saga';
 
 export default function* rootSaga() {
-  yield all([
-    fork(ordersSaga),
-    fork(ordersCompletedSaga),
-    fork(getAllOrdersWaiting),
-    fork(ordersCanceledSaga),
-    fork(getAllOrdersRejected),
-    fork(ordersDelivering),
+    yield all([
+        fork(ordersSaga),
+        fork(ordersCompletedSaga),
+        fork(getAllOrdersWaiting),
+        fork(ordersCanceledSaga),
+        fork(getAllOrdersRejected),
+        fork(ordersDelivering),
 
-    fork(ordersStatusSaga),
+        fork(ordersStatusSaga),
 
-    fork(searchOrdersSaga),
-  ]);
+        fork(searchOrdersSaga),
+    ]);
 }
