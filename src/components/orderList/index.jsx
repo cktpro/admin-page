@@ -2,35 +2,34 @@
 // Created by Man Nguyen
 // 19/10/2023
 
+import { Pagination } from "antd";
+import { debounce } from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Pagination } from "antd";
-import { debounce } from "lodash";
 
-import "./orderList.scss";
-import { LOCATIONS } from "constants/index";
-import { listStatus } from "constants/index";
-import PathDot from "components/svg/pathDot";
 import ArrowLeft from "components/svg/arrowLeft";
 import ArrowRight from "components/svg/arrowRight";
-import TableOrderList from "./tableOrderList";
-import { actionGetAllOrders } from "store/Orders/getOrderList/action";
-import { actionGetNumOfOrdersStatus } from "store/Orders/getNumOfStatus/action";
-import StatusCompleted from "./tableOrderList/statusCompleted";
-import StatusWaiting from "./tableOrderList/statusWaiting";
-import StatusCanceled from "./tableOrderList/statusCanceled";
-import StatusRejected from "./tableOrderList/statusRejected";
-import StatusDelivering from "./tableOrderList/statusDelivering";
+import CancelIcon from "components/svg/cancel";
+import ClearIcon from "components/svg/clear";
+import Loading from "components/svg/loading";
+import PathDot from "components/svg/pathDot";
 import SearchIcon from "components/svg/search";
+import { LOCATIONS, listStatus } from "constants/index";
+import { actionGetNumOfOrdersStatus } from "store/Orders/getNumOfStatus/action";
+import { actionGetAllOrders } from "store/Orders/getOrderList/action";
 import {
   actionResetsearchOrders,
   actionsearchOrders,
 } from "store/Orders/searchOrders/action";
+import "./orderList.scss";
+import TableOrderList from "./tableOrderList";
 import SearchOrderResult from "./tableOrderList/searchOrdersResult";
-import CancelIcon from "components/svg/cancel";
-import ClearIcon from "components/svg/clear";
-import Loading from "components/svg/loading";
+import StatusCanceled from "./tableOrderList/statusCanceled";
+import StatusCompleted from "./tableOrderList/statusCompleted";
+import StatusDelivering from "./tableOrderList/statusDelivering";
+import StatusRejected from "./tableOrderList/statusRejected";
+import StatusWaiting from "./tableOrderList/statusWaiting";
 
 function OrderList() {
   // declare useDispatch

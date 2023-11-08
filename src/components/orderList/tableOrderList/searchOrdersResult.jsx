@@ -2,15 +2,11 @@
 // Created by Man Nguyen
 // 20/10/2023
 
-import React, { useCallback, useEffect, useState } from "react";
+import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 import { Table } from "antd";
-import {
-  CaretDownOutlined,
-  CaretUpOutlined,
-  // EditOutlined,
-} from "@ant-design/icons";
 import numeral from "numeral";
 import "numeral/locales/vi";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { LOCATIONS } from "constants/index";
