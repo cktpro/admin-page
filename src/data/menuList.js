@@ -47,17 +47,17 @@ const menuList=[
       ],
     },
     {
-      label: "Categories",
+      label: "Danh mục",
       active: false,
       icon: require("assets/icon-slide/category-management-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh category", src: LOCATIONS.CATEGORY },
+        { label: "Danh sánh danh mục", src: LOCATIONS.CATEGORY },
         {
-          label: "Thêm mới category",
+          label: "Thêm mới danh mục",
           src: LOCATIONS.ADD_CATEGORY,
         },
         {
-          label: "Cập nhật category",
+          label: "Cập nhật danh mục",
           src: LOCATIONS.UPDATE_CATEGORY,
         },
       ],

@@ -11,7 +11,7 @@ export const LOCATIONS = {
   UPDATE_PRODUCT: '/update_product/:id',
   CATEGORY: "/categories",
   ADD_CATEGORY: '/add_category',
-  UPDATE_CATEGORY: '/update_category',
+  UPDATE_CATEGORY: '/categories/:id',
   SETTING: '/setting',
   MESSAGES: '/messages',
   SIGNOUT: '/singout'
