@@ -19,6 +19,6 @@ export const actionsearchCustomerFailed = (payload) => ({ //lấy data từ api 
   payload, //data
 });
 
-export const actionResetsearchOrders = () => ({ //reset state get order list
+export const actionResetsearchCustomer = () => ({ //reset state get order list
   type: ActionTypes.RESET_SEARCH_CUSTOMER,
 });

@@ -20,6 +20,8 @@ import getOrderDetailSaga from './Orders/getOrderDetail/saga';
 
 import searchCustomerOrderSaga from './Orders/searchCustomer/saga';
 
+import searchProductOrderSaga from './Orders/searchProduct/saga';
+
 
 export default function* rootSaga() {
   yield all([
@@ -37,5 +39,7 @@ export default function* rootSaga() {
     fork(getOrderDetailSaga),
 
     fork(searchCustomerOrderSaga),
+
+    fork(searchProductOrderSaga),
   ]);
 }

@@ -1,41 +1,191 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { debounce } from "lodash";
+import { Button, Modal, Popconfirm, Table } from "antd";
+import { DeleteFilled, EditFilled } from "@ant-design/icons";
+import { useDispatch, useSelector } from "react-redux";
 
-import styles from "./createOrderOnline.module.scss";
 import PathDot from "components/svg/pathDot";
 import { LOCATIONS } from "constants/index";
 import SearchIcon from "components/svg/search";
-import { useDispatch, useSelector } from "react-redux";
 import { actionsearchCustomer } from "store/Orders/searchCustomer/action";
+import styles from "./createOrderOnline.module.scss";
+import {
+  actionDeleteProdutFromOrderDetails,
+  actionIncreaseProductOnOrderDetails,
+} from "store/Orders/createOrderDetails/action";
+import FormSearchProduct from "./formSearchProduct";
 
 function CreateOrderOnline() {
   const dispatch = useDispatch();
 
-  const inputSearchCustomerRef = useRef(null);
+  const refInputChangeQuantity = useRef(null);
 
-  const [searchCondition, setSearchCondition] = useState("");
+  const [isOpenModalSearchProduct, setIsOpenModalSearchProduct] =
+    useState(false);
 
-  const resSearchCustomer = useSelector((state) => state.searchCustomerOrderReducer);
+  const [isOpenModalEditQuantity, setIsOpenModalEditQuantity] = useState(false);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const handleChangeSearch = useCallback(
-    debounce((e) => {
-      setSearchCondition(e.target.value);
-    }, 1000),
-    []
+  const [inputChangeQuantity, setInputChangeQuantity] = useState(0);
+
+  const [productEdit, setProductEdit] = useState({});
+
+  const [temp, setTemp] = useState(0);
+
+  const [shipping, setShipping] = useState(0);
+
+  const [total, setTotal] = useState(0);
+
+  const orderDetailsList = useSelector(
+    (state) => state.createOrderDetailsReducer.payload
   );
 
   useEffect(() => {
-    dispatch(actionsearchCustomer({phoneNumber: searchCondition}));
-  }, [dispatch, searchCondition]);
+    console.log("««««« orderDetailsList »»»»»", orderDetailsList);
+  }, [orderDetailsList]);
+
+  const handleClickDeletedProduct = useCallback(
+    (id) => {
+      dispatch(actionDeleteProdutFromOrderDetails(id));
+    },
+    [dispatch]
+  );
+
+  const handleClickChangeQuantity = useCallback((product) => {
+    setIsOpenModalEditQuantity(true);
+
+    setProductEdit(product);
+
+    setInputChangeQuantity(product.quantity);
+  }, []);
 
   useEffect(() => {
-    console.log("««««« resSearchCustomer »»»»»", resSearchCustomer);
-  }, [resSearchCustomer]);
+    if (isOpenModalEditQuantity) {
+      refInputChangeQuantity.current.value = productEdit.quantity;
+    }
+  }, [isOpenModalEditQuantity, productEdit.quantity]);
+
+  const handleSubmitChangeQuantity = useCallback(() => {
+    const data = {
+      ...productEdit,
+      quantity: parseInt(inputChangeQuantity),
+    };
+
+    dispatch(actionIncreaseProductOnOrderDetails(data));
+
+    setIsOpenModalEditQuantity(false);
+  }, [dispatch, inputChangeQuantity, productEdit]);
+
+  const calBilling = useCallback(() => {
+    let sum = 0;
+
+    orderDetailsList.forEach((item) => {
+      sum =
+        sum +
+        (parseInt(item.quantity) *
+          parseInt(item.price) *
+          (100 - parseInt(item.discount))) /
+          100;
+    });
+
+    setTemp(sum);
+    setTotal(sum + shipping);
+  }, [orderDetailsList, shipping]);
+
+  useEffect(() => {
+    if (orderDetailsList.length === 0) {
+      setTemp(0);
+      setShipping(0);
+      setTotal(0);
+    }
+
+    if (orderDetailsList.length > 0) {
+      calBilling();
+    }
+  }, [calBilling, orderDetailsList]);
+
+  const columns = [
+    {
+      // width: "10%",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text, record, index) => {
+        return (
+          <div className={styles.cover_product_name}>
+            <img
+              className={styles.product_img}
+              src={require("assets/images/chuotda.webp")}
+              alt="..."
+            />
+
+            <div className={styles.product_name}>{text}</div>
+          </div>
+        );
+      },
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
+      render: (text, record, index) => {
+        return (
+          <div className={styles.cover_quantity}>
+            <span type="number" className={styles.product_quantity}>
+              {text}
+            </span>
+
+            <Button
+              onClick={() => handleClickChangeQuantity(record)}
+              type="none"
+              icon={<EditFilled />}
+            />
+          </div>
+        );
+      },
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "Discount",
+      dataIndex: "discount",
+      key: "discount",
+    },
+    {
+      title: "Discounted Price",
+      // dataIndex: "discountedPrice",
+      key: "discountedPrice",
+      render: (text, record, index) => {
+        return (
+          <span>
+            {(record.quantity * record.price * (100 - record.discount)) / 100}
+          </span>
+        );
+      },
+    },
+    {
+      title: " ",
+      key: "actions",
+      width: "1%",
+      render: (text, record, index) => {
+        return (
+          <Popconfirm
+            title="Bạn chắc muốn xóa không"
+            okText="Đồng ý"
+            cancelText="Hủy"
+            onConfirm={() => handleClickDeletedProduct(record.productId)}
+          >
+            <Button danger icon={<DeleteFilled />} />
+          </Popconfirm>
+        );
+      },
+    },
+  ];
 
   return (
-    <div className="container">
+    <div className="container-fluid">
       <div className={`row ${styles.custom_row}`}>
         <div className={`col-12 ${styles.custom_col}`}>
           <h4 className={styles.title_create_order_online}>Tạo đơn online</h4>
@@ -60,63 +210,95 @@ function CreateOrderOnline() {
         </div>
 
         <div className={`row ${styles.custom_row}`}>
-          <div className={`col-12 ${styles.custom_col} ${styles.cover}`}>
-            <form className={`cover_input`}>
-              <div className={`row ${styles.custom_row}`}>
-                <div className="col-12">
-                  <h5 className={styles.customer}>Khách hàng</h5>
-                </div>
+          <div
+            className={`col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 ${styles.custom_col}`}
+          >
+            <div className={styles.products}>
+              <h4 className={styles.title_products}>Products</h4>
 
-                <div className="col-12 custom_col cover_input cover_input_search">
-                  <div className="search_icon">
-                    <SearchIcon />
-                  </div>
+              <div className={styles.products_details}>
+                <Table
+                  rowKey="productId"
+                  columns={columns}
+                  dataSource={orderDetailsList}
+                  pagination={false}
+                />
 
-                  <input
-                    ref={inputSearchCustomerRef}
-                    type="text"
-                    className="form-control orders_input_search"
-                    id="search_customer"
-                    name="search_customer"
-                    placeholder="Tìm số điện thoại..."
-                    onChange={handleChangeSearch}
-                  />
-                </div>
+                <Modal
+                  open={isOpenModalSearchProduct}
+                  centered
+                  title="Search Product"
+                  onCancel={() => {
+                    setIsOpenModalSearchProduct(false);
+                  }}
+                  cancelText="Close"
+                  okText="Save"
+                  onOk={() => {
+                    setIsOpenModalSearchProduct(false);
+                  }}
+                >
+                  <FormSearchProduct />
+                </Modal>
 
-                <div
-                  className={`col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-floating ${styles.custom_col}`}
+                <Modal
+                  open={isOpenModalEditQuantity}
+                  centered
+                  title="Edit Quantity"
+                  onCancel={() => {
+                    setIsOpenModalEditQuantity(false);
+                  }}
+                  cancelText="Close"
+                  okText="Save"
+                  onOk={handleSubmitChangeQuantity}
                 >
                   <input
-                    className={`form-control input_group`}
-                    type="text"
-                    placeholder="Họ"
-                    id="firstName"
-                    name="firstName"
+                    ref={refInputChangeQuantity}
+                    type="number"
+                    onChange={(e) => setInputChangeQuantity(e.target.value)}
                   />
-
-                  <label className="label_input_group" htmlFor="firstName">
-                    Họ
-                  </label>
-                </div>
-
-                <div
-                  className={`col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 form-floating ${styles.custom_col}`}
-                >
-                  <input
-                    className={`form-control input_group`}
-                    type="text"
-                    placeholder="Tên"
-                    id="lastName"
-                    name="lastName"
-                  />
-
-                  <label className="label_input_group" htmlFor="lastName">
-                    Tên
-                  </label>
-                </div>
+                </Modal>
               </div>
-            </form>
+
+              <button onClick={() => setIsOpenModalSearchProduct(true)}>
+                ADD
+              </button>
+            </div>
+
+            <div className={styles.billing_information}>
+              <h4 className={styles.title_billing_information}>
+                Billing Information
+              </h4>
+
+              <div className={styles.cover_bill_info}>
+                <div className={styles.cover_provisional_total}>
+                  <span className={styles.provisional_total_title}>
+                    Sub Total
+                  </span>
+
+                  <span className={styles.provisional_total}>{temp}</span>
+                </div>
+
+                <div className={styles.cover_shipping}>
+                  <span className={styles.shipping_title}>Shipping</span>
+
+                  <span className={styles.shipping}>{shipping}</span>
+                </div>
+
+                <div className={styles.cover_total}>
+                  <span className={styles.total_title}>Total</span>
+
+                  <span className={styles.total}>{total}</span>
+                </div>
+
+                {/* <div> */}
+                  <button type="button" onClick={() => setShipping(10000)}>Add Shipping</button>
+                  <button type="button" onClick={() => setShipping(0)}>Remove Shipping</button>
+                {/* </div> */}
+              </div>
+            </div>
           </div>
+
+          <div className={`col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4`}></div>
         </div>
       </div>
     </div>

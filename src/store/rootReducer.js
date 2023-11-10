@@ -5,6 +5,7 @@
 /* quy phạm khai báo rootReducer */
 import { combineReducers } from 'redux';
 
+//order
 import orderReducer from './Orders/getOrderList/reducer';
 import orderCompletedReducer from './Orders/getOrderListCompleted/reducer';
 import orderWaitingReducer from './Orders/getOrderListWaiting/reducer';
@@ -19,8 +20,12 @@ import searchOrdersReducer from './Orders/searchOrders/reducer';
 import getOrderDetailReducer from './Orders/getOrderDetail/reducer';
 
 import searchCustomerOrderReducer from './Orders/searchCustomer/reducer';
+import searchProductToCreateOrderReducer from './Orders/searchProduct/reducer';
+import createOrderDetailsReducer from './Orders/createOrderDetails/reducer';
+//---------------------------------------------------------------------------//
 
 const rootReducer = combineReducers({
+  //order
   orderReducer,
   orderCompletedReducer,
   orderWaitingReducer,
@@ -35,6 +40,11 @@ const rootReducer = combineReducers({
   getOrderDetailReducer,
 
   searchCustomerOrderReducer,
+
+  searchProductToCreateOrderReducer,
+
+  createOrderDetailsReducer,
+  //------------------------------------------//
 });
 
 export default rootReducer;

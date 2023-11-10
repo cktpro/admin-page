@@ -32,10 +32,6 @@ function OrderDetail(props) {
     setOrderDetail(resGetOrderDetail?.payload?.payload);
   }, [resGetOrderDetail]);
 
-  useEffect(() => {
-    console.log("««««« orderDetail »»»»»", orderDetail);
-  }, [orderDetail]);
-
   const getStyleStatus = useCallback((text) => {
     switch (text) {
       case "COMPLETED":

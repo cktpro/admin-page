@@ -15,16 +15,166 @@
   font-family: "Public Sans", sans-serif;
 }
 
-.cover {
+.products {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 0px 24px 0px;
   background-color: rgb(255, 255, 255);
-  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px, rgba(145, 158, 171, 0.12);
+  color: rgb(33, 43, 54);
   border-radius: 16px;
-  padding: 24px;
+  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
 }
 
-.customer {
-  font-size: 1.25rem;
+.title_products {
+  width: 96%;
+  margin-left: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: dashed rgb(195, 195, 195) 0.1rem;
+}
+
+.products_details {
+  width: 100%;
+  overflow-x: auto;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.products_details th {
+  background-color: rgb(255, 255, 255) !important;
+  color: rgb(33, 43, 54) !important;
+  line-height: 1.57143 !important;
+  font-size: 0.95rem !important;
+  font-family: "Public Sans", sans-serif !important;
+  font-weight: bold !important;
+}
+
+.cover_product_name {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.product_img {
+  max-width: 2rem;
+  max-height: 2rem;
+}
+
+.product_name {
+  width: 20rem !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+
+  color: rgb(33, 43, 54) !important;
+  line-height: 1.57143 !important;
+  font-size: 0.95rem !important;
+  font-family: "Public Sans", sans-serif !important;
+}
+
+.cover_quantity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.billing_information {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 0px 24px 0px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(33, 43, 54);
+  border-radius: 16px;
+  box-shadow: rgba(145, 158, 171, 0.2) 0px 0px 2px 0px,
+    rgba(145, 158, 171, 0.12) 0px 12px 24px -4px;
+}
+
+.title_billing_information {
+  width: 96%;
+  margin-left: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: dashed rgb(195, 195, 195) 0.1rem;
+}
+
+.cover_bill_info {
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cover_provisional_total {
+  min-width: 96%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.provisional_total_title {
+  color: rgb(99, 115, 129);
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+}
+
+.provisional_total {
+  font-weight: 600;
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+}
+
+.cover_shipping {
+  min-width: 96%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.shipping_title {
+  color: rgb(99, 115, 129);
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+}
+
+.shipping {
+  font-weight: 400;
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+}
+
+.cover_total {
+  min-width: 96%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.total_title {
   font-weight: 600;
   line-height: 1.5;
+  font-size: 1rem;
+  font-family: "Public Sans", sans-serif;
+}
+
+.total {
+  font-weight: 600;
+  line-height: 1.5;
+  font-size: 1rem;
   font-family: "Public Sans", sans-serif;
 }
