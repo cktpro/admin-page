@@ -92,6 +92,7 @@ function CategoryList() {
     const fetchData = async () => {
       setIsLoading(true);
       const res = await getCategory();
+      console.log('◀◀◀ res ▶▶▶',res);
       setCategory(res.data.payload);
       setIsLoading(false);
     };

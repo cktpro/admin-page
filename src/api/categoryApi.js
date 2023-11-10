@@ -5,21 +5,21 @@ import { LOCATIONS } from "constants";
 
 const getCategory = async () => {
   try {
-    const result = await axiosAdmin.get("/categories");
+    const result = await axiosAdmin.get("/category");
     return result;
   } catch (error) {
-    return error;
+    return false;
   }
 };
 
 const getCategoryDetail = async (id) => {
   try {
-    const result = await axiosAdmin.get(`/categories/${id}`);
+    const result = await axiosAdmin.get(`/category/${id}`);
     console.log('««««« result »»»»»', result);
     return result;
   } catch (error) {
     console.log('««««« err »»»»»', error);
-    return error;
+    return false;
   }
 };
 const onAddCategory = async (categoryData) => {
@@ -29,7 +29,7 @@ const onAddCategory = async (categoryData) => {
     window.location.reload();
     return result;
   } catch (error) {
-    return error;
+    return false;
   }
 };
  

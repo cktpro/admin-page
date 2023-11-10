@@ -3,6 +3,7 @@ import { Button, Form, Input, Table } from 'antd';
 import { memo } from 'react';
 import { getCategoryDetail } from 'api/categoryApi';
 import { useParams } from 'react-router-dom';
+import Loading from 'components/loading';
 
 function CategoryDetail() {
   const  {id}  = useParams();
@@ -10,16 +11,21 @@ function CategoryDetail() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [form] = Form.useForm();
+  const [category,setCategory]=useState([])
+  const [loading,setLoading]=useState(null)
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true)
         console.log('««««« categoryIdsss »»»»»', categoryId);
         const response = await getCategoryDetail(categoryId);
         const data = response.data.payload;
         console.log('««««« data »»»»»', data);
+        setCategory(response.data.payload)
         setName(data.name)
         setDescription(data.description);
+        setLoading(false)
       } catch (error) {
         console.error('err categoryId', error);
       }
@@ -34,7 +40,7 @@ function CategoryDetail() {
   const handleDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
-
+if (loading===false) {
   return (
     <div>
       <Form
@@ -65,11 +71,11 @@ function CategoryDetail() {
         >
           <Input onChange={(e) => setName(e.target.value)}/>
         </Form.Item>
-
         <Form.Item
           label="Mô tả"
           name="description"
-          initialValue={description} 
+          // initialValue={description} 
+          initialValue={category.description}
           rules={[
             {
               required: true,
@@ -77,7 +83,7 @@ function CategoryDetail() {
             },
           ]}
         >
-          <Input  onChange={(e) => setDescription(e.target.value)}/>
+          <Input  />
         </Form.Item>
 
         <Form.Item label=" ">
@@ -93,6 +99,10 @@ function CategoryDetail() {
      <p>{description}</p>
     </div>
   );
+  
+}
+return <Loading/>
+  
 }
 
 export default memo(CategoryDetail);
