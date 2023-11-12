@@ -1,6 +1,6 @@
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";  
 import { message } from "antd";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { LOCATIONS } from "constants";
 
 const getCategory = async () => {
@@ -32,17 +32,18 @@ const onAddCategory = async (categoryData) => {
     return error;
   }
 };
- 
 const updateCategory = async (id, updatedData) => {
   try {
-    const response = await axiosAdmin.put(`/category/${id}`, updatedData);
+    console.log('««««« id »»»»»', id);
+    const response = await axiosAdmin.put(`/categories/${id}`, updatedData);
     Navigate(LOCATIONS.CATEGORY);
-    return response.data;
+    console.log('«««««  response»»»»»', response);
+    return response;
   } catch (error) {
+    // console.log(error)
     throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi cập nhật danh mục");
   }
 };
- 
 
 const deleteCategory = async (id) => {
   try {

@@ -10,6 +10,7 @@ import UpdateProduct from 'pages/products/updateProduct';
 import CategoryList from 'pages/categories';
 import CreateCategory from 'pages/categories/createCategory';
 import CategoryDetail from 'pages/categories/categoryDetail';
+import ProductLista from 'pages/products';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
@@ -21,7 +22,7 @@ export const routers = [
              { isRoot: true, name: "Dashboard Page", element: < Dashboard / > },
              { path: LOCATIONS.DASHBOARD, name: "Dashboard Page", element: <Dashboard / > },
              { path: LOCATIONS.ORDER, name: "Dashboard Page", element: <OrderListPage / > },
-             { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList/ > },
+             { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductLista/ > },
              { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail/ > },
              { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct/ > },
              { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct/ > },

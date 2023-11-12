@@ -2,9 +2,18 @@ import React, { useState } from "react";
 
 import "./header.scss";
 import { Link } from "react-router-dom";
+import { handleSearch } from "api/productApi";
+import { Input } from "antd";
 function Footer(props) {
+  const [isLoading, setIsLoading] = useState(null);
   const [isActive, setIsActive] = useState(false);
   const { children } = props;
+  const [keyword, setKeyword] = useState('');
+  const [data, setData] = useState([]);
+  
+  function handleInputChange(e) {
+    setKeyword(e.target.value)
+}
 
   return (
     <div className="header">
@@ -25,20 +34,23 @@ function Footer(props) {
         </div>
         {/* Right header */}
         <div className=" d-flex justify-content-end align-items-center gap-4 mx-1">
-          <div className="search-bar" >
+          {/* <div className="search-bar" >
             <button className="search-logo" style={{ border: "none" }}>
               <img
                 className="search-img"
                 src={require("assets/icon-header/search-svgrepo-com.png")}
                 alt=""
               />
-            </button>
-            <input
+            </button> */}
+            <Input.Search
+            value={keyword}
+            onChange={handleInputChange}
+            onSearch={handleSearch}
               className="search-input"
               type="text"
               placeholder="Type anything for me..."
-            />
-          </div>
+              enterButton/>
+          {/* </div> */}
           <div className="notification">
             <img
               className="noti-img"

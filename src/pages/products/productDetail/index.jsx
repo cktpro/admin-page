@@ -12,6 +12,7 @@ function ProductDetail(props) {
   const [currentTab, setCurrentTab] = useState("btn-desc");
   const [product, setProduct] = useState([]);
   const params = useParams();
+
   const handleProductStock = useCallback((stock) => {
     if (stock >= 100) return <p className="text-success fw-bold">Còn hàng</p>;
     if (stock < 100 && stock > 0)
@@ -41,6 +42,7 @@ function ProductDetail(props) {
     };
     getData();
   }, []);
+  
   if (isLoading === true) {
     return <Loading />;
   }

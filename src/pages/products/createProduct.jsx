@@ -1,4 +1,5 @@
 import React, { memo, useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
   Form,
@@ -11,6 +12,8 @@ import { UploadOutlined } from "@ant-design/icons";
 import { getCategory } from "api/categoryApi";
 import { getSupplier } from "api/supplierApi";
 import TextArea from "antd/es/input/TextArea";
+import { onAddProduct } from "api/productApi";
+import { LOCATIONS } from "constants";
 const { Option } = Select;
 
 function CreateProduct(props) {
@@ -18,16 +21,8 @@ function CreateProduct(props) {
   const [categories, setCategory] = useState([]);
   const [suppliers, setSupplier] = useState([]);
   const [isLoading, setIsLoading] = useState(null);
-  //   const {
-  //     isHiddenSubmit,
-  //     formName,
-  //     form,
-  //     optionStyle,
-  //     suppliers,
-  //     categories,
-  //     onFinish,
-  //     className
-  //   } = props;
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const getData = async () => {
       setIsLoading(true);
@@ -39,52 +34,24 @@ function CreateProduct(props) {
     };
     getData();
   }, []);
-  const onFinish=useCallback((values)=>{
-    console.log('◀◀◀ values ▶▶▶',values);
-  },[])
+  
+  const onFinish = useCallback(async (values) => {
+    try {
+      const result = await onAddProduct(values); 
+      console.log("sản phẩm đã được thêm:", result);
+    } catch (error) {
+      console.error("Lỗi khi thêm sản phẩm:", error);
+    }
+  }, []);
+
   return (
     <div className="w-50 mx-auto">
       <Form
       form={form}
-      // className={className}
-      // name={formName}
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
-      // style={optionStyle}
       onFinish={onFinish}
       >
-        {/* <Form.Item
-          label="Giới tính"
-          name="gender"
-          rules={[
-            {
-              required: true,
-              message: "Vui lòng chọn giới tính",
-            },
-          ]}
-        >
-          <Select
-            options={[
-              {
-                value: "male",
-                label: "Nam",
-              },
-              {
-                value: "female",
-                label: "Nữ",
-              },
-              {
-                value: "other",
-                label: "Khác",
-              },
-            ]}
-          >
-            {/* <Option value="male">Nam</Option>
-          <Option value="female">Nữ</Option>
-          <Option value="other">Khác</Option> */}
-        {/* </Select>
-        </Form.Item> */}
-
             <Form.Item
               label="Nhà cung cấp"
               name="supplierId"

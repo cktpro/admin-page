@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "antd";
+import { Popconfirm, Table } from "antd";
 import { Link } from "react-router-dom";
-import { getProduct } from "api/productApi";
+import { deleteProduct, getProduct } from "api/productApi";
 import Loading from "components/loading";
-
+import ProductList from "components/products";
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
 const columns = [
@@ -47,6 +47,8 @@ const columns = [
         </Link>
       );
     },
+  
+
     filters: [
       {
         text: "Iphone",
@@ -98,18 +100,6 @@ const columns = [
   {
     title: "Giảm giá",
     dataIndex: "discount",
-    // filters: [
-    //   {
-    //     text: "stock",
-    //     value: "stock",
-    //   },
-    //   {
-    //     text: "stock",
-    //     value: "stock",
-    //   },
-    // ],
-    // onFilter: (value, record) => record.address.startsWith(value),
-    // filterSearch: true,
     sorter: (a, b) => a.discount - b.discount,
   },
   {
@@ -166,44 +156,52 @@ const columns = [
             alt="edit"
           />
         </button>
-        <button className="btn btn-outline-danger">
-          <img
-            src={require("assets/images/delete-trash-svgrepo-com.png")}
-            width="24px"
-            height="24px"
-            alt="edit"
-          />
-        </button>
+
+        <Popconfirm
+          title="Bạn có muốn xóa không?"
+          okText="Đồng ý"
+          cancelText="Hủy"
+          onConfirm={() => deleteProduct(record._id)}
+        >
+          <button className="btn btn-outline-danger">
+            <img
+              src={require("assets/images/delete-trash-svgrepo-com.png")}
+              width="24px"
+              height="24px"
+              alt="edit"
+            />
+          </button>
+        </Popconfirm>
       </div>
     ),
   },
 ];
 
-function ProductList() {
-  const [isLoading, setIsLoading] = useState(null);
-  const [product, setProduct] = useState([]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const onSelectChange = (newSelectedRowKeys) => {
-    console.log("selectedRowKeys changed: ", newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
-  };
-  const rowSelection = {
-    selectedRowKeys,
-    onChange: onSelectChange,
-  };
+function ProductLista() {
+  // const [isLoading, setIsLoading] = useState(null);
+  // const [product, setProduct] = useState([]);
+  // const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  // const onSelectChange = (newSelectedRowKeys) => {
+  //   console.log("selectedRowKeys changed: ", newSelectedRowKeys);
+  //   setSelectedRowKeys(newSelectedRowKeys);
+  // };
+  // const rowSelection = {
+  //   selectedRowKeys,
+  //   onChange: onSelectChange,
+  // };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const res = await getProduct();
-      setProduct(res.data.payload);
-      setIsLoading(false);
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     setIsLoading(true);
+  //     const res = await getProduct();
+  //     setProduct(res.data.payload);
+  //     setIsLoading(false);
+  //   };
+  //   fetchData();
+  // }, []);
   return (
     <>
-      <div
+      {/* <div
         style={{ minWidth: "600px" }}
         className="d-flex justify-content-between my-1"
       >
@@ -225,8 +223,9 @@ function ProductList() {
         />
       ) : (
         <Loading />
-      )}
+      )} */}
+      <ProductList/>
     </>
   );
 }
-export default ProductList;
+export default ProductLista;
