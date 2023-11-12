@@ -77,7 +77,7 @@ function ProductDetail(props) {
 
           <div className="m-3">
             {handleStatusProduct(product.createdAt)}
-            {handleProductStock(product.stock)}
+            {handleProductStock(productVarian.stock)}
             {/* {product.stock > 0 ? (
               <p className="text-success fw-bold">Còn hàng</p>
             ) : (

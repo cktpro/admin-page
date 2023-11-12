@@ -8,7 +8,7 @@ const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
 const columns = [
   {
-    title: "Tên sản phẩm",
+    title: "Product Name",
     render: (record) => {
       if (record.image)
         return (
@@ -17,7 +17,7 @@ const columns = [
               
               <img
                 // src={`${url}${record.image.location.split("public", 2)[1]}`}
-                src={`${record.image.location}`}
+                src={record.image.length>0? `${record.image[0].location}`:require('assets/images/No-Image-Placeholder.png')}
                 alt={record.image.name}
                 width="80px"
                 height="80px"
@@ -92,13 +92,13 @@ const columns = [
     onFilter: (value, record) => record.name.includes(value),
   },
   {
-    title: "Giá gốc",
+    title: "Regular Price",
     dataIndex: "price",
     sorter: (a, b) => a.price - b.price,
   },
 
   {
-    title: "Giảm giá",
+    title: "Discount",
     dataIndex: "discount",
     // filters: [
     //   {
@@ -115,7 +115,7 @@ const columns = [
     sorter: (e) => console.log('◀◀◀ e ▶▶▶',e),
   },
   {
-    title: "Giá sale",
+    title: "Sale Price",
 
     // filters: [
     //   {
@@ -135,7 +135,7 @@ const columns = [
   },
 
   {
-    title: "Số lượng còn",
+    title: "Stock",
     render: (record) => (
       <span
         className={`${
@@ -150,7 +150,7 @@ const columns = [
     sorter: (a, b) => a.stock - b.stock,
   },
   {
-    title: "Ngày tạo",
+    title: "Create At",
     render: (record) => {
       return <span>{new Date(record.createdAt).toLocaleString("en-GB")}</span>;
     },
@@ -203,18 +203,17 @@ function ProductList() {
     };
     fetchData();
   }, []);
-  console.log('◀◀◀ product ▶▶▶',product);
   return (
     <>
       <div
         style={{ minWidth: "600px" }}
         className="d-flex justify-content-between my-1"
       >
-        <h3>Danh sách sản phẩm</h3>
+        <h3>Product List</h3>
         <div>
           <Link to="/add_product">
             <button type="button" className="btn btn-success">
-              Thêm sản phẩm
+              Add Product
             </button>
           </Link>
         </div>
