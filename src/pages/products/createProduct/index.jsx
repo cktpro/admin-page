@@ -23,6 +23,7 @@ import TextArea from "antd/es/input/TextArea";
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 // import styles
 import styles from "./createProduct.module.scss";
+import { min } from "lodash";
 const { Option } = Select;
 
 function CreateProduct(props) {
@@ -53,37 +54,19 @@ function CreateProduct(props) {
     };
     getData();
   }, []);
-  const checkDulicate=(list)=>{
-    let duplicate=0
-    for (let i = 0; i < list.length-1; i++) {
-      const dup =list.filter((item)=>(item.color===list[i].color && item.memory ===list[i].memory))
-      console.log('◀◀◀ dup ▶▶▶',dup);
-      
-      
+   const asyncForEach= async (array, callback) => {
+    for (let index = 0; index < array.length; index += 1) {
+      await callback(array[index], index, array); // eslint-disable-line
     }
-    return duplicate
-  }
-  const onVarianFinish = useCallback(async (values) => {
-     try {
-      const dup=  checkDulicate(values.varians)
-      console.log('◀◀◀ dup ▶▶▶',dup);
-      // for (let index = 0; index < values.varians.length; index++) {
-      //   console.log('◀◀◀ productId ▶▶▶',productId);
-      //   values.varians[index].productId=productId
-      //   const res= await axiosAdmin.post(`/varians`, values.varians[index]);
-      //   message.success("Success to add varians")
-      // }
-     } catch (error) {
-
-      console.log('◀◀◀ error ▶▶▶',error);
-      message.error("Failed to add varians")
-     }
-  }, []);
+  };
   const onFinish = useCallback(async (values) => {
-    const dup=  checkDulicate(values.varians)
-      console.log('◀◀◀ dup ▶▶▶',dup);
     const formData = new FormData();
     formData.append("file", values.upload.file);
+    console.log('◀◀◀ values ▶▶▶',values.images.fileList);
+    let list=[]
+    asyncForEach(values.images.fileList,(arrayindex,index,array)=>{
+      console.log('◀◀◀ a ▶▶▶');
+    })
 
     // try {
     //   axiosAdmin.defaults.headers.common["Authorization"] =
@@ -224,6 +207,36 @@ function CreateProduct(props) {
             </div>
             <div className=" col-xs-12 col-lg-6 col-sm-6">
               <Form.Item
+                label="Price"
+                name="price"
+                rules={[
+                  {
+                    type: "number",
+                    min: 0,
+                    message: "Please enter a price from 0 ",
+                  },
+                  { required: true, message: "Discount is required" },
+                ]}
+              >
+                <InputNumber style={{ width: "100%" }} />
+              </Form.Item>
+            </div>
+          </div>
+          <div className="row">
+            <div className=" col-xs-12 col-lg-6 col-sm-6">
+              <Form.Item
+                label="Stock"
+                name="stock"
+                rules={[
+                  { required: true, message: "Name is required" },
+                  { type:"number" ,min: 1, message: "Please enter a stock from 1" },
+                ]}
+              >
+                <InputNumber style={{ width: "100%" }}  />
+              </Form.Item>
+            </div>
+            <div className=" col-xs-12 col-lg-6 col-sm-6">
+              <Form.Item
                 label="Discount (%)"
                 name="discount"
                 rules={[
@@ -246,174 +259,105 @@ function CreateProduct(props) {
             name="upload"
             rules={[{ required: true, message: "Missing cover image" }]}
           >
-            <Upload name="file" beforeUpload={true} listType="picture">
+            <Upload name="file" maxCount={1} beforeUpload={true} listType="picture">
               <Button icon={<UploadOutlined />}>Cover image</Button>
+            </Upload>
+          </Form.Item>
+
+          <Form.Item
+            label="Image List"
+            name="images"
+            rules={[{ required: true, message: "Missing cover image" }]}
+          >
+            <Upload name="list" beforeUpload={true}  multiple listType="picture">
+              <Button icon={<UploadOutlined />}>Image list</Button>
             </Upload>
           </Form.Item>
 
           <Form.Item label="Description" name="description">
             <TextArea style={{ minHeight: "200px" }} />
           </Form.Item>
-          <Form.List name="varians" initialValue={[{}]}>
-            {(fields, { add, remove }) => (
-              <>
-                {fields.map(({ key, name, ...restField }) => (
-                  <div key={key} className="d-flex flex-column gap-2">
-                    <div className="d-flex align-items-center justify-content-start gap-2">
-                      <span>Product Varian {name + 1}</span>
-                      {name > 0 ? (
-                        <button type="button" className="btn btn-sm">
-                          <DeleteFilled
-                            style={{ color: "red" }}
-                            onClick={() => remove(name)}
-                          />
-                        </button>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+          {/* Product Spec */}
+          <div className="d-flex flex-column gap-2">
+            <div className="d-flex align-items-center justify-content-start">
+              <span>Product Spec</span>
+    
+            </div>
 
-                    <div className="row">
-                      <div className="col-xs-12 col-lg-6 col-sm-6">
-                        <Form.Item
-                          {...restField}
-                          name={[name, "color"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing color",
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Color" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "memory"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing memory",
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Memory" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "price"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing price",
-                            },
-                          ]}
-                        >
-                          <Input type="number" placeholder="Price" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "stock"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing memory",
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Stock" />
-                        </Form.Item>
-                      </div>
-                      <div className="col-xs-12 col-lg-6 col-sm-6">
-                        <Form.Item
-                          {...restField}
-                          name={[name, "width"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing width",
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Width" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "height"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing height",
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Height(cm)" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "weight"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing weight",
-                            },
-                          ]}
-                        >
-                          <Input type="number" placeholder="Weight(g)" />
-                        </Form.Item>
-                        <Form.Item
-                          {...restField}
-                          name={[name, "length"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing length",
-                            },
-                          ]}
-                        >
-                          <Input placeholder="Length(cm)" />
-                        </Form.Item>
-                      </div>
-                      <div className="row">
-                        <Form.Item
-                          {...restField}
-                          name={[name, "image"]}
-                          rules={[
-                            {
-                              required: true,
-                              message: "Missing image",
-                            },
-                          ]}
-                        >
-                          <Upload
-                            name="file"
-                            beforeUpload={true}
-                            listType="picture"
-                          >
-                            <Button icon={<UploadOutlined />}>
-                              Upload image
-                            </Button>
-                          </Upload>
-                        </Form.Item>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => {
-                      add();
-                    }}
-                    block
-                    icon={<PlusOutlined />}
-                  >
-                    Add more varians
-                  </Button>
+            <div className="row">
+              <div className="col-xs-12 col-lg-6 col-sm-6">
+                <Form.Item
+                label="Width"
+                  name= "width"
+                  rules={[
+                    {
+                      type: "number",
+                      min: 0,
+                      message: "Please enter a width from 0 ",
+                    },
+                    { required: true, message: "Width is required" },
+                  ]}
+                >
+                  <InputNumber   placeholder="Width(cm)" style={{width:"100%"}} />
                 </Form.Item>
-              </>
-            )}
-          </Form.List>
+                <Form.Item
+                  label="Height"
+                  name= "height"
+                  rules={[
+                    {
+                      type:"number",
+                      min:0,
+                      message:"Height is invalid"
+                    },
+                    {
+                      required: true,
+                      message: "Missing height",
+                    },
+                  ]}
+                >
+                  <InputNumber   placeholder="Height(cm)" style={{width:"100%"}} />
+                </Form.Item>
+              </div>
+              <div className="col-xs-12 col-lg-6 col-sm-6">
+                <Form.Item
+                  label="Weight"
+                  name= "weight"
+                  rules={[
+                    {
+                      type:"number",
+                      min:0,
+                      message:"Weight is invalid"
+                    },
+                    {
+                      required: true,
+                      message: "Missing weight",
+                    },
+                  ]}
+                >
+                  <InputNumber placeholder="Weight(gram)" style={{width:"100%"}} />
+                </Form.Item>
+                <Form.Item
+                  label="Length"
+                  name= "length"
+                  rules={[
+                    {
+                      type:"number",
+                      min:0,
+                      message:"Length is invalid"
+                    },
+                    {
+                      required: true,
+                      message: "Missing length",
+                    },
+                  ]}
+                >
+                  <InputNumber placeholder="Length(cm)" style={{width:"100%"}} />
+                </Form.Item>
+              </div>
+              <div className="row">
+              </div>
+            </div>
+          </div>
           {/* <Form.Item>
           <Button type="primary" htmlType="submit">
             Submit
@@ -429,7 +373,7 @@ function CreateProduct(props) {
                 onClick={() => productForm.resetFields()}
                 className="btn btn-danger"
               >
-                Hủy
+                Reset
               </button>
             </div>
           </Form.Item>

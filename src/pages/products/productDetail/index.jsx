@@ -77,7 +77,7 @@ function ProductDetail(props) {
 
           <div className="m-3">
             {handleStatusProduct(product.createdAt)}
-            {handleProductStock(productVarian.stock)}
+            {handleProductStock(product.stock)}
             {/* {product.stock > 0 ? (
               <p className="text-success fw-bold">Còn hàng</p>
             ) : (
@@ -90,15 +90,7 @@ function ProductDetail(props) {
                 <span>(330 review)</span>
               </div>
             </div>
-            <div className="my-3">
-              <select className="form-select form-select-sm w-75" onChange={(e)=>{setProductVarian(product.productVarians[e.target.value])}}>
-              {product.productVarians.map((item,idx)=>{
-                // return <option  className={`btn btn-outline-secondary ${item._id===productVarian._id?'active':''}`} key={idx} onClick={()=>setProductVarian(product.productVarians[idx])}  >{item.color} - {item.memory}</option>
-                return <option   key={idx} value={idx}  >{item.color} - {item.memory}</option>
-              })}
-              </select>
-            </div>
-            <h2>${productVarian.price}</h2>
+            <h2>${product.price}</h2>
             <p>{product.description}</p>
           </div>
         </div>
