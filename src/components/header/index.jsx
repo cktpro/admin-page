@@ -8,12 +8,7 @@ function Footer(props) {
   const [isLoading, setIsLoading] = useState(null);
   const [isActive, setIsActive] = useState(false);
   const { children } = props;
-  const [keyword, setKeyword] = useState('');
   const [data, setData] = useState([]);
-  
-  function handleInputChange(e) {
-    setKeyword(e.target.value)
-}
 
   return (
     <div className="header">
@@ -42,14 +37,7 @@ function Footer(props) {
                 alt=""
               />
             </button> */}
-            <Input.Search
-            value={keyword}
-            onChange={handleInputChange}
-            onSearch={handleSearch}
-              className="search-input"
-              type="text"
-              placeholder="Type anything for me..."
-              enterButton/>
+            
           {/* </div> */}
           <div className="notification">
             <img

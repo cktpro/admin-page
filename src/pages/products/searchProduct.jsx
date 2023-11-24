@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Input, Popconfirm, Table, message } from "antd";
-import { Link, useHistory, useNavigate } from "react-router-dom";
+import { Link, useHistory, useNavigate} from "react-router-dom";
 import {
-  deleteProduct,
+  // deleteProduct,
   getProduct,
   getProductDetail,
   handleSearch,
@@ -13,13 +13,13 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
-function ProductList(props) {
+function SearchProduct(props) {
   const [keyword, setKeyword] = useState("");
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e) =>{
     setKeyword(e.target.value);
-  };
+  }
   const [isLoading, setIsLoading] = useState(null);
   const [product, setProduct] = useState([]);
   const [data, setData] = useState([]);
@@ -28,8 +28,6 @@ function ProductList(props) {
 
   const handleRowClick = (record) => {
     const id = record._id;
-    const imgId = record.imageList;
-    console.log("««««« record.imageList »»»»»", imgId);
     console.log("productId", id);
   };
 
@@ -42,12 +40,7 @@ function ProductList(props) {
     onChange: onSelectChange,
   };
 
-  const asyncForEach = async (array, callback) => {
-    for (let index = 0; index < array.length; index += 1) {
-      await callback(array[index], index, array); // eslint-disable-line
-    }
-  };
-
+  
   useEffect(() => {
     // Fetch category list
     const fetchCategoryList = async () => {
@@ -61,12 +54,12 @@ function ProductList(props) {
     };
 
     const getData = async () => {
-      setIsLoading(true);
+      // setIsLoading(true);
       if (keyword === "") {
         // Nếu không có từ khóa tìm kiếm, hiển thị tất cả sản phẩm
         try {
           const response = await getProduct();
-          console.log("««««« data product »»»»»", response);
+          console.log('««««« resabd »»»»»', response);
           setProduct(response.data.payload);
           setIsLoading(false);
         } catch (error) {
@@ -74,10 +67,10 @@ function ProductList(props) {
           setIsLoading(false);
         }
       } else {
-        // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm và hiển thị kết quả
+        // Nếu có từ khóa tìm kiếm, thực hiện tìm kiếm và hiển thị kết quả 
         try {
           const response = await handleSearch(keyword);
-          console.log("««««« res search nef »»»»»", response);
+          console.log('««««« res search nef »»»»»', response);
           if (response?.payload) {
             setProduct(response.payload);
             setIsLoading(false);
@@ -94,7 +87,9 @@ function ProductList(props) {
     // Call both functions
     fetchCategoryList();
     getData();
-  }, [keyword]);
+
+  }, []);
+
 
   const categoryFilters = Array.isArray(categoryList)
     ? categoryList.map((category) => ({
@@ -103,41 +98,38 @@ function ProductList(props) {
       }))
     : [];
 
-  const deleteProduct = useCallback((id) => async () => {
-    try {
-      axiosAdmin.defaults.headers.common["Authorization"] =
+    const deleteProduct = useCallback(
+      (id) => async () => {
+      try {
+        axiosAdmin.defaults.headers.common["Authorization"] =
         "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA4MzY2MzcsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDkyMzAzN30.KSMlD55Q6xZ_rYeVlSxefJj4z9oaJcp1xadqZI8Y9nY";
-      // Xóa sản phẩm
-      const imgResponse = await axiosAdmin.get(`/products/${id}`);
-      console.log("««««« imgResponse »»»»»", imgResponse);
-      const imgId = imgResponse.data.payload.image.id;
-      const deleteImgResponse = await axiosAdmin.delete(`/media/${imgId}`);
-      console.log("◀◀◀ Xóa ảnh thành công ▶▶▶");
+        // Xóa sản phẩm
+        const imgResponse = await axiosAdmin.get(`/products/${id}`);
+        console.log('««««« imgResponse »»»»»', imgResponse);
+        const imgId = imgResponse.data.payload.image.id; 
+        const deleteImgResponse = await axiosAdmin.delete(`/media/${imgId}`);
+        console.log('◀◀◀ Xóa ảnh thành công ▶▶▶');
 
-      const imgListId = imgResponse.data.payload.imageList;
-      for (const mediaId of imgListId) {
-        const id = mediaId.mediaId;
-        console.log(mediaId);
-        const deleteImgListResponse = await axiosAdmin.delete(`/media/${id}`);
-        console.log("◀◀◀ Xóa list ảnh thành công ▶▶▶");
+        const imgListId = imgResponse.data.payload.imageList; 
+        for (const mediaId of imgListId) {
+          const id = mediaId.mediaId;
+          console.log(mediaId);
+          const deleteImgListResponse = await axiosAdmin.delete(`/media/${id}`);
+        console.log('◀◀◀ Xóa list ảnh thành công ▶▶▶');
+        }
+        
+        const response = await axiosAdmin.patch(`/products/delete/${id}`);
+        console.log('◀◀◀ Xóa sản phẩm thành công ▶▶▶');
+    
+        message.success(response.data.message);
+        window.location.reload();
+    
+        return response.data;
+      } catch (error) {
+        message.error(error.response?.data?.message || "Có lỗi xảy ra khi xóa sản phẩm");
+        throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi xóa sản phẩm");
       }
-
-      const response = await axiosAdmin.patch(`/products/delete/${id}`);
-      console.log("◀◀◀ Xóa sản phẩm thành công ▶▶▶");
-
-      message.success(response.data.message);
-      window.location.reload();
-
-      return response.data;
-    } catch (error) {
-      message.error(
-        error.response?.data?.message || "Có lỗi xảy ra khi xóa sản phẩm"
-      );
-      throw new Error(
-        error.response?.data?.message || "Có lỗi xảy ra khi xóa sản phẩm"
-      );
-    }
-  });
+    });
   const columns = [
     {
       title: "Tên sản phẩm",
@@ -147,8 +139,7 @@ function ProductList(props) {
             <Link to={`/product_detail/${record._id}`}>
               <div className="d-flex align-items-center img-products">
                 <img
-                  // src={`${url}${record.image.location.split("public", 2)[1]}`}
-                  src={record.image.location}
+                  src={`${url}${record.image.location.split("public", 2)[1]}`}
                   alt={record.image.name}
                   width="80px"
                   height="80px"
@@ -282,9 +273,6 @@ function ProductList(props) {
             placeholder="Type anything for me..."
             enterButton
           />
-          {/* {product.map((result) => (
-      <div key={keyword}>{result.product}</div>
-    ))} */}
         </div>
 
         <div>
@@ -311,4 +299,4 @@ function ProductList(props) {
     </>
   );
 }
-export default ProductList;
+export default SearchProduct;

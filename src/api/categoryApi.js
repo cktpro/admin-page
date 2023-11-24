@@ -25,10 +25,10 @@ const getCategoryDetail = async (id) => {
 const onAddCategory = async (categoryData) => {
   try {
     const result = await axiosAdmin.post("/categories", categoryData);
-    message.success('Thêm danh mục thành công');
-    window.location.reload();
+    message.success(result.data.message);
     return result;
   } catch (error) {
+    message.error(error.response.data.message);
     return error;
   }
 };
@@ -36,22 +36,23 @@ const updateCategory = async (id, updatedData) => {
   try {
     console.log('««««« id »»»»»', id);
     const response = await axiosAdmin.put(`/categories/${id}`, updatedData);
-    Navigate(LOCATIONS.CATEGORY);
-    console.log('«««««  response»»»»»', response);
+    message.success(response.data.message);
     return response;
   } catch (error) {
-    // console.log(error)
-    throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi cập nhật danh mục");
+    message.error(error.response.data.message);
+    // throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi cập nhật danh mục");
+    return false;
   }
 };
 
 const deleteCategory = async (id) => {
   try {
     const response = await axiosAdmin.patch(`/categories/delete/${id}`);
-    message.success('Xóa danh mục thành công');
+    message.success(response.data.message);
     window.location.reload();
     return response.data;
   } catch (error) {
+    message.error(error.response.data.message);
     throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi xóa danh mục");
   }
 

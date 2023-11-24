@@ -12,10 +12,35 @@ const columns = [
   {
     title: "Tên danh mục",
     render: (record) => {
+      if(record.image)
       return (
-        <div className="mx-2">
-          <p className="m-0 fw-bold">{record.name}</p>
-        </div>
+              <div >
+                <img
+                  // src={`${url}${record.image.location.split("public", 2)[1]}`}
+                  src={record.image.location}
+                  alt={record.image.name}
+                  width="80px"
+                  height="80px"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="mx-2">
+                  <p className="m-0 fw-bold">{record.name}</p>
+                </div>
+              </div>
+      );
+      return (
+          <div className="d-flex align-items-center img-products">
+            <img
+              src={require("assets/images/No-Image-Placeholder.png")}
+              alt=""
+              width="80px"
+              height="80px"
+              style={{ objectFit: "cover" }}
+            />
+            <div className="mx-2">
+              <p className="m-0 fw-bold">{record.name}</p>
+            </div>
+          </div>
       );
     },
   },

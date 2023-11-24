@@ -19,24 +19,27 @@ const getProductDetail = async (id) => {
   const onAddProduct = async (productData) => {
     try {
       const result = await axiosAdmin.post("/products", productData);
-      message.success('Thêm sản phẩm thành công');
+      message.success(result.data.message);
       window.location.reload();
       return result;
     } catch (error) {
+      message.error(error.response.data.message);
       return error;
     }
   };
   
-  const deleteProduct = async (id) => {
-    try {
-      const response = await axiosAdmin.patch(`/products/delete/${id}`);
-      message.success('Xóa sản phẩm thành công');
-      window.location.reload();
-      return response.data;
-    } catch (error) {
-      throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi xóa sản phẩm");
-    }
-  };
+  // const deleteProduct = async (id) => {
+  //   try {
+  //     const response = await axiosAdmin.patch(`/products/delete/${id}`);
+  //     message.success(response.data.message);
+  //     window.location.reload();
+  //     return response.data;
+  //   } catch (error) {
+  //     message.error(error.response.data.message);
+  //     throw new Error(error.response?.data?.message || "Có lỗi xảy ra khi xóa sản phẩm");
+  //   }
+  // };
+  
 
   const handleSearch = async (keyword) => {
     if (keyword.trim() === '') {
@@ -44,8 +47,8 @@ const getProductDetail = async (id) => {
       return false;
   }
     try {
+      // window.location.href = `/products/search/?name=${keyword}`;
     const response = await axiosAdmin.get(`/products/search/?name=${keyword}`);
-    
     console.log('««««« keyword »»»»»', keyword);
     console.log('««««« response search »»»»»', response.data);
     return response.data;
@@ -54,4 +57,18 @@ const getProductDetail = async (id) => {
 }
 };
 
-export { getProduct,getProductDetail,onAddProduct, deleteProduct, handleSearch};
+const updateProduct = async (id, updatedData) => {
+  try {
+    console.log('««««« id »»»»»', id);
+    
+    const response = await axiosAdmin.put(`/products/${id}`, updatedData);
+    message.success(response.data.message);
+    console.log('««««« response »»»»»', response);
+    return response;
+  } catch (error) {
+    message.error(error.response.data.message);
+    console.log('««««« data.error »»»»»', error);
+    return false;
+  }
+};
+export { getProduct,getProductDetail,onAddProduct, handleSearch, updateProduct};

@@ -69,7 +69,9 @@ function ProductDetail(props) {
             className="img-product-detail"
             src={
               product?.image
-                ? `${url}${product.image.location.split("public", 2)[1]}`
+                ? 
+                // `${url}${product.image.location.split("public", 2)[1]}`
+                product.image.location
                 : require("assets/images/No-Image-Placeholder.png")
             }
             alt={product?.image ? `${product.image.name}` : "No image"}
