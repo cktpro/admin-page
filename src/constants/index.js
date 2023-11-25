@@ -14,7 +14,10 @@ export const LOCATIONS = {
   UPDATE_CATEGORY: '/categories/:id',
   SETTING: '/setting',
   MESSAGES: '/messages',
-  SIGNOUT: '/singout'
+  SIGNOUT: '/singout',
+  CUSTOMERS: "/customers",
+  ADD_CUSTOMER: "/add_customer",
+  UPDATE_CUSTOMER: "/update_customer/:id",
 };
 
 // pageSize pagination of orders

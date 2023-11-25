@@ -21,6 +21,7 @@ import getOrderDetailSaga from './Orders/getOrderDetail/saga';
 import searchCustomerOrderSaga from './Orders/searchCustomer/saga';
 
 import searchProductOrderSaga from './Orders/searchProduct/saga';
+import usersaga from './User/saga';
 
 
 export default function* rootSaga() {
@@ -41,5 +42,6 @@ export default function* rootSaga() {
     fork(searchCustomerOrderSaga),
 
     fork(searchProductOrderSaga),
+    fork(usersaga),
   ]);
 }

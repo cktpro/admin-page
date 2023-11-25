@@ -22,6 +22,7 @@ import getOrderDetailReducer from './Orders/getOrderDetail/reducer';
 import searchCustomerOrderReducer from './Orders/searchCustomer/reducer';
 import searchProductToCreateOrderReducer from './Orders/searchProduct/reducer';
 import createOrderDetailsReducer from './Orders/createOrderDetails/reducer';
+import userReducer from './User/reducer';
 //---------------------------------------------------------------------------//
 
 const rootReducer = combineReducers({
@@ -44,6 +45,7 @@ const rootReducer = combineReducers({
   searchProductToCreateOrderReducer,
 
   createOrderDetailsReducer,
+  userReducer ,
   //------------------------------------------//
 });
 

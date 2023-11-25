@@ -67,14 +67,14 @@ const menuList=[
         active: false,
         icon: require("assets/icon-slide/customer-service-help-svgrepo-com.png"),
         sub: [
-          { label: "List", src: LOCATIONS.CATEGORY },
+          { label: "List", src: LOCATIONS.CUSTOMERS },
           {
             label: "Thêm mới",
-            src: LOCATIONS.ADD_CATEGORY,
+            src: LOCATIONS.ADD_CUSTOMER,
           },
           {
             label: "Cập nhật",
-            src: LOCATIONS.UPDATE_CATEGORY,
+            src: LOCATIONS.UPDATE_CUSTOMER,
           },
         ],
       },

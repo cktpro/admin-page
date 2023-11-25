@@ -3,7 +3,8 @@ import { Table } from "antd";
 import { Link } from "react-router-dom";
 import { getProduct } from "api/productApi";
 import Loading from "components/loading";
-import { zeroFormat } from "numeral";
+import EditIcon from "components/svg/edit";
+import ClearIcon from "components/svg/clear";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
@@ -133,21 +134,11 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <div className="d-flex gap-1">
-        <button className="btn btn-outline-primary">
-          <img
-            src={require("assets/images/edit-report-svgrepo-com.png")}
-            width="24px"
-            height="24px"
-            alt="edit"
-          />
+        <button className="btn border">
+          <EditIcon/>
         </button>
-        <button className="btn btn-outline-danger">
-          <img
-            src={require("assets/images/delete-trash-svgrepo-com.png")}
-            width="24px"
-            height="24px"
-            alt="edit"
-          />
+        <button className="btn border">
+          <ClearIcon/>
         </button>
       </div>
     ),

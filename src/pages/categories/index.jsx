@@ -5,6 +5,8 @@ import { deleteCategory, getCategory, getCategoryDetail, updateCategory } from "
 import Loading from "components/loading";
 import { LOCATIONS } from "constants";
 import { Navigate, useNavigate } from "react-router-dom";
+import ClearIcon from "components/svg/clear";
+import EditIcon from "components/svg/edit";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
@@ -14,14 +16,14 @@ const columns = [
     render: (record) => {
       if(record.image)
       return (
-              <div >
+              <div className="d-flex gap-1 align-items-center justify-content-start">
                 <img
                   // src={`${url}${record.image.location.split("public", 2)[1]}`}
                   src={record.image.location}
                   alt={record.image.name}
-                  width="80px"
-                  height="80px"
-                  style={{ objectFit: "cover" }}
+                  width="40px"
+                  height="40px"
+                  style={{ objectFit: "contain" }}
                 />
                 <div className="mx-2">
                   <p className="m-0 fw-bold">{record.name}</p>
@@ -61,14 +63,9 @@ const columns = [
     render: (_, record) => (
       <div className="d-flex gap-1">
         <Link to={`/categories/${record._id}`}>
-          <button className="btn btn-outline-primary"
+          <button className="btn border"
           onConfirm={() => getCategoryDetail(record._id)}>
-            <img
-              src={require("assets/images/edit-report-svgrepo-com.png")}
-              width="24px"
-              height="24px"
-              alt="edit"
-            />
+            <EditIcon/>
           </button>
           
         </Link>
@@ -79,13 +76,8 @@ const columns = [
           cancelText="Hủy"
           onConfirm={() => deleteCategory(record._id)}
         >
-          <button className="btn btn-outline-danger">
-            <img
-              src={require("assets/images/delete-trash-svgrepo-com.png")}
-              width="24px"
-              height="24px"
-              alt="edit"
-            />
+          <button className="btn border">
+           <ClearIcon/>
           </button>
         </Popconfirm>
       </div>
