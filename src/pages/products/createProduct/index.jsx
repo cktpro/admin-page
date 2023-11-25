@@ -24,17 +24,13 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 // import styles
 import styles from "./createProduct.module.scss";
 import { min } from "lodash";
-import Loading from "components/loading";
 const { Option } = Select;
 
 function CreateProduct(props) {
   const [productForm] = Form.useForm();
-  const [varianForm] = Form.useForm();
   const [categories, setCategory] = useState([]);
   const [suppliers, setSupplier] = useState([]);
-  const [loading, setLoading] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
-  const [step, setStep] = useState(0);
   //   const {
   //     isHiddenSubmit,
   //     formName,
@@ -53,7 +49,6 @@ function CreateProduct(props) {
       const supplier = await getSupplier();
       setSupplier(supplier.data.payload);
       setIsLoading(false);
-      setLoading(false);
     };
     getData();
   }, []);
@@ -62,31 +57,28 @@ function CreateProduct(props) {
       await callback(array[index], index, array); // eslint-disable-line
     }
   };
-
-  
   const onFinish = useCallback(async (values) => {
     try {
       const formData = new FormData();
-      console.log('««««« values »»»»»', values);
-      axiosAdmin.defaults.headers.common["Authorization"] =
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NjAzMzQsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDg0NjczNH0.-kh6zGu3WVDU1nyAu0EeJLaZ9SMaX_RR4P5jKmzwNc8";
       formData.append("file", values.upload.file);
+      
+      axiosAdmin.defaults.headers.common["Authorization"] =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA4Nzg4MzYsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDk2NTIzNn0.49WelqHOIaTu7Akj-yaO1YEeclXNq02RISn_xleRKLA";
       const img = await axiosAdmin.post("/media/upload-single", formData);
-      console.log('««««« img »»»»»', img);
       let list = [];
       await asyncForEach(
         values.images.fileList,
         async (arrayindex, index, array) => {
-          // list.push(arrayindex.uid)
-          // console.log('◀◀◀ list ▶▶▶',list);
-          formData.append("file", arrayindex.originFileObj);
-          const res = await axiosAdmin.post("/media/upload-single", formData);
-          console.log("◀◀◀ res ▶▶▶", res);
+          const imageData= new FormData()
+          imageData.append("file", arrayindex.originFileObj);
+          const res = await axiosAdmin.post("/media/upload-single", imageData);
+          console.log('◀◀◀ res.data.payload ▶▶▶',res.data.payload);
           list.push({
             mediaId: res.data.payload.id,
             location: res.data.payload.location,
           });
-          console.log("◀◀◀ list ▶▶▶", list);
+          console.log("◀◀◀ list ▶▶▶",list);
+          imageData.delete("file")
         }
       );
       const productData = {
@@ -122,8 +114,7 @@ function CreateProduct(props) {
           await asyncForEach(list, async (arrayindex, index, array) => {
             // list.push(arrayindex.uid)
             // console.log('◀◀◀ list ▶▶▶',list);
-            axiosAdmin.defaults.headers.common["Authorization"] =
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NjAzMzQsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDg0NjczNH0.-kh6zGu3WVDU1nyAu0EeJLaZ9SMaX_RR4P5jKmzwNc8";
+            
             const res = await axiosAdmin.delete(`/media/${arrayindex.mediaId}`);
             console.log("◀◀◀ res ▶▶▶", res);
           });
@@ -135,7 +126,7 @@ function CreateProduct(props) {
 
     // try {
     //   axiosAdmin.defaults.headers.common["Authorization"] =
-    //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAzMDc0MTgsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDM5MzgxOH0.yh5phKVjWJt9ZJPRPTMtQUgm3MzXpyNzYvS9aJ3wCY0";
+    //     "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAxMTYxNDYsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDIwMjU0Nn0.KJm6Qkf828ZT87fBR5sGXY4C330his1bf7wruEJEyps";
     //   await axiosAdmin
     //     .post("/media/upload-single", formData)
     //     .then(async (img) => {
@@ -182,7 +173,6 @@ function CreateProduct(props) {
     //   console.log("◀◀◀ error ▶▶▶", error);
     // }
   }, []);
-  if (loading === false) {
   return (
     <>
       <div className="d-flex justify-content-between align-item-center">
@@ -495,8 +485,6 @@ function CreateProduct(props) {
       </div>
     </>
   );
-}
-return <Loading />;
 }
 
 export default memo(CreateProduct);
