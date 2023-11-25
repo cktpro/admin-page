@@ -1,0 +1,87 @@
+.slide {
+  background-color: #fff;
+}
+
+.menu-slide {
+  height: calc(100vh - 61px);
+  width: 220px;
+  overflow-y: auto;
+}
+.menu-slide::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+.menu-slide::-webkit-scrollbar {
+  width: 2px;
+  background-color: #fff;
+}
+.menu-slide::-webkit-scrollbar-thumb {
+  background-color: #2f2f2f;
+}
+.menu-slide li {
+  color: #737791;
+  padding: 10px 0px;
+}
+.menu-slide li a {
+  border-radius: 10px;
+  gap: 5px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.menu-slide > li > a:hover,
+.menu-slide > li > .active {
+  background-color: #5d5fef;
+  color: #ffffff;
+}
+
+.sub-menu {
+  width: 190px;
+  margin-top: 5px;
+  margin-bottom: -25px;
+  margin: 10px 0px -10px 0;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #ededed;
+}
+.sub-menu .sub-list {
+  padding: 5px 0;
+}
+.sub-menu .sub-list a:hover {
+  background-color: #5d5fef;
+  color: #ffffff;
+}
+.sub-menu .sub-list .active {
+  background-color: #5d5fef;
+  color: #ffffff;
+}
+
+@media only screen and (max-width: 1024px) {
+  .slide {
+    position: fixed;
+    z-index: 10;
+    top: 60px;
+    left: 0;
+    width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: width 0.5s ease;
+  }
+  .active {
+    width: 220px;
+    overflow-y: auto;
+  }
+  .active::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+  }
+  .active::-webkit-scrollbar {
+    width: 2px;
+    background-color: #fff;
+  }
+  .active::-webkit-scrollbar-thumb {
+    background-color: #2f2f2f;
+  }
+}/*# sourceMappingURL=slide.css.map */

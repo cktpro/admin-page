@@ -6,9 +6,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { actionDeleteUser, actionGetListUser } from "store/User/action";
-
+ 
 function ListUser() {
-  const {
+  const {  
     listStatus: { isLoading },
     list,
   } = useSelector((state) => state.userReducer);
@@ -16,9 +16,9 @@ function ListUser() {
   const dispatch = useDispatch();
   const onGetList = (params) => dispatch(actionGetListUser(params));
   const onDeleteUser = (params) => dispatch(actionDeleteUser(params));
-
+ 
   const columns = [
-    {
+    { 
       title: "Họ tên",
       key: "username",
       render: (_, record) => (
@@ -54,7 +54,7 @@ function ListUser() {
         </div>
       ),
     },
-
+      
     {
       title: "Trạng thái",
       dataIndex: "isDeleted",

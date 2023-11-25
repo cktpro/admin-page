@@ -1,0 +1,19 @@
+.img-product-detail {
+  width: 400px;
+  height: 400px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.rate-box {
+  display: flex;
+  flex-direction: row;
+}
+.rate-box .rate-score, .rate-box .rate-rank, .rate-box .rate-review {
+  width: 33.3333333333%;
+  padding: 1em;
+}
+.rate-box .rate-rank {
+  border-left: 1px solid #dee2e6 !important;
+  border-right: 1px solid #dee2e6 !important;
+}/*# sourceMappingURL=productDetail.css.map */

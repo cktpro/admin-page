@@ -168,12 +168,12 @@ function Account() {
               />
             )}
 
-            {/* <ContentToggle
+            <ContentToggle
              title="Email Verified"
              content="Disabling this will automatically send the user a
              verification email"
              statusCheck={user.statusEmailVerify}
-           /> */}
+           />
             {editable && (
               <div className="text-center my-4">
                 <button

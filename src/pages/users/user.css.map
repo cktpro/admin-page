@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "sources": [
+        "user.scss",
+        "user.css"
+    ],
+    "names": [],
+    "mappings": "AAAA;EACE,gBAAA;ACCF;;ADCA;EACE,sCAAA;EACA,sBAAA;ACEF",
+    "file": "user.css"
+}
