@@ -1,7 +1,7 @@
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 const getCategory = async () => {
   try {
-    const result = await axiosAdmin.get("/category");
+    const result = await axiosAdmin.get("/categories");
     return result;
   } catch (error) {
     return error;

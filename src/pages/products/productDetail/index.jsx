@@ -34,6 +34,7 @@ function ProductDetail(props) {
     const getData = async () => {
       setIsLoading(true);
       const res = await getProductDetail(params.id);
+
       if (res?.data?.payload) {
         setProduct(res.data.payload);
         setIsLoading(false);
@@ -67,14 +68,14 @@ function ProductDetail(props) {
             className="img-product-detail"
             src={
               product?.image
-                ? `${url}${product.image.location.split("public", 2)[1]}`
+                ? `${product.image.location}`
                 : require("assets/images/No-Image-Placeholder.png")
             }
             alt={product?.image ? `${product.image.name}` : "No image"}
           />
 
           <div className="m-3">
-            {handleStatusProduct(product.createdAt)}
+            {/* {handleStatusProduct(product.createdAt)} */}
             {handleProductStock(product.stock)}
             {/* {product.stock > 0 ? (
               <p className="text-success fw-bold">Còn hàng</p>
@@ -126,16 +127,16 @@ function ProductDetail(props) {
             {currentTab === "btn-desc" ? (
               <div className="p-2">
                 <h4>Specifications</h4>
-                <table className="table w-25">
-                  <tr>
-                    <td>Category:</td>
-                    <td>{product.category.name}</td>
-                  </tr>
-                  <tr>
-                    <td>Manufacture:</td>
-                    <td>{product.supplier.name}</td>
-                  </tr>
-                </table>
+                <div >
+                  <p>
+                    Category:
+                    {product.category.name}
+                  </p>
+                  <p>
+                    Manufacture:
+                    {product.supplier.name}
+                  </p>
+                </div>
                 <h4>Delyvery and Return</h4>
                 <p>Your order of $200 or more gets free standard delivery</p>
                 <ul>

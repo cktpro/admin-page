@@ -3,19 +3,22 @@ import { Table } from "antd";
 import { Link } from "react-router-dom";
 import { getProduct } from "api/productApi";
 import Loading from "components/loading";
+import { zeroFormat } from "numeral";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
 const columns = [
   {
-    title: "Tên sản phẩm",
+    title: "Product Name",
     render: (record) => {
       if (record.image)
         return (
           <Link to={`/product_detail/${record._id}`}>
             <div className="d-flex align-items-center img-products">
+              
               <img
-                src={`${url}${record.image.location.split("public", 2)[1]}`}
+                // src={`${url}${record.image.location.split("public", 2)[1]}`}
+                src={record.image? `${record.image.location}`:require('assets/images/No-Image-Placeholder.png')}
                 alt={record.image.name}
                 width="80px"
                 height="80px"
@@ -56,47 +59,19 @@ const columns = [
         text: "Samsung",
         value: "Samsung",
       },
-      //   {
-      //     text: 'Category 1',
-      //     value: 'Category 1',
-      //     children: [
-      //       {
-      //         text: 'Yellow',
-      //         value: 'Yellow',
-      //       },
-      //       {
-      //         text: 'Pink',
-      //         value: 'Pink',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     text: 'Category 2',
-      //     value: 'Category 2',
-      //     children: [
-      //       {
-      //         text: 'Green',
-      //         value: 'Green',
-      //       },
-      //       {
-      //         text: 'Black',
-      //         value: 'Black',
-      //       },
-      //     ],
-      //   },
     ],
     filterMode: "tree",
     filterSearch: true,
     onFilter: (value, record) => record.name.includes(value),
   },
   {
-    title: "Giá gốc",
+    title: "Regular Price",
     dataIndex: "price",
     sorter: (a, b) => a.price - b.price,
   },
 
   {
-    title: "Giảm giá",
+    title: "Discount",
     dataIndex: "discount",
     // filters: [
     //   {
@@ -110,10 +85,10 @@ const columns = [
     // ],
     // onFilter: (value, record) => record.address.startsWith(value),
     // filterSearch: true,
-    sorter: (a, b) => a.discount - b.discount,
+    sorter: (e) => console.log('◀◀◀ e ▶▶▶',e),
   },
   {
-    title: "Giá sale",
+    title: "Sale Price",
 
     // filters: [
     //   {
@@ -133,7 +108,7 @@ const columns = [
   },
 
   {
-    title: "Số lượng còn",
+    title: "Stock",
     render: (record) => (
       <span
         className={`${
@@ -148,7 +123,7 @@ const columns = [
     sorter: (a, b) => a.stock - b.stock,
   },
   {
-    title: "Ngày tạo",
+    title: "Create At",
     render: (record) => {
       return <span>{new Date(record.createdAt).toLocaleString("en-GB")}</span>;
     },
@@ -201,17 +176,18 @@ function ProductList() {
     };
     fetchData();
   }, []);
+
   return (
     <>
       <div
         style={{ minWidth: "600px" }}
         className="d-flex justify-content-between my-1"
       >
-        <h3>Danh sách sản phẩm</h3>
+        <h3>Product List</h3>
         <div>
           <Link to="/add_product">
             <button type="button" className="btn btn-success">
-              Thêm sản phẩm
+              Add Product
             </button>
           </Link>
         </div>
