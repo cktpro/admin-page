@@ -9,9 +9,9 @@ export const LOCATIONS = {
   PRODUCT_DETAIL: '/product_detail/:id',
   ADD_PRODUCT: '/add_product',
   UPDATE_PRODUCT: '/update_product/:id',
-  CATEGORY: "/categories",
+  CATEGORY: "/categories/",
   ADD_CATEGORY: '/add_category',
-  UPDATE_CATEGORY: '/update_category',
+  UPDATE_CATEGORY: '/categories/:id',
   SETTING: '/setting',
   MESSAGES: '/messages',
   SIGNOUT: '/singout'

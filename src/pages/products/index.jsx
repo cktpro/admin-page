@@ -171,7 +171,7 @@ function ProductList() {
     const fetchData = async () => {
       setIsLoading(true);
       const res = await getProduct();
-      setProduct(res.data.payload);
+      setProduct(res?.data?.payload);
       setIsLoading(false);
     };
     fetchData();

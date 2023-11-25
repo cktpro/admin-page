@@ -45,9 +45,9 @@ function CreateProduct(props) {
     const getData = async () => {
       setIsLoading(true);
       const category = await getCategory();
-      setCategory(category.data.payload);
+      setCategory(category?.data?.payload);
       const supplier = await getSupplier();
-      setSupplier(supplier.data.payload);
+      setSupplier(supplier?.data?.payload);
       setIsLoading(false);
     };
     getData();
