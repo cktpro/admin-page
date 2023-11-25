@@ -63,6 +63,8 @@ function CreateProduct(props) {
     try {
       const formData = new FormData();
       formData.append("file", values.upload.file);
+      axiosAdmin.defaults.headers.common["Authorization"] =
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAzMTMxODQsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDM5OTU4NH0.4SgKMHMTKyGUPTWlQCBGliKrA-Nm4TFTUm1MJ_L6DqU";
       const img = await axiosAdmin.post("/media/upload-single", formData);
       let list = [];
       await asyncForEach(
@@ -71,8 +73,6 @@ function CreateProduct(props) {
           // list.push(arrayindex.uid)
           // console.log('◀◀◀ list ▶▶▶',list);
           formData.append("file", arrayindex.originFileObj);
-          axiosAdmin.defaults.headers.common["Authorization"] =
-            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAxMTYxNDYsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDIwMjU0Nn0.KJm6Qkf828ZT87fBR5sGXY4C330his1bf7wruEJEyps";
           const res = await axiosAdmin.post("/media/upload-single", formData);
           console.log("◀◀◀ res ▶▶▶", res);
           list.push({
@@ -115,8 +115,7 @@ function CreateProduct(props) {
           await asyncForEach(list, async (arrayindex, index, array) => {
             // list.push(arrayindex.uid)
             // console.log('◀◀◀ list ▶▶▶',list);
-            axiosAdmin.defaults.headers.common["Authorization"] =
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDAxMTYxNDYsIl9pZCI6IjY1NDlkOTNmOWVmNTI1ZGU1MzU5MzE0NSIsImZpcnN0TmFtZSI6IkPDoXAiLCJsYXN0TmFtZSI6IktpbSBUcuG6p20iLCJwaG9uZU51bWJlciI6Ijg0MDM1NzA4MTE4NiIsImFkZHJlc3MiOiJRdeG6o25nIFRy4buLIiwiZW1haWwiOiJja3Rwcm9AZ21haWwuY29tIiwiYmlydGhkYXkiOiIxOTk5LTAzLTI0VDE3OjAwOjAwLjAwMFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTExLTA3VDA2OjI5OjE5Ljc5M1oiLCJhbGdvcml0aG0iOiJIUzI1NiIsImV4cCI6MTcwMDIwMjU0Nn0.KJm6Qkf828ZT87fBR5sGXY4C330his1bf7wruEJEyps";
+            
             const res = await axiosAdmin.delete(`/media/${arrayindex.mediaId}`);
             console.log("◀◀◀ res ▶▶▶", res);
           });

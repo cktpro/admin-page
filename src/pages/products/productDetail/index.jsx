@@ -11,7 +11,6 @@ function ProductDetail(props) {
   const [isLoading, setIsLoading] = useState(null);
   const [currentTab, setCurrentTab] = useState("btn-desc");
   const [product, setProduct] = useState([]);
-  const [productVarian,setProductVarian]=useState([])
   const params = useParams();
   const handleProductStock = useCallback((stock) => {
     if (stock >= 100) return <p className="text-success fw-bold">Còn hàng</p>;
@@ -35,9 +34,9 @@ function ProductDetail(props) {
     const getData = async () => {
       setIsLoading(true);
       const res = await getProductDetail(params.id);
+
       if (res?.data?.payload) {
-        setProduct(res.data.payload[0]);
-        setProductVarian(res.data.payload[0].productVarians[0])
+        setProduct(res.data.payload);
         setIsLoading(false);
       } else setIsLoading(0);
     };
@@ -76,7 +75,7 @@ function ProductDetail(props) {
           />
 
           <div className="m-3">
-            {handleStatusProduct(product.createdAt)}
+            {/* {handleStatusProduct(product.createdAt)} */}
             {handleProductStock(product.stock)}
             {/* {product.stock > 0 ? (
               <p className="text-success fw-bold">Còn hàng</p>
