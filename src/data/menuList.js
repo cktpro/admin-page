@@ -63,6 +63,18 @@ const menuList=[
       ],
     },
     {
+      label: "Nhà cung cấp",
+      active: false,
+      icon: require("assets/icon-slide/category-management-svgrepo-com.png"),
+      sub: [
+        { label: "Danh sánh nhà cung cấp", src: LOCATIONS.SUPPLIER },
+        {
+          label: "Thêm mới nhà cung cấp",
+          src: LOCATIONS.ADD_SUPPLIER,
+        },
+      ],
+    },
+    {
         label: "Người dùng",
         active: false,
         icon: require("assets/icon-slide/customer-service-help-svgrepo-com.png"),

@@ -14,6 +14,9 @@ import CategoryDetail from 'pages/categories/updateCategory/categoryDetail';
 import CategoryList from 'pages/categories';
 import Users from 'pages/customers';
 import CreUpUser from 'pages/customers/CreUpUser';
+import CreateSupplier from 'pages/suppliers/createSupplier';
+import UpdateSupplier from 'pages/suppliers/updateSupplier';
+import SupplierList from 'pages/suppliers';
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
     {
@@ -47,6 +50,21 @@ export const routers = [
               path: LOCATIONS.CATEGORY,
               name: "Category List",
               element: <CategoryList />,
+            },
+            {
+              path: LOCATIONS.ADD_SUPPLIER,
+              name: "Add Supplier",
+              element: <CreateSupplier />,
+            },
+            {
+              path: LOCATIONS.UPDATE_SUPPLIER,
+              name: "Supplier Detail",
+              element: <UpdateSupplier />,
+            },
+            {
+              path: LOCATIONS.SUPPLIER,
+              name: "Supplier List",
+              element: <SupplierList />,
             },
             { path: '*', name: "Not Found Page", element: <NotFoundPage /> }
 
