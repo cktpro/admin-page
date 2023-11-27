@@ -46,7 +46,7 @@ function CreateSupplier() {
     return (
       <div>
         <div className="d-flex justify-content-between align-item-center">
-          <h4>Update Supplier</h4>
+          <h4>Add new supplier</h4>
           <button
             type="button"
             className="btn btn-danger"

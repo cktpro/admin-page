@@ -8,7 +8,7 @@ const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
 const columns = [
   {
-    title: "Tên nhà cung cấp",
+    title: "Suppliers name",
     render: (record) => {
         return (
           <div className="mx-2">
@@ -25,13 +25,13 @@ const columns = [
   },
 
   {
-    title: "Số điện thoại  ",
+    title: "Phone Number",
     key: "phoneNumber",
     dataIndex: "phoneNumber",
   },
   
   {
-    title: "Địa chỉ",
+    title: "Address",
     key: "address",
     dataIndex: "address",
   },
@@ -42,7 +42,7 @@ const columns = [
   // },
 
   {
-    title: "Ngày tạo",
+    title: "Date created",
     render: (record) => {
       return <span>{new Date(record.createdAt).toLocaleString("en-GB")}</span>;
     },
@@ -119,10 +119,10 @@ function SupplierList() {
   return (
   <>
       <div style={{ minWidth: "600px" }} className="d-flex justify-content-between my-1">
-        <h3>Danh sách nhà cung cấp</h3>
+        <h3>List of suppliers</h3>
         <div>
           <Link to="/add_supplier">
-            <button type="button" className="btn btn-success">Thêm Nhà cung cấp</button>
+            <button type="button" className="btn btn-success">Add new supplier</button>
           </Link>
         </div>
       </div>

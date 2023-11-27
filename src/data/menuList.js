@@ -27,22 +27,18 @@ const menuList=[
       ],
     },
     {
-      label: "Sản Phẩm",
+      label: "Products",
       active: false,
       icon: require("assets/icon-slide/phone-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh sản phẩm", src: LOCATIONS.PRODUCTS },
+        { label: "List of products", src: LOCATIONS.PRODUCTS },
         {
-          label: "Chi tiết sản phẩm",
+          label: "Product details",
           src: LOCATIONS.PRODUCT_DETAIL,
         },
         {
-          label: "Thêm sản phẩm mới",
+          label: "Add new Product",
           src: LOCATIONS.ADD_PRODUCT,
-        },
-        {
-          label: "Cập nhật sản phẩm",
-          src: LOCATIONS.UPDATE_PRODUCT,
         },
       ],
     },
@@ -51,25 +47,21 @@ const menuList=[
       active: false,
       icon: require("assets/icon-slide/category-management-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh category", src: LOCATIONS.CATEGORY },
+        { label: "List of categories", src: LOCATIONS.CATEGORY },
         {
-          label: "Thêm mới category",
+          label: "Add new category",
           src: LOCATIONS.ADD_CATEGORY,
-        },
-        {
-          label: "Cập nhật category",
-          src: LOCATIONS.UPDATE_CATEGORY,
         },
       ],
     },
     {
-      label: "Nhà cung cấp",
+      label: "Supplier",
       active: false,
       icon: require("assets/icon-slide/category-management-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh nhà cung cấp", src: LOCATIONS.SUPPLIER },
+        { label: "List of suppliers", src: LOCATIONS.SUPPLIER },
         {
-          label: "Thêm mới nhà cung cấp",
+          label: "Add new supplier",
           src: LOCATIONS.ADD_SUPPLIER,
         },
       ],
