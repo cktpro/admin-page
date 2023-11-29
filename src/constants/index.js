@@ -10,12 +10,18 @@ export const LOCATIONS = {
   PRODUCT_DETAIL: '/product_detail/:id',
   ADD_PRODUCT: '/add_product',
   UPDATE_PRODUCT: '/update_product/:id',
-  CATEGORY: "/categories",
+  CATEGORY: "/categories/",
   ADD_CATEGORY: '/add_category',
-  UPDATE_CATEGORY: '/update_category',
+  UPDATE_CATEGORY: '/categories/:id',
+  SUPPLIER: "/suppliers",
+  ADD_SUPPLIER: '/add_supplier',
+  UPDATE_SUPPLIER: '/suppliers/:id',
   SETTING: '/setting',
   MESSAGES: '/messages',
-  SIGNOUT: '/singout'
+  SIGNOUT: '/singout',
+  CUSTOMERS: "/customers",
+  ADD_CUSTOMER: "/add_customer",
+  UPDATE_CUSTOMER: "/update_customer/:id",
 };
 
 // pageSize pagination of orders

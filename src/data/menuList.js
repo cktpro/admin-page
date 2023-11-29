@@ -27,22 +27,18 @@ const menuList=[
       ],
     },
     {
-      label: "Sản Phẩm",
+      label: "Products",
       active: false,
       icon: require("assets/icon-slide/phone-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh sản phẩm", src: LOCATIONS.PRODUCTS },
+        { label: "List of products", src: LOCATIONS.PRODUCTS },
         {
-          label: "Chi tiết sản phẩm",
+          label: "Product details",
           src: LOCATIONS.PRODUCT_DETAIL,
         },
         {
-          label: "Thêm sản phẩm mới",
+          label: "Add new Product",
           src: LOCATIONS.ADD_PRODUCT,
-        },
-        {
-          label: "Cập nhật sản phẩm",
-          src: LOCATIONS.UPDATE_PRODUCT,
         },
       ],
     },
@@ -51,14 +47,22 @@ const menuList=[
       active: false,
       icon: require("assets/icon-slide/category-management-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh category", src: LOCATIONS.CATEGORY },
+        { label: "List of categories", src: LOCATIONS.CATEGORY },
         {
-          label: "Thêm mới category",
+          label: "Add new category",
           src: LOCATIONS.ADD_CATEGORY,
         },
+      ],
+    },
+    {
+      label: "Supplier",
+      active: false,
+      icon: require("assets/icon-slide/category-management-svgrepo-com.png"),
+      sub: [
+        { label: "List of suppliers", src: LOCATIONS.SUPPLIER },
         {
-          label: "Cập nhật category",
-          src: LOCATIONS.UPDATE_CATEGORY,
+          label: "Add new supplier",
+          src: LOCATIONS.ADD_SUPPLIER,
         },
       ],
     },
@@ -67,14 +71,14 @@ const menuList=[
         active: false,
         icon: require("assets/icon-slide/customer-service-help-svgrepo-com.png"),
         sub: [
-          { label: "List", src: LOCATIONS.CATEGORY },
+          { label: "List", src: LOCATIONS.CUSTOMERS },
           {
             label: "Thêm mới",
-            src: LOCATIONS.ADD_CATEGORY,
+            src: LOCATIONS.ADD_CUSTOMER,
           },
           {
             label: "Cập nhật",
-            src: LOCATIONS.UPDATE_CATEGORY,
+            src: LOCATIONS.UPDATE_CUSTOMER,
           },
         ],
       },

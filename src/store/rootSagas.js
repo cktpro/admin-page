@@ -22,6 +22,7 @@ import getOrderDetailSaga from './Orders/getOrderDetail/saga';
 import searchCustomerOrderSaga from './Orders/searchCustomer/saga';
 
 import searchProductOrderSaga from './Orders/searchProduct/saga';
+
 import createCustomerOrderSaga from './Orders/createCustomerOrder/saga';
 import getReceiveProvinceSaga from './Orders/getReceiveProvince/saga';
 import getReceiveDistrictSaga from './Orders/getReceiveDistrict/saga';
@@ -29,6 +30,8 @@ import getReceiveWardSaga from './Orders/getReceiveWard/saga';
 import getShippingFeeSaga from './Orders/getShippingFee/saga';
 import createOrderSaga from './Orders/createOrder/saga';
 //------------------------------------------------------------------------------------//
+
+import usersaga from './User/saga';
 
 export default function* rootSaga() {
   yield all([
@@ -50,6 +53,7 @@ export default function* rootSaga() {
     fork(searchCustomerOrderSaga),
 
     fork(searchProductOrderSaga),
+
     fork(createCustomerOrderSaga),
     fork(getReceiveProvinceSaga),
     fork(getReceiveDistrictSaga),
@@ -57,6 +61,8 @@ export default function* rootSaga() {
     fork(getShippingFeeSaga),
     fork(createOrderSaga),
     //------------------------------------------------------------------------------------//
+
+    fork(usersaga),
 
   ]);
 }
