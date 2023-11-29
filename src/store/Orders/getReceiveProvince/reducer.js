@@ -1,27 +1,25 @@
-// actionsearchCustomer
-// Created by Man Nguyen
-// 20/10/2023
+
 
 import * as ActionTypes from './actionTypes';
 
 // DEFAULT STATE
 const defaultState = {
     isLoading: false,
-    payload: {},
+    payload: [],
 };
 
-const searchCustomerOrderReducer = (state = defaultState, action) => {
+const getReceiveProvinceReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case ActionTypes.SEARCH_CUSTOMER:
+        case ActionTypes.GET_RECEIVE_PROVINCE:
             return { ...state, isLoading: true };
 
-        case ActionTypes.SEARCH_CUSTOMER_SUCCESS:
+        case ActionTypes.GET_RECEIVE_PROVINCE_SUCCESS:
             return { ...state, payload: action.payload, isLoading: false };
 
-        case ActionTypes.SEARCH_CUSTOMER_FAILED:
+        case ActionTypes.GET_RECEIVE_PROVINCE_FAILED:
             return { ...state, payload: action.payload, isLoading: false };
 
-        case ActionTypes.RESET_SEARCH_CUSTOMER:
+        case ActionTypes.RESET_GET_RECEIVE_PROVINCE:
             return { ...state, payload: defaultState.payload, isLoading: false };
 
         default:
@@ -29,4 +27,4 @@ const searchCustomerOrderReducer = (state = defaultState, action) => {
     }
 };
 
-export default searchCustomerOrderReducer;
+export default getReceiveProvinceReducer;

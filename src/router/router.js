@@ -9,6 +9,7 @@ import OrderListPage from 'pages/ordersPage';
 import UpdateProduct from 'pages/products/updateProduct';
 import OrderDetailPage from 'pages/ordersPage/orderDetailPage';
 import CreateOrderOnlinePage from 'pages/ordersPage/createOrderOnline';
+import CheckoutPage from 'pages/checkoutPage';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
@@ -22,6 +23,7 @@ export const routers = [
             { path: LOCATIONS.ORDER, name: "Orders", element: <OrderListPage /> },
             { path: LOCATIONS.ORDER_DETAIL, name: "Order Detail", element: <OrderDetailPage /> },
             { path: LOCATIONS.CREATE_ORDER_ON, name: "Create Order Online", element: <CreateOrderOnlinePage /> },
+            { path: LOCATIONS.CHECKOUT, name: "Checkout", element: <CheckoutPage /> },
             { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList /> },
             { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail /> },
             { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct /> },

@@ -1,6 +1,4 @@
-// search orders
-// Created by Man Nguyen
-// 20/10/2023
+
 
 import * as ActionTypes from './actionTypes';
 
