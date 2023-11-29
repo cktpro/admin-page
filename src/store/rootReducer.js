@@ -33,7 +33,6 @@ import getShippingFeeReducer from './Orders/getShippingFee/reducer';
 import storeAddressReducer from './Orders/storeAddress/reducer';
 import createOrderReducer from './Orders/createOrder/reducer';
 
-import createOrderDetailsReducer from './Orders/createOrderDetails/reducer';
 import userReducer from './User/reducer';
 
 //---------------------------------------------------------------------------//
@@ -71,8 +70,6 @@ const rootReducer = combineReducers({
   createOrderReducer,
   //----------------------------------------------------------------------------------//
 
-
-  createOrderDetailsReducer,
   userReducer ,
   //------------------------------------------//
 
