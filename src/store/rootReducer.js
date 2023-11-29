@@ -5,7 +5,7 @@
 /* quy phạm khai báo rootReducer */
 import { combineReducers } from 'redux';
 
-//order
+//order-------------------------------------------------------------------------//
 import orderReducer from './Orders/getOrderList/reducer';
 import orderCompletedReducer from './Orders/getOrderListCompleted/reducer';
 import orderWaitingReducer from './Orders/getOrderListWaiting/reducer';
@@ -21,12 +21,26 @@ import getOrderDetailReducer from './Orders/getOrderDetail/reducer';
 
 import searchCustomerOrderReducer from './Orders/searchCustomer/reducer';
 import searchProductToCreateOrderReducer from './Orders/searchProduct/reducer';
+
+import storeProductsArrayReducer from './Orders/storeProductsArray/reducer';
+import storeCustomerReducer from './Orders/storeCustomer/reducer';
+import storePhoneNumberReducer from './Orders/storePhoneNumber/reducer';
+import createCustomerOrderReducer from './Orders/createCustomerOrder/reducer';
+import getReceiveProvinceReducer from './Orders/getReceiveProvince/reducer';
+import getReceiveDistrictReducer from './Orders/getReceiveDistrict/reducer';
+import getReceiveWardReducer from './Orders/getReceiveWard/reducer';
+import getShippingFeeReducer from './Orders/getShippingFee/reducer';
+import storeAddressReducer from './Orders/storeAddress/reducer';
+import createOrderReducer from './Orders/createOrder/reducer';
+
 import createOrderDetailsReducer from './Orders/createOrderDetails/reducer';
 import userReducer from './User/reducer';
+
 //---------------------------------------------------------------------------//
 
 const rootReducer = combineReducers({
-  //order
+
+  //order-------------------------------------------------------------------------//
   orderReducer,
   orderCompletedReducer,
   orderWaitingReducer,
@@ -44,9 +58,24 @@ const rootReducer = combineReducers({
 
   searchProductToCreateOrderReducer,
 
+
+  storeProductsArrayReducer,
+  storeCustomerReducer,
+  storePhoneNumberReducer,
+  createCustomerOrderReducer,
+  getReceiveProvinceReducer,
+  getReceiveDistrictReducer,
+  getReceiveWardReducer,
+  getShippingFeeReducer,
+  storeAddressReducer,
+  createOrderReducer,
+  //----------------------------------------------------------------------------------//
+
+
   createOrderDetailsReducer,
   userReducer ,
   //------------------------------------------//
+
 });
 
 export default rootReducer;

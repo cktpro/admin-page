@@ -5,6 +5,7 @@ export const LOCATIONS = {
   ORDER_DETAIL: '/order/:id',
   CREATE_ORDER_OFF: '/create_order_offline',
   CREATE_ORDER_ON: '/create_order_online',
+  CHECKOUT: '/checkout',
   PRODUCTS: "/products",
   PRODUCT_DETAIL: '/product_detail/:id',
   ADD_PRODUCT: '/add_product',
@@ -32,3 +33,8 @@ export const pageSize = 20;
 // Created by Man Nguyen
 // 19/10/2023
 export const listStatus = ['WAITING', 'COMPLETED', 'CANCELED', 'REJECTED', 'DELIVERING'];
+
+// district code send
+// Created by Man Nguyen
+// 11/11/2023
+export const districtCodeSend = 1526;

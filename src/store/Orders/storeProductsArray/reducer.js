@@ -7,7 +7,7 @@ const defaultState = {
     payload: [],
 };
 
-const createOrderDetailsReducer = (state = defaultState, action) => {
+const storeProductsArrayReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ActionTypes.GET_ORDER_DETAILS:
             return { ...state };
@@ -61,4 +61,4 @@ const createOrderDetailsReducer = (state = defaultState, action) => {
     }
 };
 
-export default createOrderDetailsReducer;
+export default storeProductsArrayReducer;

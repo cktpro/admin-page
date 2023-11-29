@@ -6,8 +6,8 @@ function EditIcon() {
       aria-hidden="true"
       role="img"
       className="component-iconify MuiBox-root css-1t9pz9x iconify iconify--solar"
-      width="20"
-      height="20"
+      width="100"
+      height="100"
       viewBox="0 0 24 24"
     >
       <path

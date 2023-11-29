@@ -5,6 +5,7 @@
 /* quy phạm khai báo Saga */
 import { all, fork } from 'redux-saga/effects';
 
+//order---------------------------------------------------------------------------//
 import ordersSaga from './Orders/getOrderList/saga';
 import ordersCompletedSaga from './Orders/getOrderListCompleted/saga';
 import getAllOrdersWaiting from './Orders/getOrderListWaiting/saga';
@@ -21,11 +22,21 @@ import getOrderDetailSaga from './Orders/getOrderDetail/saga';
 import searchCustomerOrderSaga from './Orders/searchCustomer/saga';
 
 import searchProductOrderSaga from './Orders/searchProduct/saga';
-import usersaga from './User/saga';
 
+import createCustomerOrderSaga from './Orders/createCustomerOrder/saga';
+import getReceiveProvinceSaga from './Orders/getReceiveProvince/saga';
+import getReceiveDistrictSaga from './Orders/getReceiveDistrict/saga';
+import getReceiveWardSaga from './Orders/getReceiveWard/saga';
+import getShippingFeeSaga from './Orders/getShippingFee/saga';
+import createOrderSaga from './Orders/createOrder/saga';
+//------------------------------------------------------------------------------------//
+
+import usersaga from './User/saga';
 
 export default function* rootSaga() {
   yield all([
+
+    //order---------------------------------------------------------------------------//
     fork(ordersSaga),
     fork(ordersCompletedSaga),
     fork(getAllOrdersWaiting),
@@ -42,6 +53,16 @@ export default function* rootSaga() {
     fork(searchCustomerOrderSaga),
 
     fork(searchProductOrderSaga),
+
+    fork(createCustomerOrderSaga),
+    fork(getReceiveProvinceSaga),
+    fork(getReceiveDistrictSaga),
+    fork(getReceiveWardSaga),
+    fork(getShippingFeeSaga),
+    fork(createOrderSaga),
+    //------------------------------------------------------------------------------------//
+
     fork(usersaga),
+
   ]);
 }
