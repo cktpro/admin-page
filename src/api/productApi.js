@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 const getProduct = async () => {
   try {
@@ -15,4 +16,18 @@ const getProductDetail = async (id) => {
       return error;
     }
   };
-export { getProduct,getProductDetail  };
+  const updateProduct = async (id, updatedData) => {
+    try {
+      console.log('««««« id »»»»»', id);
+      
+      const response = await axiosAdmin.put(`/products/${id}`, updatedData);
+      message.success(response.data.message);
+      console.log('««««« response »»»»»', response);
+      return response;
+    } catch (error) {
+      message.error(error.response.data.message);
+      console.log('««««« data.error »»»»»', error);
+      return false;
+    }
+  };
+export { getProduct,getProductDetail,updateProduct };
