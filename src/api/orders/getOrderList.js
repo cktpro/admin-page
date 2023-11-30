@@ -9,9 +9,9 @@ const getAllOrders = async (condition) => {
   let url = "";
 
   if (condition.status) {
-    url = `/orders?page=${condition.page}&pageSize=${condition.pageSize}&status=${condition.status}`;
+    url = `/orders-admin?page=${condition.page}&pageSize=${condition.pageSize}&status=${condition.status}`;
   } else {
-    url = `/orders?page=${condition.page}&pageSize=${condition.pageSize}`;
+    url = `/orders-admin?page=${condition.page}&pageSize=${condition.pageSize}`;
   }
 
   const response = await axiosAdminMan.get(url);

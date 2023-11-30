@@ -6,7 +6,7 @@
 import { axiosAdminMan } from "helper/axios";
 
 const searchCustomer = async (condition) => {
-  const url = `/orders/search/customer?phoneNumber=${condition}`;
+  const url = `/orders-admin/search/customer?phoneNumber=${condition}`;
 
   const response = await axiosAdminMan.get(url);
 

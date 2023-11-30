@@ -4,11 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./searchProduct.module.scss";
 import { actionSearchProduct } from "store/Orders/searchProduct/action";
-import { actionAddProductToOrderDetails } from "store/Orders/storeProductsArray/action";
 import Loading from "components/svg/loading";
+import { actionAddProductToFlashsaleDetails } from "store/Products/CreateFlashsale/storeProductsArray/action";
 
-function FormSearchProduct(props) {
+function FormSearchProductFlashsale(props) {
   const { searchProductFrom } = props;
+
+  const flashsaleList = useSelector(
+    (state) => state.storeProductsFlashsaleReducer.payload
+  );
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -67,6 +71,18 @@ function FormSearchProduct(props) {
 
   const handleClickAdd = useCallback(
     (product) => {
+      const checkExistItem = flashsaleList.filter((item) => {
+        return (
+          item.productId === product._id
+        )
+      })
+
+      if (checkExistItem.length > 0) {
+        openNotificationWithIcon("error", "previously added products !!!");
+
+        return;
+      }
+
       if (product.stock <= 0) {
         openNotificationWithIcon("error", "product is out of stock !!!");
 
@@ -77,14 +93,15 @@ function FormSearchProduct(props) {
         productId: product._id,
         name: product.name,
         stock: product.stock,
-        quantity: 1,
+        flashsaleStock: 1,
         price: product.price,
         discount: product.discount,
+        image: product.image.location
       };
 
-      dispatch(actionAddProductToOrderDetails(data));
+      dispatch(actionAddProductToFlashsaleDetails(data));
     },
-    [dispatch, openNotificationWithIcon]
+    [dispatch, flashsaleList, openNotificationWithIcon]
   );
 
   const columns = [
@@ -115,7 +132,7 @@ function FormSearchProduct(props) {
             <div className={styles.cover_product_img}>
               <img
                 className={styles.cover_product_img}
-                src={require("assets/images/chuotda.webp")}
+                src={record.image.location}
                 alt="..."
               />
             </div>
@@ -214,4 +231,4 @@ function FormSearchProduct(props) {
   );
 }
 
-export default FormSearchProduct;
+export default FormSearchProductFlashsale;

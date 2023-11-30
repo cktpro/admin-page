@@ -6,7 +6,7 @@
 import { axiosAdminMan } from "helper/axios";
 
 const getOrderDetail = async (id) => {
-  let url = `/orders/${id}`;
+  let url = `/orders-admin/${id}`;
 
   const response = await axiosAdminMan.get(url);
 

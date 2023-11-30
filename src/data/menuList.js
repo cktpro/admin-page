@@ -40,6 +40,10 @@ const menuList=[
           label: "Add new Product",
           src: LOCATIONS.ADD_PRODUCT,
         },
+        {
+          label: "Create Flash Sale",
+          src: LOCATIONS.CREATE_FLASH_SALE,
+        },
       ],
     },
     {
