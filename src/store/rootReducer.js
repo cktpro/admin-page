@@ -5,6 +5,16 @@
 /* quy phạm khai báo rootReducer */
 import { combineReducers } from 'redux';
 
+//Create Flashsale-------------------------------------------------------------------------//
+
+import storeProductsFlashsaleReducer from './Products/CreateFlashsale/storeProductsArray/reducer';
+import updateFlashsaleReducer from './Products/CreateFlashsale/updateFlashsale/reducer';
+import deleteAllFlashsaleReducer from './Products/CreateFlashsale/deleteAllFlashsale/reducer';
+import updateTimeFlashsaleReducer from './Products/CreateFlashsale/updateTimeFlashsale/reducer';
+import getTimeFlashsaleReducer from './Products/CreateFlashsale/getTimeFlashsale/reducer';
+
+//---------------------------------------------------------------------------//
+
 //order-------------------------------------------------------------------------//
 import orderReducer from './Orders/getOrderList/reducer';
 import orderCompletedReducer from './Orders/getOrderListCompleted/reducer';
@@ -33,11 +43,20 @@ import getShippingFeeReducer from './Orders/getShippingFee/reducer';
 import storeAddressReducer from './Orders/storeAddress/reducer';
 import createOrderReducer from './Orders/createOrder/reducer';
 
-import userReducer from './User/reducer';
 
 //---------------------------------------------------------------------------//
 
+import userReducer from './User/reducer';
+
 const rootReducer = combineReducers({
+
+  //Create Flashsale-------------------------------------------------------------------------//
+  storeProductsFlashsaleReducer,
+  updateFlashsaleReducer,
+  deleteAllFlashsaleReducer,
+  updateTimeFlashsaleReducer,
+  getTimeFlashsaleReducer,
+  //---------------------------------------------------------------------------//
 
   //order-------------------------------------------------------------------------//
   orderReducer,
@@ -70,7 +89,7 @@ const rootReducer = combineReducers({
   createOrderReducer,
   //----------------------------------------------------------------------------------//
 
-  userReducer ,
+  userReducer,
   //------------------------------------------//
 
 });

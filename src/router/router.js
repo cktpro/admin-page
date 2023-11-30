@@ -20,6 +20,7 @@ import CreUpUser from 'pages/customers/CreUpUser';
 import CreateSupplier from 'pages/suppliers/createSupplier';
 import UpdateSupplier from 'pages/suppliers/updateSupplier';
 import SupplierList from 'pages/suppliers';
+import CreateFlashsalePage from 'pages/products/createFlashsale';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
@@ -38,6 +39,7 @@ export const routers = [
             { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail /> },
             { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct /> },
             { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct /> },
+            { path: LOCATIONS.CREATE_FLASH_SALE, name: "Create Flash Sale", element: <CreateFlashsalePage /> },
             { path: LOCATIONS.CUSTOMERS, name: "Add User", element: <Users/ > },
             { path: LOCATIONS.ADD_CUSTOMER, name: "Add User", element: <CreUpUser/ > },
             { path: LOCATIONS.UPDATE_CUSTOMER, name: "Update User", element: <CreUpUser/ > },

@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Modal, Popconfirm, Table, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import numeral from "numeral";
-import "numeral/locales/vi";
+// import "numeral/locales/en";
 
 import PathDot from "components/svg/pathDot";
 import { LOCATIONS } from "constants/index";
@@ -29,7 +29,7 @@ import ClearIcon from "components/svg/clear";
 import { actionResetSearchProduct } from "store/Orders/searchProduct/action";
 import Loading from "components/svg/loading";
 
-numeral.locale("vi");
+numeral.locale("en");
 
 function CreateOrderOnline() {
   const dispatch = useDispatch();
@@ -104,7 +104,9 @@ function CreateOrderOnline() {
 
   useEffect(() => {
     if (Object.keys(getShippingAddress).length > 0) {
-      setShipping(parseInt(getShippingAddress?.shippingFee));
+      setShipping(
+        parseFloat((getShippingAddress?.shippingFee / 24000).toFixed(2))
+      );
     } else {
       setShipping(0);
     }
@@ -286,10 +288,11 @@ function CreateOrderOnline() {
       } else {
         const data = {
           customerId: customerDetails._id,
-          employeeId: "64ce166430d581b02a1b74c5",
-          subTotal: temp,
-          shipping: shipping,
-          total: total,
+          employeeId: "6549cb887c35d04757a7e0e2",
+          subTotal: temp.toFixed(2),
+          shippingFee: shipping.toFixed(2),
+          totalPrice: total.toFixed(2),
+          shippingAddress: getShippingAddress.address,
           orderDetails: reduceOrderDetails,
         };
 
@@ -301,6 +304,7 @@ function CreateOrderOnline() {
   }, [
     customerDetails._id,
     dispatch,
+    getShippingAddress.address,
     isErrorQuantityProduct,
     openNotificationWithIcon,
     orderDetailsList,
@@ -383,7 +387,8 @@ function CreateOrderOnline() {
       key: "price",
       render: (text, record, index) => {
         return (
-          <span className={styles.price}>{numeral(text).format("0,0")}</span>
+          // <span className={styles.price}>${numeral(text).format("0,0")}</span>
+          <span className={styles.price}>${text.toFixed(2)}</span>
         );
       },
     },
@@ -392,7 +397,7 @@ function CreateOrderOnline() {
       dataIndex: "discount",
       key: "discount",
       render: (text, record, index) => {
-        return <span className={styles.discount}>{text}</span>;
+        return <span className={styles.discount}>{text}%</span>;
       },
     },
     {
@@ -402,9 +407,11 @@ function CreateOrderOnline() {
       render: (text, record, index) => {
         return (
           <span className={styles.discounted_price}>
-            {numeral(
-              (record.quantity * record.price * (100 - record.discount)) / 100
-            ).format("0,0")}
+            $
+            {(
+              (record.quantity * record.price * (100 - record.discount)) /
+              100
+            ).toFixed(2)}
           </span>
         );
       },
@@ -419,6 +426,7 @@ function CreateOrderOnline() {
             title="Are you sure you want to delete it?"
             okText="OK"
             cancelText="Cancel"
+            okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
             onConfirm={() => handleClickDeletedProduct(record.productId)}
           >
             <Button danger icon={<ClearIcon />}></Button>
@@ -441,7 +449,9 @@ function CreateOrderOnline() {
       {isHaveRes && (
         <div className={styles.is_have_res}>
           <div className={styles.res_info}>
-            <span className={styles.res_message}>{resCreateOrder?.message}</span>
+            <span className={styles.res_message}>
+              {resCreateOrder?.message}
+            </span>
 
             <Button
               className={styles.btn_ok}
@@ -451,7 +461,7 @@ function CreateOrderOnline() {
             >
               <span className={styles.ok}>Go to checkout</span>
             </Button>
-            </div>
+          </div>
         </div>
       )}
 
@@ -559,7 +569,7 @@ function CreateOrderOnline() {
                   </span>
 
                   <span className={styles.provisional_total}>
-                    {numeral(temp).format("0,0")} VND
+                    ${temp.toFixed(2)}
                   </span>
                 </div>
 
@@ -567,16 +577,15 @@ function CreateOrderOnline() {
                   <span className={styles.shipping_title}>Shipping</span>
 
                   <span className={styles.shipping}>
-                    {numeral(shipping).format("0,0")} VND
+                    {/* ${numeral((shipping/24000).toFixed(2)).format("0,0")} */}
+                    ${shipping.toFixed(2)}
                   </span>
                 </div>
 
                 <div className={styles.cover_total}>
                   <span className={styles.total_title}>Total</span>
 
-                  <span className={styles.total}>
-                    {numeral(total).format("0,0")} VND
-                  </span>
+                  <span className={styles.total}>${total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -623,6 +632,7 @@ function CreateOrderOnline() {
                       title="Are you sure you want to delete it?"
                       okText="OK"
                       cancelText="Cancel"
+                      okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
                       onConfirm={() => handleClickDeletedCustomer()}
                     >
                       <Button danger icon={<ClearIcon />}></Button>{" "}
@@ -704,6 +714,7 @@ function CreateOrderOnline() {
                       title="Are you sure you want to delete it?"
                       okText="OK"
                       cancelText="Cancel"
+                      okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
                       onConfirm={() => handleClickDeletedShippingAddress()}
                     >
                       <Button danger icon={<ClearIcon />}></Button>

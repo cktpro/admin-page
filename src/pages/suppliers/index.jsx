@@ -70,6 +70,7 @@ const columns = [
           title="Bạn có muốn xóa không?"
           okText="Đồng ý"
           cancelText="Hủy"
+          okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
           onConfirm={() => deleteSupplier(record._id)}
         >
           <button className="btn btn-outline-danger">

@@ -4,7 +4,7 @@
 import { axiosAdminMan } from "helper/axios";
 
 const createCustomerOrder = async (data) => {  
-  const url = "/orders/create/customer";
+  const url = "/orders-admin/create/customer";
 
   const response = await axiosAdminMan.post(url, data);
 
