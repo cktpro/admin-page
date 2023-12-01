@@ -82,7 +82,7 @@ function UpdateProduct() {
     try {
       const result = await updateProduct(productId, values);
       // navigate("/products");
-      console.log("Cập nhật thành công:", result);
+      console.log("Update thành công:", result);
     } catch (error) {
       console.error("cập nhật thất bại:", error);
     }

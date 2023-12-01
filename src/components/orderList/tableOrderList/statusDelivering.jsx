@@ -229,7 +229,7 @@ function StatusDelivering() {
       ),
     },
     {
-      title: "Khách hàng",
+      title: "Customer",
       dataIndex: "customer",
       key: "customer",
       filters: customers,
@@ -256,7 +256,7 @@ function StatusDelivering() {
       ),
     },
     {
-      title: "Ngày tạo",
+      title: "Created date",
       dataIndex: "createdDate",
       key: "createdDate",
       filters: createdDates,
@@ -286,7 +286,7 @@ function StatusDelivering() {
       },
     },
     {
-      title: "Tổng tiền",
+      title: "Total",
       dataIndex: "totalPrice",
       key: "totalPrice",
       sorter: (a, b) => a.totalPrice - b.totalPrice,
@@ -297,7 +297,7 @@ function StatusDelivering() {
       ),
     },
     {
-      title: "Trạng thái",
+      title: "Status",
       dataIndex: "status",
       key: "status",
       sorter: (a, b) => a.status.localeCompare(b.status),
@@ -347,7 +347,7 @@ function StatusDelivering() {
         <Pagination
           defaultCurrent={1}
           total={condition?.total || defaultPagination.total}
-          showTotal={(total, range) => `${range[0]} - ${range[1]} của ${total}`}
+          showTotal={(total, range) => `${range[0]} - ${range[1]} of ${total}`}
           pageSize={condition?.pageSize || defaultPagination.pageSize}
           pageSizeOptions={[
             1,
@@ -356,7 +356,7 @@ function StatusDelivering() {
             condition?.total || defaultPagination.total,
           ]}
           showSizeChanger
-          locale={{ items_per_page: "dòng / trang" }}
+          locale={{ items_per_page: "line / page" }}
           responsive={true}
           onChange={onChangePage}
           current={condition?.page || defaultPagination.page}

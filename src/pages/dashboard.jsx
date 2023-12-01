@@ -8,14 +8,14 @@ function Dashboard(props) {
       },
       xaxis: {
         categories: [
-          "Tháng 1",
-          "Tháng 2",
-          "Tháng 3",
-          "Tháng 4",
-          "Tháng 5",
-          "Tháng 5",
-          "Tháng 7",
-          "Tháng 8",
+          "January",
+          "February",
+          "March",
+          "April",
+          "May",
+          "May",
+          "July",
+          "August",
         ],
       },
     },
@@ -29,18 +29,18 @@ function Dashboard(props) {
   const donut = {
     options: {
       labels: [
-        "Đơn hàng đã tạo",
-        "Đơn thành công",
-        "Đơn chờ giao",
-        "Đơn bị hủy",
-        "Đơn bị từ chối",
+        "Order created",
+        "Order successful",
+        "Order pending",
+        "Order canceled",
+        "Order reject",
       ],
     },
     series: [44, 55, 41, 17, 15],
   };
   const circle = {
     options: {
-      labels: ["Đã bán ra"],
+      labels: ["Sold out"],
     },
     series: [70],
   };
@@ -49,7 +49,7 @@ function Dashboard(props) {
     <>
       <div className="row">
         <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
-          <h2> Doanh thu 2023</h2>
+          <h2> Revenue 2023</h2>
           <div className="mixed-chart">
             <Chart
               options={state.options}
@@ -60,7 +60,7 @@ function Dashboard(props) {
           </div>
         </div>
         <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
-          <h2>Thống kê đơn hàng</h2>
+          <h2>Order statistics</h2>
           <Chart
             options={donut.options}
             series={donut.series}
@@ -68,24 +68,24 @@ function Dashboard(props) {
             width="100%"
           />
         </div>
-      
-      <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
-        <h2> Doanh thu 2023</h2>
-        <Chart
-          options={state.options}
-          series={state.series}
-          type="line"
-          width="100%"
-        />
-      </div>
-      <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
-        <h2>Tổng số sản phẩm đã bán ra</h2>
-        <Chart
-          options={circle.options}
-          series={circle.series}
-          type="radialBar"
-          width="100%"
-        />
+
+        <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
+          <h2> Revenue 2023</h2>
+          <Chart
+            options={state.options}
+            series={state.series}
+            type="line"
+            width="100%"
+          />
+        </div>
+        <div className="col-xxl-4 col-lg-6 col-md-6 col-xs-12">
+          <h2>Total number of products sold</h2>
+          <Chart
+            options={circle.options}
+            series={circle.series}
+            type="radialBar"
+            width="100%"
+          />
         </div>
       </div>
     </>

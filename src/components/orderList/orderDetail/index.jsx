@@ -217,7 +217,7 @@ function OrderDetail(props) {
               </div>
 
               <div className={styles.cover_address}>
-                <span className={styles.address_field}>Địa chỉ</span>
+                <span className={styles.address_field}>Address</span>
 
                 <span className={styles.address}>
                   {orderDetail?.customer?.address}
@@ -225,7 +225,7 @@ function OrderDetail(props) {
               </div>
 
               <div className={styles.cover_address}>
-                <span className={styles.address_field}>Số điện thoại</span>
+                <span className={styles.address_field}>Phone number</span>
 
                 <span className={styles.address}>
                   {orderDetail?.customer?.phoneNumber}
@@ -258,7 +258,7 @@ function OrderDetail(props) {
         >
           <div className={styles.customer}>
             <div className={styles.cover_detail_edit}>
-              <span className={styles.detail_title}>Khách hàng</span>
+              <span className={styles.detail_title}>Customer</span>
 
               <button className={styles.btn_detail_edit}>
                 <EditIcon />

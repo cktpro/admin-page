@@ -22,19 +22,19 @@ function ListUser() {
 
   const columns = [
     {
-      title: "Họ tên",
+      title: "Name",
       key: "username",
       render: (_, record) => (
         <div className="d-flex gap-1">{record.fullName}</div>
       ),
     },
     {
-      title: "Số điện thoại",
+      title: "Phone number",
       dataIndex: "phoneNumber",
       sorter: (a, b) => a.phoneNumber - b.phoneNumber,
     },
     {
-      title: "Địa chỉ",
+      title: "Address",
       // dataIndex: "address",
       // sorter: (a, b) => a.address - b.address,
       render: (_, record) => (
@@ -48,7 +48,7 @@ function ListUser() {
       sorter: (a, b) => a.email - b.email,
     },
     {
-      title: "Ngày sinh",
+      title: "Birthday",
       key: "birthday",
       render: (_, record) => (
         <div className="d-flex gap-1">
@@ -59,7 +59,7 @@ function ListUser() {
     },
 
     {
-      title: "Trạng thái",
+      title: "Status",
       dataIndex: "isDeleted",
       render: (_, record) => (
         <div className="d-flex gap-1">
@@ -107,7 +107,7 @@ function ListUser() {
         style={{ minWidth: "600px" }}
         className="d-flex justify-content-between my-1"
       >
-        <h3>Danh sách người dùng</h3>
+        <h3>List Users</h3>
         <div>
           <Link to="/add_user">
             <button type="button" className="btn btn-success">
