@@ -157,7 +157,7 @@ function TableOrderList(props) {
       ),
     },
     {
-      title: "Khách hàng",
+      title: "Customer",
       dataIndex: "customer",
       key: "customer",
       filters: customers,
@@ -184,7 +184,7 @@ function TableOrderList(props) {
       ),
     },
     {
-      title: "Ngày tạo",
+      title: "Created date",
       dataIndex: "createdDate",
       key: "createdDate",
       filters: createdDates,
@@ -214,7 +214,7 @@ function TableOrderList(props) {
       },
     },
     {
-      title: "Tổng tiền",
+      title: "Total",
       dataIndex: "totalPrice",
       key: "totalPrice",
       sorter: (a, b) => a.totalPrice - b.totalPrice,
@@ -225,7 +225,7 @@ function TableOrderList(props) {
       ),
     },
     {
-      title: "Trạng thái",
+      title: "Status",
       dataIndex: "status",
       key: "status",
       sorter: (a, b) => a.status.localeCompare(b.status),

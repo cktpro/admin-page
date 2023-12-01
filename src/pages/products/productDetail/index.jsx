@@ -178,7 +178,7 @@ function ProductDetail(props) {
     );
   }
 
-  return <div className="alert alert-warning py-2">Không có sản phẩm</div>;
+  return <div className="alert alert-warning py-2">No products</div>;
 }
 
 export default ProductDetail;

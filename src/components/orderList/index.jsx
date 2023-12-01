@@ -312,7 +312,7 @@ function OrderList() {
                 defaultPaginationSearchOrders.total
               }
               showTotal={(total, range) =>
-                `${range[0]} - ${range[1]} của ${total}`
+                `${range[0]} - ${range[1]} of ${total}`
               }
               pageSize={
                 resSearchOrders?.payload?.pageSize ||
@@ -325,7 +325,7 @@ function OrderList() {
                 resSearchOrders?.payload?.total || 20,
               ]}
               showSizeChanger
-              locale={{ items_per_page: "dòng / trang" }}
+              locale={{ items_per_page: "line / page" }}
               responsive={true}
               onChange={onChangePageSearch}
               current={
@@ -353,7 +353,7 @@ function OrderList() {
                   resGetAllOrders?.payload?.total || defaultPagination.total
                 }
                 showTotal={(total, range) =>
-                  `${range[0]} - ${range[1]} của ${total}`
+                  `${range[0]} - ${range[1]} of ${total}`
                 }
                 pageSize={
                   resGetAllOrders?.payload?.pageSize ||
@@ -366,7 +366,7 @@ function OrderList() {
                   resGetAllOrders?.payload?.total || 20,
                 ]}
                 showSizeChanger //show button change page size
-                locale={{ items_per_page: "dòng / trang" }}
+                locale={{ items_per_page: "line / page" }}
                 responsive={true}
                 onChange={onChangePage}
                 current={
@@ -511,7 +511,7 @@ function OrderList() {
       <div className="row custom_row">
         {/* Order List Title */}
         <div className="col-12 custom_col order_list_title">
-          Danh sách đơn hàng
+          Order list
         </div>
 
         {/* Order List Path */}
@@ -530,7 +530,7 @@ function OrderList() {
             <PathDot />
           </span>
 
-          <span className="order_list_path_order">Danh sách đơn hàng</span>
+          <span className="order_list_path_order">Order list</span>
         </div>
       </div>
 
@@ -615,7 +615,7 @@ function OrderList() {
                 className={`form-control input_group`}
                 id="start_date"
                 name="start_date"
-                placeholder="Từ ngày"
+                placeholder="From date"
                 onFocus={() => changeType("start_date", "date")}
                 onBlur={() => {
                   changeType("start_date", "text");
@@ -626,7 +626,7 @@ function OrderList() {
               />
 
               <label className="label_input_group" htmlFor="start_date">
-                Từ ngày
+                From date
               </label>
 
               {/* {isErrorInfo("start_date") && (
@@ -644,7 +644,7 @@ function OrderList() {
                 className={`form-control input_group`}
                 id="end_date"
                 name="end_date"
-                placeholder="Đến ngày"
+                placeholder="To date"
                 onFocus={() => changeType("end_date", "date")}
                 onBlur={() => {
                   changeType("end_date", "text");
@@ -655,7 +655,7 @@ function OrderList() {
               />
 
               <label className="label_input_group" htmlFor="end_date">
-                Đến ngày
+                To date
               </label>
 
               {/* {isErrorInfo("end_date") && (
@@ -675,7 +675,7 @@ function OrderList() {
                 className="form-control orders_input_search"
                 id="search_order"
                 name="search_order"
-                placeholder="Tìm số điện thoại hoặc mã đơn hàng..."
+                placeholder="Search phone number or order ID..."
                 onChange={(e) => handleChangeInput(e, "search_order")}
               />
             </div>

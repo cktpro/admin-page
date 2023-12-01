@@ -67,13 +67,13 @@ import {
       yield put(actionUpdateUserSuccess(response.data.payload));
       if (response.data.code === 200)
         notification.open({
-          message: "Cập nhật người dùng thành công",
+          message: "Update user thành công",
           type: "success",
         });
     } catch (error) {
       yield put(actionUpdateUserFailed(error));
       notification.open({
-        message: "Cập nhật người dùng thất bại",
+        message: "Update user thất bại",
         type: "error",
       });
     }

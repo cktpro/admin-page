@@ -468,7 +468,7 @@ function CreateOrderOnline() {
       <div className="container-fluid">
         <div className={`row ${styles.custom_row}`}>
           <div className={`col-12 ${styles.custom_col}`}>
-            <h4 className={styles.title_create_order_online}>Tạo đơn online</h4>
+            <h4 className={styles.title_create_order_online}>Create order</h4>
           </div>
 
           <div className="col-12 custom_col order_list_path">
@@ -486,7 +486,7 @@ function CreateOrderOnline() {
               <PathDot />
             </span>
 
-            <span className="order_list_path_order">Tạo đơn online</span>
+            <span className="order_list_path_order">Create order</span>
           </div>
         </div>
 

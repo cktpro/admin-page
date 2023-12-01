@@ -7,21 +7,13 @@ const menuList=[
       icon: require("assets/icon-slide/dashboard-svgrepo-com.png"),
     },
     {
-      label: "Đơn Hàng",
+      label: "Order",
       active: false,
       icon: require("assets/icon-slide/choices-order-svgrepo-com.png"),
       sub: [
-        { label: "Danh sánh đơn hàng", src: LOCATIONS.ORDER },
+        { label: "Order list", src: LOCATIONS.ORDER },
         {
-          label: "Chi tiết đơn hàng",
-          src: LOCATIONS.ORDER_DETAIL,
-        },
-        {
-          label: "Tạo đơn offline",
-          src: LOCATIONS.CREATE_ORDER_OFF,
-        },
-        {
-          label: "Tạo đơn trực tuyến",
+          label: "Create order",
           src: LOCATIONS.CREATE_ORDER_ON,
         },
       ],
@@ -71,29 +63,29 @@ const menuList=[
       ],
     },
     {
-        label: "Người dùng",
+        label: "User",
         active: false,
         icon: require("assets/icon-slide/customer-service-help-svgrepo-com.png"),
         sub: [
           { label: "List", src: LOCATIONS.CUSTOMERS },
           {
-            label: "Thêm mới",
+            label: "Add user",
             src: LOCATIONS.ADD_CUSTOMER,
           },
           {
-            label: "Cập nhật",
+            label: "Update user",
             src: LOCATIONS.UPDATE_CUSTOMER,
           },
         ],
       },
     {
-      label: "Thông Báo",
+      label: "Notifications",
       active: false,
       icon: require("assets/icon-slide/notification-svgrepo-com.png"),
       src: LOCATIONS.MESSAGES,
     },
     {
-      label: "Cài Đặt",
+      label: "Setting",
       active: false,
       icon: require("assets/icon-slide/setting-setting-svgrepo-com.png"),
       src: LOCATIONS.SETTING,

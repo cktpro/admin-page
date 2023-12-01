@@ -279,13 +279,16 @@
 }
 
 .end_date {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
   margin-top: 2rem;
   margin-left: 1rem;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1rem;
   font-family: "Public Sans", sans-serif;
-  display: block;
   color: rgb(33, 43, 54);
 }
 

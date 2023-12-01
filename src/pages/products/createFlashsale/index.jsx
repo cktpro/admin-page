@@ -242,15 +242,17 @@ function CreateFlashsalePage() {
       key: "name",
       render: (text, record, index) => {
         return (
-          <div className="cover_product_name_flashsale">
-            <img
-              className="product_img_flashsale"
-              src={record.image}
-              alt="..."
-            />
+          <Link to={`/product_detail/${record.productId}`}>
+            <div className="cover_product_name_flashsale">
+              <img
+                className="product_img_flashsale"
+                src={record.image}
+                alt="..."
+              />
 
-            <span className="product_name_flashsale">{text}</span>
-          </div>
+              <span className="product_name_flashsale">{text}</span>
+            </div>
+          </Link>
         );
       },
     },
@@ -432,14 +434,14 @@ function CreateFlashsalePage() {
                 pagination={false}
               />
               <Space className="btn_group">
-                <Button
+                {/* <Button
                   onClick={updateFlashsale}
                   className="btn_update"
                   type="primary"
                   htmlType="submit"
                 >
                   <span className="update">Update</span>
-                </Button>
+                </Button> */}
 
                 <Popconfirm
                   title="Are you sure you want to delete all products on flash sale?"
@@ -533,7 +535,8 @@ function CreateFlashsalePage() {
               okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
             >
               <span className="end_date">
-                Flash sale end date:
+                <span>Flash sale end date:</span>
+
                 <DatePicker
                   defaultValue={dayjs(inputTimeFlashsale)}
                   onChange={onChangeDateFlashsale}

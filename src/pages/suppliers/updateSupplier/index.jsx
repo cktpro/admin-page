@@ -123,7 +123,7 @@ function UpdateSupplier() {
             <Form.Item wrapperCol={{ offset: 7, span: 14 }}>
               <div className="d-flex justify-content-between align-items-center">
                 <Button type="primary" htmlType="update">
-                  Cập nhật
+                  Update
                 </Button>
                 <Button
                   type="primary"
