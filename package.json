@@ -12,6 +12,7 @@
     "axios": "^1.6.2",
     "bourbon": "^7.3.0",
     "date-fns": "^2.30.0",
+    "eventlistener": "^0.0.1",
     "formik": "^2.4.5",
     "install": "^0.13.0",
     "lodash": "^4.17.21",
