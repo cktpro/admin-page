@@ -18,6 +18,7 @@ export const LOCATIONS = {
   CUSTOMERS: "/customers",
   ADD_CUSTOMER: "/add_customer",
   UPDATE_CUSTOMER: "/update_customer/:id",
+  LOGIN:"/login"
 };
 
 // pageSize pagination of orders

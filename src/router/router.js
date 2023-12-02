@@ -14,6 +14,7 @@ import CategoryDetail from 'pages/categories/updateCategory/categoryDetail';
 import CategoryList from 'pages/categories';
 import Users from 'pages/customers';
 import CreUpUser from 'pages/customers/CreUpUser';
+import Login from 'pages/auth/login';
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
     {
@@ -52,4 +53,9 @@ export const routers = [
 
         ]
     },
+    {
+      path: LOCATIONS.LOGIN,
+        name: "Login",
+        element: <Login/>,
+    }
 ]
