@@ -9,6 +9,15 @@ import { getSupplierDetail, onAddSupplier, updateSupplier } from "api/supplierAp
 
 function CreateSupplier() {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const [form] = Form.useForm();
   // const [loading, setLoading] = useState(null);
 

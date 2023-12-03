@@ -19,6 +19,16 @@ import Loading from "components/loading";
 import styles from "./updateProduct.module.scss";
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 function UpdateProduct() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const { id } = useParams();
   const params = useParams();
   const productId = id;
@@ -38,7 +48,6 @@ function UpdateProduct() {
   const [loading, setLoading] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { Option } = Select;
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {

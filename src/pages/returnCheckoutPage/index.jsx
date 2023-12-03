@@ -10,6 +10,14 @@ import { Button } from "antd";
 
 function ReturnCheckoutPage() {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const [searchParams, setSearchParams] = useSearchParams();
 

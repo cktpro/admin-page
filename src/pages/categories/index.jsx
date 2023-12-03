@@ -91,6 +91,14 @@ function CategoryList() {
   const [category, setCategory] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const navigate = useNavigate()
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const handleRowClick = (record) => {
     const categoryId = record._id;

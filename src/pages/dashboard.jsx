@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Chart from "react-apexcharts";
+import { useNavigate } from "react-router-dom";
 function Dashboard(props) {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN")
+
+    if (!token) {
+      navigate("/login")
+    }
+  }, [navigate]);
+
   const state = {
     options: {
       chart: {

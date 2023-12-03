@@ -28,9 +28,17 @@ import { actionCheckoutVnpay } from "store/Orders/checkoutVnpay/action";
 import { actionAddBill } from "store/Orders/storeBill/action";
 
 function CheckoutPage() {
-  const dispatch = useDispatch();
-
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  const dispatch = useDispatch();
 
   const [api, contextHolder] = notification.useNotification();
 

@@ -1,7 +1,7 @@
 import PathDot from "components/svg/pathDot";
 import { LOCATIONS } from "constants/index";
 import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   Form,
@@ -38,6 +38,16 @@ import Loading from "components/svg/loading";
 
 function CreateFlashsalePage() {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const [isInitialRender, setIsInitialRender] = useState(true);
 

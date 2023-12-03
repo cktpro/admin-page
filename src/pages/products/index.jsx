@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Popconfirm, Table, message } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getProduct, getProductDetail } from "api/productApi";
 import Loading from "components/loading";
 import EditIcon from "components/svg/edit";
@@ -9,6 +9,16 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 function ProductList() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const deleteProduct = useCallback((id) => async () => {
     try {
       axiosAdmin.defaults.headers.common["Authorization"] =

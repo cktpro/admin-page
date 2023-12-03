@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Footer(props) {
+  const navigate = useNavigate()
   const [isActive, setIsActive] = useState(false);
   const { children } = props;
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("TOKEN")
+    localStorage.removeItem("REFRESH_TOKEN")
+
+    navigate("/login")
+  }, [navigate]);
 
   return (
     <div className="header">
@@ -78,8 +86,8 @@ function Footer(props) {
               <li>
                 <Link>Setting</Link>
               </li>
-              <li>
-                <Link>Logout</Link>
+              <li onClick={() => handleLogout()}>
+                <Link >Logout</Link>
               </li>
             </ul>
           </div>

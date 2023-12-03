@@ -4,7 +4,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Pagination, Table } from "antd";
 import { debounce } from "lodash";
 
@@ -30,6 +30,16 @@ import dayjs from "dayjs";
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
 function OrderStatisticsPage() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   // declare useDispatch
   const dispatch = useDispatch();
 

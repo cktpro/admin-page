@@ -24,9 +24,20 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 // import styles
 import styles from "./createProduct.module.scss";
 import { min } from "lodash";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 function CreateProduct(props) {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const [productForm] = Form.useForm();
   const [categories, setCategory] = useState([]);
   const [suppliers, setSupplier] = useState([]);

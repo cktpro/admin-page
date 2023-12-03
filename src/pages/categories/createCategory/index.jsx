@@ -18,6 +18,14 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 function CreateCategory(props) {
   const [CreateCategory] = Form.useForm();
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const asyncForEach = async (array, callback) => {
     for (let index = 0; index < array.length; index += 1) {

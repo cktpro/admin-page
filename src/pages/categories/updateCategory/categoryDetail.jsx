@@ -15,6 +15,14 @@ import styles from "./updateCategory.module.scss";
 
 function CategoryDetail() {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
   const { id } = useParams();
   const categoryId = id;
   const [name, setName] = useState("");

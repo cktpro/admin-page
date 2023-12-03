@@ -2,7 +2,7 @@ import { Popconfirm, Table } from "antd";
 import { deleteSupplier, getSupplier, getSupplierDetail } from "api/supplierApi";
 import Loading from "components/loading";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
@@ -87,6 +87,16 @@ const columns = [
   },
 ];
 function SupplierList() {
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   const [isLoading, setIsLoading] = useState(null);
   const [supplier, setSupplier] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);

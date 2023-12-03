@@ -15,6 +15,14 @@ import { actionResetBill } from "store/Orders/storeBill/action";
 
 function CheckoutCashPage() {
   const navigate = useNavigate();
+  
+  useEffect(() => {
+    const token = localStorage.getItem("TOKEN");
+
+    if (!token) {
+      navigate("/login");
+    }
+  }, [navigate]);
 
   const [api, contextHolder] = notification.useNotification();
 
