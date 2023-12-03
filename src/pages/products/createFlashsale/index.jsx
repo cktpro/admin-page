@@ -204,24 +204,6 @@ function CreateFlashsalePage() {
     setIsOpenModalEditTimeFlashsale(false);
   }, [dispatch, inputTimeFlashsale, isOpenFlashsale]);
 
-  const updateFlashsale = useCallback(() => {
-    if (flashsaleList.length <= 0) {
-      openNotificationWithIcon("warning", "There's nothing to update");
-
-      return;
-    }
-
-    const data = flashsaleList.map((item) => {
-      return {
-        productId: item.productId,
-        flashsaleStock: item.flashsaleStock,
-        discount: item.discount,
-      };
-    });
-
-    dispatch(actionUpdateFlashsale(data));
-  }, [dispatch, flashsaleList, openNotificationWithIcon]);
-
   const clickDeleteAllFlashsale = useCallback(() => {
     if (flashsaleList.length <= 0) {
       openNotificationWithIcon("warning", "There's nothing to delete");

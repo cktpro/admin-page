@@ -37,6 +37,9 @@ import getReceiveDistrictSaga from './Orders/getReceiveDistrict/saga';
 import getReceiveWardSaga from './Orders/getReceiveWard/saga';
 import getShippingFeeSaga from './Orders/getShippingFee/saga';
 import createOrderSaga from './Orders/createOrder/saga';
+import CheckoutVnpaySaga from './Orders/checkoutVnpay/saga';
+import checkReturnVnpaySaga from './Orders/checkReturnVnpay/saga';
+import checkIpnVnpaySaga from './Orders/checkIpnVnpay/saga';
 //------------------------------------------------------------------------------------//
 
 import usersaga from './User/saga';
@@ -75,6 +78,9 @@ export default function* rootSaga() {
     fork(getReceiveWardSaga),
     fork(getShippingFeeSaga),
     fork(createOrderSaga),
+    fork(CheckoutVnpaySaga),
+    fork(checkReturnVnpaySaga),
+    fork(checkIpnVnpaySaga),
     //------------------------------------------------------------------------------------//
 
     fork(usersaga),
