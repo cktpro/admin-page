@@ -513,7 +513,7 @@ function CreateFlashsalePage() {
         </div>
 
         <div className="row custom_row cover_setting">
-          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 custom_col cover_create_flashsale_info">
+          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 cover_create_flashsale_info">
             <Modal
               open={isOpenModalEditTimeFlashsale}
               centered
