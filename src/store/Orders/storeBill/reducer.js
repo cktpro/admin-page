@@ -7,18 +7,18 @@ const defaultState = {
     payload: {},
 };
 
-const storeCustomerReducer = (state = defaultState, action) => {
+const storeBillReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case ActionTypes.GET_CUSTOMER:
+        case ActionTypes.GET_BILL:
             return { ...state };
 
-        case ActionTypes.ADD_CUSTOMER:
+        case ActionTypes.ADD_BILL:
             return { ...state, payload: action.payload };
 
-        case ActionTypes.DELETE_CUSTOMER:
+        case ActionTypes.DELETE_BILL:
             return { ...state, payload: defaultState.payload };
 
-        case ActionTypes.RESET_CUSTOMER:
+        case ActionTypes.RESET_BILL:
             return { ...state, payload: defaultState.payload };
 
         default:
@@ -26,4 +26,4 @@ const storeCustomerReducer = (state = defaultState, action) => {
     }
 };
 
-export default storeCustomerReducer;
+export default storeBillReducer;

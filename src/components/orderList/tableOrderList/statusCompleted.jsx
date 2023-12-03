@@ -177,7 +177,7 @@ function StatusCompleted() {
 
               <div className="col-2 custom_col cover_order_collapsed_price">
                 <span className="order_collapsed_price">
-                  {numeral(item?.price).format("0,0")} VNĐ
+                  ${parseFloat(item?.price).toFixed(2)}
                 </span>
               </div>
             </div>
@@ -289,7 +289,7 @@ function StatusCompleted() {
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          {numeral(text).format("0,0")} VNĐ
+          ${parseFloat(text).toFixed(2)}
         </span>
       ),
     },

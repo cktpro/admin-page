@@ -80,6 +80,7 @@ function FormSearchProduct(props) {
         quantity: 1,
         price: product.price,
         discount: product.discount,
+        image: product.image.location,
       };
 
       dispatch(actionAddProductToOrderDetails(data));
@@ -115,7 +116,7 @@ function FormSearchProduct(props) {
             <div className={styles.cover_product_img}>
               <img
                 className={styles.cover_product_img}
-                src={require("assets/images/chuotda.webp")}
+                src={record.image.location}
                 alt="..."
               />
             </div>

@@ -21,6 +21,9 @@ import CreateSupplier from 'pages/suppliers/createSupplier';
 import UpdateSupplier from 'pages/suppliers/updateSupplier';
 import SupplierList from 'pages/suppliers';
 import CreateFlashsalePage from 'pages/products/createFlashsale';
+import ReturnCheckoutPage from 'pages/returnCheckoutPage';
+import CheckoutCashPage from 'pages/checkoutCash';
+import OrderStatisticsPage from 'pages/orderStatistics';
 
 export const routers = [
     //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
@@ -34,7 +37,10 @@ export const routers = [
             { path: LOCATIONS.ORDER, name: "Orders", element: <OrderListPage /> },
             { path: LOCATIONS.ORDER_DETAIL, name: "Order Detail", element: <OrderDetailPage /> },
             { path: LOCATIONS.CREATE_ORDER_ON, name: "Create Order Online", element: <CreateOrderOnlinePage /> },
+            { path: LOCATIONS.ORDER_STATISTICS, name: "Order Statistics", element: <OrderStatisticsPage /> },
             { path: LOCATIONS.CHECKOUT, name: "Checkout", element: <CheckoutPage /> },
+            { path: LOCATIONS.RETURN_CHECKOUT, name: "Return Checkout", element: <ReturnCheckoutPage /> },
+            { path: LOCATIONS.CHECKOUT_CASH, name: "Checkout Cash", element: <CheckoutCashPage /> },
             { path: LOCATIONS.PRODUCTS, name: "Product List", element: <ProductList /> },
             { path: LOCATIONS.PRODUCT_DETAIL, name: "Product Detail", element: <ProductDetail /> },
             { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct /> },

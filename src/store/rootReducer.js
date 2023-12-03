@@ -35,6 +35,7 @@ import searchProductToCreateOrderReducer from './Orders/searchProduct/reducer';
 import storeProductsArrayReducer from './Orders/storeProductsArray/reducer';
 import storeCustomerReducer from './Orders/storeCustomer/reducer';
 import storePhoneNumberReducer from './Orders/storePhoneNumber/reducer';
+import storeBillReducer from './Orders/storeBill/reducer';
 import createCustomerOrderReducer from './Orders/createCustomerOrder/reducer';
 import getReceiveProvinceReducer from './Orders/getReceiveProvince/reducer';
 import getReceiveDistrictReducer from './Orders/getReceiveDistrict/reducer';
@@ -42,6 +43,9 @@ import getReceiveWardReducer from './Orders/getReceiveWard/reducer';
 import getShippingFeeReducer from './Orders/getShippingFee/reducer';
 import storeAddressReducer from './Orders/storeAddress/reducer';
 import createOrderReducer from './Orders/createOrder/reducer';
+import CheckoutVnpayReducer from './Orders/checkoutVnpay/reducer';
+import checkReturnVnpayReducer from './Orders/checkReturnVnpay/reducer';
+import checkIpnVnpayReducer from './Orders/checkIpnVnpay/reducer';
 
 
 //---------------------------------------------------------------------------//
@@ -80,6 +84,7 @@ const rootReducer = combineReducers({
   storeProductsArrayReducer,
   storeCustomerReducer,
   storePhoneNumberReducer,
+  storeBillReducer,
   createCustomerOrderReducer,
   getReceiveProvinceReducer,
   getReceiveDistrictReducer,
@@ -87,6 +92,9 @@ const rootReducer = combineReducers({
   getShippingFeeReducer,
   storeAddressReducer,
   createOrderReducer,
+  CheckoutVnpayReducer,
+  checkReturnVnpayReducer,
+  checkIpnVnpayReducer,
   //----------------------------------------------------------------------------------//
 
   userReducer,

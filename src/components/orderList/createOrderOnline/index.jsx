@@ -2,8 +2,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Form, Modal, Popconfirm, Table, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import numeral from "numeral";
-// import "numeral/locales/en";
 
 import PathDot from "components/svg/pathDot";
 import { LOCATIONS } from "constants/index";
@@ -12,24 +10,30 @@ import styles from "./createOrderOnline.module.scss";
 import {
   actionDeleteProdutFromOrderDetails,
   actionIncreaseProductOnOrderDetails,
+  actionResetOrderDetailList,
 } from "store/Orders/storeProductsArray/action";
 import FormSearchProduct from "./formSearchProduct";
 import FormSearchCustomer from "./formSearchCustomer";
 import {
   actionAddCustomer,
   actionDeleteCustomer,
+  actionResetCustomer,
 } from "store/Orders/storeCustomer/action";
 import FormCreateCustomer from "./formCreateCustomer";
 import { actionResetPhoneNumber } from "store/Orders/storePhoneNumber/action";
 import FormAddShippingAddress from "./formShippingAddress";
-import { actionDeleteAddress } from "store/Orders/storeAddress/action";
-import { actionCreateOrder } from "store/Orders/createOrder/action";
+import {
+  actionDeleteAddress,
+  actionResetAddress,
+} from "store/Orders/storeAddress/action";
+import {
+  actionCreateOrder,
+  actionResetCreateOrder,
+} from "store/Orders/createOrder/action";
 import EditIcon from "components/svg/edit";
 import ClearIcon from "components/svg/clear";
 import { actionResetSearchProduct } from "store/Orders/searchProduct/action";
 import Loading from "components/svg/loading";
-
-numeral.locale("en");
 
 function CreateOrderOnline() {
   const dispatch = useDispatch();
@@ -319,6 +323,18 @@ function CreateOrderOnline() {
     }
   }, [resCreateOrder]);
 
+  // const clickGotoCheckout = useCallback(() => {
+  //   dispatch(actionResetOrderDetailList());
+  //   dispatch(actionResetPhoneNumber());
+  //   dispatch(actionResetCustomer());
+  //   dispatch(actionResetCustomer());
+  //   dispatch(actionResetAddress());
+  //   dispatch(actionResetCreateOrder());
+  // setIsHaveRes(false);
+
+  //   navigate(LOCATIONS.CHECKOUT);
+  // }, [dispatch, navigate]);
+
   const columns = [
     {
       // width: "10%",
@@ -328,11 +344,7 @@ function CreateOrderOnline() {
       render: (text, record, index) => {
         return (
           <div className={styles.cover_product_name}>
-            <img
-              className={styles.product_img}
-              src={require("assets/images/chuotda.webp")}
-              alt="..."
-            />
+            <img className={styles.product_img} src={record.image} alt="..." />
 
             <span className={styles.product_name}>{text}</span>
           </div>
@@ -457,9 +469,11 @@ function CreateOrderOnline() {
               className={styles.btn_ok}
               type="primary"
               htmlType="button"
-              onClick={() => navigate(LOCATIONS.CHECKOUT)}
+              onClick={() => {
+                navigate(LOCATIONS.CHECKOUT);
+              }}
             >
-              <span className={styles.ok}>Go to checkout</span>
+              <span className={styles.ok}>GO TO CHECKOUT</span>
             </Button>
           </div>
         </div>
@@ -632,7 +646,9 @@ function CreateOrderOnline() {
                       title="Are you sure you want to delete it?"
                       okText="OK"
                       cancelText="Cancel"
-                      okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
+                      okButtonProps={{
+                        style: { background: "rgb(0, 167, 111)" },
+                      }}
                       onConfirm={() => handleClickDeletedCustomer()}
                     >
                       <Button danger icon={<ClearIcon />}></Button>{" "}
@@ -714,7 +730,9 @@ function CreateOrderOnline() {
                       title="Are you sure you want to delete it?"
                       okText="OK"
                       cancelText="Cancel"
-                      okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
+                      okButtonProps={{
+                        style: { background: "rgb(0, 167, 111)" },
+                      }}
                       onConfirm={() => handleClickDeletedShippingAddress()}
                     >
                       <Button danger icon={<ClearIcon />}></Button>

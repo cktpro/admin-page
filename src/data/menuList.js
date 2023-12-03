@@ -16,6 +16,10 @@ const menuList=[
           label: "Create order",
           src: LOCATIONS.CREATE_ORDER_ON,
         },
+        {
+          label: "Order statistics",
+          src: LOCATIONS.ORDER_STATISTICS,
+        },
       ],
     },
     {
