@@ -4,10 +4,7 @@
 import { axiosAdminMan } from "helper/axios";
 
 const searchProduct = async (condition) => {
-  let url = `/products/search-for-order?query=${condition}`;
-
-
-  console.log('««««« url »»»»»', url);
+  let url = `/products-admin/search-for-order?query=${condition}`;
 
   const response = await axiosAdminMan.get(url);
 

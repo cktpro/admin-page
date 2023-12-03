@@ -134,11 +134,11 @@ function Account() {
               <strong>
                 {pathname === LOCATIONS.ADD_USER
                   ? "Thêm mới người dùng"
-                  : "Cập nhật người dùng"}
+                  : "Update user"}
               </strong>
             </h4>
             <Link to={LOCATIONS.USER} className="btn btn-secondary">
-              Quay lại
+              Back
             </Link>
           </div>
         </div>
@@ -198,11 +198,11 @@ function Account() {
                     className="form-control"
                     id="firstName"
                     name="firstName"
-                    placeholder="Tên"
+                    placeholder="First name"
                     value={user.firstName}
                     onChange={handleChange}
                   />
-                  <label htmlFor="firstName">Tên</label>
+                  <label htmlFor="firstName">First name</label>
                 </div>
                 {error.firstName && (
                   <small className="d-block text-danger -mt-3">
@@ -217,11 +217,11 @@ function Account() {
                     className="form-control"
                     id="lastName"
                     name="lastName"
-                    placeholder="Họ"
+                    placeholder="Last name"
                     value={user.lastName}
                     onChange={handleChange}
                   />
-                  <label htmlFor="lastName">Họ</label>
+                  <label htmlFor="lastName">Last name</label>
                 </div>
                 {error.lastName && (
                   <small className="d-block text-danger -mt-3">
@@ -240,7 +240,7 @@ function Account() {
                     value={user.phoneNumber}
                     onChange={handleChange}
                   />
-                  <label htmlFor="phoneNumber">Số điện thoại</label>
+                  <label htmlFor="phoneNumber">Phone number</label>
                 </div>
                 {error.phoneNumber && (
                   <small className="d-block text-danger -mt-3">
@@ -255,11 +255,11 @@ function Account() {
                     className="form-control"
                     id="address"
                     name="address"
-                    placeholder="Địa chỉ"
+                    placeholder="Address"
                     value={user.address}
                     onChange={handleChange}
                   />
-                  <label htmlFor="address">Địa chỉ</label>
+                  <label htmlFor="address">Address</label>
                 </div>
                 {error.address && (
                   <small className="d-block text-danger -mt-3">
@@ -298,7 +298,7 @@ function Account() {
                     value={user.password}
                     onChange={handleChange}
                   />
-                  <label htmlFor="password">Mật khẩu</label>
+                  <label htmlFor="password">Password</label>
                 </div>
                 {error.password && (
                   <small className="d-block text-danger -mt-3">
@@ -314,12 +314,12 @@ function Account() {
                     className="form-control"
                     id="birthday"
                     name="birthday"
-                    placeholder="Ngày sinh"
+                    placeholder="Birthday"
                     value={formatDate(user.birthday)}
                     // value="1999-03-25"
                     onChange={handleChange}
                   />
-                  <label htmlFor="birthday">Ngày sinh</label>
+                  <label htmlFor="birthday">Birthday</label>
                 </div>
                 {error.birthday && (
                   <small className="d-block text-danger -mt-3">
@@ -343,7 +343,7 @@ function Account() {
                       <span className="visually-hidden">Loading...</span>
                     </div>
                   )}
-                  {editable ? "Cập nhật" : "Lưu"}
+                  {editable ? "Update" : "Save"}
                 </button>
               </div>
             </div>

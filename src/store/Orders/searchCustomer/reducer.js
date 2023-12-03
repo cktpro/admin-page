@@ -7,7 +7,7 @@ import * as ActionTypes from './actionTypes';
 // DEFAULT STATE
 const defaultState = {
     isLoading: false,
-    payload: [],
+    payload: {},
 };
 
 const searchCustomerOrderReducer = (state = defaultState, action) => {

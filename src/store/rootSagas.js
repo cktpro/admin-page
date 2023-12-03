@@ -5,6 +5,15 @@
 /* quy phạm khai báo Saga */
 import { all, fork } from 'redux-saga/effects';
 
+//Flashsale---------------------------------------------------------------------------//
+import flashsaleSaga from './Products/CreateFlashsale/storeProductsArray/saga';
+import updateFlashsaleSaga from './Products/CreateFlashsale/updateFlashsale/saga';
+import doDeleteAllFlashsale from './Products/CreateFlashsale/deleteAllFlashsale/saga';
+import updateTimeFlashsaleSaga from './Products/CreateFlashsale/updateTimeFlashsale/saga';
+import getTimeFlashsaleSaga from './Products/CreateFlashsale/getTimeFlashsale/saga';
+//--------------------------------------------------------------------------------//
+
+//order---------------------------------------------------------------------------//
 import ordersSaga from './Orders/getOrderList/saga';
 import ordersCompletedSaga from './Orders/getOrderListCompleted/saga';
 import getAllOrdersWaiting from './Orders/getOrderListWaiting/saga';
@@ -21,11 +30,31 @@ import getOrderDetailSaga from './Orders/getOrderDetail/saga';
 import searchCustomerOrderSaga from './Orders/searchCustomer/saga';
 
 import searchProductOrderSaga from './Orders/searchProduct/saga';
-import usersaga from './User/saga';
 
+import createCustomerOrderSaga from './Orders/createCustomerOrder/saga';
+import getReceiveProvinceSaga from './Orders/getReceiveProvince/saga';
+import getReceiveDistrictSaga from './Orders/getReceiveDistrict/saga';
+import getReceiveWardSaga from './Orders/getReceiveWard/saga';
+import getShippingFeeSaga from './Orders/getShippingFee/saga';
+import createOrderSaga from './Orders/createOrder/saga';
+import CheckoutVnpaySaga from './Orders/checkoutVnpay/saga';
+import checkReturnVnpaySaga from './Orders/checkReturnVnpay/saga';
+import checkIpnVnpaySaga from './Orders/checkIpnVnpay/saga';
+//------------------------------------------------------------------------------------//
+
+import usersaga from './User/saga';
 
 export default function* rootSaga() {
   yield all([
+    //Flashsale---------------------------------------------------------------------------//
+    fork(flashsaleSaga),
+    fork(updateFlashsaleSaga),
+    fork(doDeleteAllFlashsale),
+    fork(updateTimeFlashsaleSaga),
+    fork(getTimeFlashsaleSaga),
+    //--------------------------------------------------------------------------------//
+
+    //order---------------------------------------------------------------------------//
     fork(ordersSaga),
     fork(ordersCompletedSaga),
     fork(getAllOrdersWaiting),
@@ -42,6 +71,19 @@ export default function* rootSaga() {
     fork(searchCustomerOrderSaga),
 
     fork(searchProductOrderSaga),
+
+    fork(createCustomerOrderSaga),
+    fork(getReceiveProvinceSaga),
+    fork(getReceiveDistrictSaga),
+    fork(getReceiveWardSaga),
+    fork(getShippingFeeSaga),
+    fork(createOrderSaga),
+    fork(CheckoutVnpaySaga),
+    fork(checkReturnVnpaySaga),
+    fork(checkIpnVnpaySaga),
+    //------------------------------------------------------------------------------------//
+
     fork(usersaga),
+
   ]);
 }

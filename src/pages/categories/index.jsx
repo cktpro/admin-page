@@ -12,7 +12,7 @@ const url = process.env.REACT_APP_BASE_URL_ADMIN;
 
 const columns = [
   {
-    title: "Tên danh mục",
+    title: "Categories name",
     render: (record) => {
       if(record.image)
       return (
@@ -47,12 +47,12 @@ const columns = [
     },
   },
   {
-    title: "Mô tả",
+    title: "Description",
     key: "description",
     dataIndex: "description",
   },
   {
-    title: "Ngày tạo",
+    title: "Date created",
     render: (record) => {
       return <span>{new Date(record.createdAt).toLocaleString("en-GB")}</span>;
     },
@@ -74,6 +74,7 @@ const columns = [
           title="Bạn có muốn xóa không?"
           okText="Đồng ý"
           cancelText="Hủy"
+          okButtonProps={{ style: { background: "rgb(0, 167, 111)" } }}
           onConfirm={() => deleteCategory(record._id)}
         >
           <button className="btn border">
@@ -118,10 +119,10 @@ function CategoryList() {
   return (
     <>
       <div style={{ minWidth: "600px" }} className="d-flex justify-content-between my-1">
-        <h3>Danh sách danh mục</h3>
+        <h3>List of Categories</h3>
         <div>
           <Link to="/add_category">
-            <button type="button" className="btn btn-success">Thêm danh mục</button>
+            <button type="button" className="btn btn-success">Add new category</button>
           </Link>
         </div>
       </div>

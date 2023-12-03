@@ -174,7 +174,7 @@ function StatusWaiting() {
 
               <div className="col-2 custom_col cover_order_collapsed_price">
                 <span className="order_collapsed_price">
-                  {numeral(item?.price).format("0,0")} VNĐ
+                ${parseFloat(item?.price).toFixed(2)}
                 </span>
               </div>
             </div>
@@ -223,7 +223,7 @@ function StatusWaiting() {
       ),
     },
     {
-      title: "Khách hàng",
+      title: "Customer",
       dataIndex: "customer",
       key: "customer",
       filters: customers,
@@ -250,7 +250,7 @@ function StatusWaiting() {
       ),
     },
     {
-      title: "Ngày tạo",
+      title: "Created date",
       dataIndex: "createdDate",
       key: "createdDate",
       filters: createdDates,
@@ -280,18 +280,18 @@ function StatusWaiting() {
       },
     },
     {
-      title: "Tổng tiền",
+      title: "Total",
       dataIndex: "totalPrice",
       key: "totalPrice",
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          {numeral(text).format("0,0")} VNĐ
+          ${parseFloat(text).toFixed(2)}
         </span>
       ),
     },
     {
-      title: "Trạng thái",
+      title: "Status",
       dataIndex: "status",
       key: "status",
       sorter: (a, b) => a.status.localeCompare(b.status),
@@ -341,7 +341,7 @@ function StatusWaiting() {
         <Pagination
           defaultCurrent={1}
           total={condition?.total || defaultPagination.total}
-          showTotal={(total, range) => `${range[0]} - ${range[1]} của ${total}`}
+          showTotal={(total, range) => `${range[0]} - ${range[1]} of ${total}`}
           pageSize={condition?.pageSize || defaultPagination.pageSize}
           pageSizeOptions={[
             1,
@@ -350,7 +350,7 @@ function StatusWaiting() {
             condition?.total || defaultPagination.total,
           ]}
           showSizeChanger
-          locale={{ items_per_page: "dòng / trang" }}
+          locale={{ items_per_page: "line / page" }}
           responsive={true}
           onChange={onChangePage}
           current={condition?.page || defaultPagination.page}

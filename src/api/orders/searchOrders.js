@@ -8,9 +8,9 @@ import { axiosAdminMan } from "helper/axios";
 const searchOrders = async (condition) => {
   let url = "";
   if (condition.status === "All") {
-    url = `/questions/21b?page=${condition.page}&pageSize=${condition.pageSize}&query=${condition?.query}&startDate=${condition?.startDate}&endDate=${condition?.endDate}`;
+    url = `/questions-admin/21b?page=${condition.page}&pageSize=${condition.pageSize}&query=${condition?.query}&startDate=${condition?.startDate}&endDate=${condition?.endDate}`;
   } else {
-    url = `/questions/21b?page=${condition.page}&pageSize=${condition.pageSize}&status=${condition.status}&query=${condition?.query}&startDate=${condition?.startDate}&endDate=${condition?.endDate}`;
+    url = `/questions-admin/21b?page=${condition.page}&pageSize=${condition.pageSize}&status=${condition.status}&query=${condition?.query}&startDate=${condition?.startDate}&endDate=${condition?.endDate}`;
   }
 
   const response = await axiosAdminMan.get(url);

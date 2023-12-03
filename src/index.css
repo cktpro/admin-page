@@ -13,3 +13,54 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.ant-radio-checked .ant-radio-inner {
+  border-color: rgb(0, 167, 111) !important;
+  background-color: rgb(0, 167, 111) !important;
+}
+
+.ant-radio-checked .ant-radio-inner:after {
+  border-color: rgb(0, 167, 111) !important;
+  /* background-color: rgb(0, 167, 111) !important; */
+}
+
+.ant-radio:hover .ant-radio-inner {
+  border-color: rgb(0, 167, 111) !important;
+  /* background-color: rgb(0, 167, 111) !important; */
+}
+
+.ant-radio:hover {
+  border-color: rgb(0, 167, 111) !important;
+  /* background-color: rgb(0, 167, 111) !important; */
+}
+
+.ant-radio-checked .ant-radio-inner:focus {
+  border-color: rgb(0, 167, 111) !important;
+  background-color: rgb(0, 167, 111) !important;
+}
+
+.ant-input-number input {
+  text-align: right !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  font-size: 1rem !important;
+  font-family: "Public Sans", sans-serif !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.ant-input-number,
+.ant-input-number-input-wrap {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* .ant-input-number input:hover,
+.ant-input-number input:focus {
+  text-align: right !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  font-size: 1rem !important;
+  font-family: "Public Sans", sans-serif !important;
+  border: solid black 1px !important;
+} */

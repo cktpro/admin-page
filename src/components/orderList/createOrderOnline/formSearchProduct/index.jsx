@@ -1,17 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Table } from "antd";
-import { PlusCircleFilled, PlusCircleOutlined } from "@ant-design/icons";
+import React, { useCallback, useState } from "react";
+import { Button, Form, Input, Space, Table, notification } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
 import styles from "./searchProduct.module.scss";
 import { actionSearchProduct } from "store/Orders/searchProduct/action";
-import { actionAddProductToOrderDetails } from "store/Orders/createOrderDetails/action";
+import { actionAddProductToOrderDetails } from "store/Orders/storeProductsArray/action";
+import Loading from "components/svg/loading";
 
-function FormSearchProduct() {
+function FormSearchProduct(props) {
+  const { searchProductFrom } = props;
+
+  const [api, contextHolder] = notification.useNotification();
+
   const dispatch = useDispatch();
 
   const productList = useSelector(
     (state) => state.searchProductToCreateOrderReducer.payload
+  );
+
+  const isLoading = useSelector(
+    (state) => state.searchProductToCreateOrderReducer.isLoading
   );
 
   const [inputSearch, setInputSearch] = useState("");
@@ -20,62 +28,67 @@ function FormSearchProduct() {
     setInputSearch(e.target.value);
   }, []);
 
-  const handleClickSearch = useCallback(
-    (e) => {
-      e.preventDefault();
+  const handleClickSearch = useCallback(() => {
+    const condition = inputSearch;
 
-      const condition = inputSearch;
+    dispatch(actionSearchProduct(condition));
+  }, [dispatch, inputSearch]);
 
-      dispatch(actionSearchProduct(condition));
+  const openNotificationWithIcon = useCallback(
+    (type, message) => {
+      switch (type) {
+        case "error":
+          api[type]({
+            message: "ERROR",
+            description: message,
+          });
+          break;
+
+        case "success":
+          api[type]({
+            message: "SUCCESS",
+            description: message,
+          });
+          break;
+
+        case "warning":
+          api[type]({
+            message: "WARNING",
+            description: message,
+          });
+          break;
+
+        default:
+          break;
+      }
     },
-    [dispatch, inputSearch]
+    [api]
   );
 
   const handleClickAdd = useCallback(
     (product) => {
+      if (product.stock <= 0) {
+        openNotificationWithIcon("error", "product is out of stock !!!");
+
+        return;
+      }
+
       const data = {
         productId: product._id,
         name: product.name,
+        stock: product.stock,
         quantity: 1,
         price: product.price,
         discount: product.discount,
+        image: product.image.location,
       };
 
       dispatch(actionAddProductToOrderDetails(data));
     },
-    [dispatch]
+    [dispatch, openNotificationWithIcon]
   );
 
   const columns = [
-    {
-      // width: "10%",
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-      render: (text, record, index) => {
-        return <div className={styles.product_name}>{text}</div>;
-      },
-    },
-    {
-      title: "Price",
-      dataIndex: "price",
-      key: "price",
-    },
-    {
-      title: "Discount",
-      dataIndex: "discount",
-      key: "discount",
-    },
-    {
-      title: "Stock",
-      dataIndex: "stock",
-      key: "stock",
-    },
-    {
-      title: "DiscountedPrice",
-      dataIndex: "discountedPrice",
-      key: "discountedPrice",
-    },
     {
       title: " ",
       key: "actions",
@@ -83,29 +96,114 @@ function FormSearchProduct() {
       render: (text, record, index) => {
         return (
           <Button
+            className={styles.btn_add}
+            type="primary"
             onClick={() => handleClickAdd(record)}
-            icon={<PlusCircleFilled />}
-          />
+          >
+            <span className={styles.add}>+</span>
+          </Button>
         );
       },
+    },
+    {
+      // width: "10%",
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text, record, index) => {
+        return (
+          <div className={styles.cover_product_name_img}>
+            <div className={styles.cover_product_img}>
+              <img
+                className={styles.cover_product_img}
+                src={record.image.location}
+                alt="..."
+              />
+            </div>
+
+            <span className={styles.product_name}>{text}</span>
+          </div>
+        );
+      },
+    },
+    {
+      title: "DiscountedPrice",
+      dataIndex: "discountedPrice",
+      key: "discountedPrice",
+      render: (text, record, index) => {
+        return (
+          <span className={styles.discounted_price}>
+            $
+            {(
+              (record.price * (100 - record.discount)) /
+              100
+            ).toFixed(2)}
+          </span>
+        );
+      },
+    },
+    {
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      render: (text, record, index) => {
+        return (
+          // <span className={styles.price}>${numeral(text).format("0,0")}</span>
+          <span className={styles.price}>${text.toFixed(2)}</span>
+        );
+      },
+    },
+    {
+      title: "Discount",
+      dataIndex: "discount",
+      key: "discount",
+      render: (text, record, index) => {
+        return <span className={styles.discount}>{text}%</span>;
+      },
+    },
+    {
+      title: "Stock",
+      dataIndex: "stock",
+      key: "stock",
     },
   ];
 
   return (
     <>
-      <form className={styles.form_search_product}>
-        <input
-          type="text"
-          onChange={handleChangeInputSearch}
-          placeholder="search sku or name..."
-        />
+      {contextHolder}
 
-        <button type="submit" onClick={(e) => handleClickSearch(e)}>
-          Search
-        </button>
-      </form>
+      {isLoading && (
+        <div className={styles.loading}>
+          <Loading />
+        </div>
+      )}
 
-      <div>
+      <Form
+        form={searchProductFrom}
+        className=""
+        name="Search Products"
+        // wrapperCol={{ span: 24 }}
+        onFinish={() => handleClickSearch()}
+        autoComplete="off"
+      >
+        <Space>
+          <Form.Item name="inputSearch">
+            <Input onChange={handleChangeInputSearch} />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              className={styles.btn_search_products}
+              type="primary"
+              htmlType="submit"
+            >
+              <span className={styles.search}>Search</span>
+            </Button>
+          </Form.Item>
+        </Space>
+      </Form>
+
+      <div className={styles.cover_table_result}>
         <Table
           rowKey="_id"
           columns={columns}

@@ -6,7 +6,7 @@
 import { axiosAdminMan } from "helper/axios";
 
 const getNumOfOrdersStatus = async () => {
-  const url = "/orders/status";
+  const url = "/orders-admin/status";
 
   const response = await axiosAdminMan.get(url);
 

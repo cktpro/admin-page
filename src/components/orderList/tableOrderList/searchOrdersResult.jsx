@@ -120,7 +120,7 @@ function SearchOrderResult(props) {
 
               <div className="col-2 custom_col cover_order_collapsed_price">
                 <span className="order_collapsed_price">
-                  {numeral(item?.price).format("0,0")} VNĐ
+                  ${parseFloat(item?.price).toFixed(2)}
                 </span>
               </div>
             </div>
@@ -169,7 +169,7 @@ function SearchOrderResult(props) {
       ),
     },
     {
-      title: "Khách hàng",
+      title: "Customer",
       dataIndex: "customer",
       key: "customer",
       filters: customers,
@@ -196,7 +196,7 @@ function SearchOrderResult(props) {
       ),
     },
     {
-      title: "Ngày tạo",
+      title: "Created date",
       dataIndex: "createdDate",
       key: "createdDate",
       filters: createdDates,
@@ -226,18 +226,18 @@ function SearchOrderResult(props) {
       },
     },
     {
-      title: "Tổng tiền",
+      title: "Total",
       dataIndex: "totalPrice",
       key: "totalPrice",
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          {numeral(text).format("0,0")} VNĐ
+          ${parseFloat(text).toFixed(2)}
         </span>
       ),
     },
     {
-      title: "Trạng thái",
+      title: "Status",
       dataIndex: "status",
       key: "status",
       sorter: (a, b) => a.status.localeCompare(b.status),
