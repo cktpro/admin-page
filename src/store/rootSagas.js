@@ -40,6 +40,8 @@ import createOrderSaga from './Orders/createOrder/saga';
 import CheckoutVnpaySaga from './Orders/checkoutVnpay/saga';
 import checkReturnVnpaySaga from './Orders/checkReturnVnpay/saga';
 import checkIpnVnpaySaga from './Orders/checkIpnVnpay/saga';
+
+import updateOrderDetailSaga from './Orders/getOrderDetail/sagaUpdate';
 //------------------------------------------------------------------------------------//
 
 import usersaga from './User/saga';
@@ -56,6 +58,7 @@ export default function* rootSaga() {
 
     //order---------------------------------------------------------------------------//
     fork(ordersSaga),
+    fork(updateOrderDetailSaga),
     fork(ordersCompletedSaga),
     fork(getAllOrdersWaiting),
     fork(ordersCanceledSaga),

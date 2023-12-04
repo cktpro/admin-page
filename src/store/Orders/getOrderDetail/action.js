@@ -9,6 +9,11 @@ export const actiongetOrderDetail = (payload) => ({ //lấy data từ api
   payload, //điều kiện nhận vào để get data
 });
 
+export const actionUpdateOrderDetail = (payload) => ({ //lấy data từ api
+  type: ActionTypes.UPDATE_ORDER_DETAIL,
+  payload, //điều kiện nhận vào để get data
+});
+
 export const actiongetOrderDetailSuccess = (payload) => ({ //lấy data từ api thành công
   type: ActionTypes.GET_ORDER_DETAIL_SUCCESS,
   payload, //data trả về
