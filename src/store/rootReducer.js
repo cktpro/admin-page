@@ -21,6 +21,7 @@ import orderCompletedReducer from './Orders/getOrderListCompleted/reducer';
 import orderWaitingReducer from './Orders/getOrderListWaiting/reducer';
 import orderCanceledReducer from './Orders/getOrderListCanceled/reducer';
 import orderRejectedReducer from './Orders/getOrderListRejected/reducer';
+import orderPaidReducer from './Orders/getOrderListPaid/reducer';
 import orderDeliveringReducer from './Orders/getOrderListDelivering/reducer';
 
 import getNumOfOrdersStatusReducer from './Orders/getNumOfStatus/reducer';
@@ -69,6 +70,7 @@ const rootReducer = combineReducers({
   orderCanceledReducer,
   orderRejectedReducer,
   orderDeliveringReducer,
+  orderPaidReducer,
 
   getNumOfOrdersStatusReducer,
 

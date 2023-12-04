@@ -31,6 +31,7 @@ import SearchOrderResult from "./tableOrderList/searchOrdersResult";
 import CancelIcon from "components/svg/cancel";
 import ClearIcon from "components/svg/clear";
 import Loading from "components/svg/loading";
+import StatusPaid from "./tableOrderList/statusPaid";
 
 function OrderList() {
   // declare useDispatch
@@ -99,6 +100,7 @@ function OrderList() {
 
   // manage num of orders statuses
   const [totalWaiting, setTotalWaiting] = useState(0);
+  const [totalPaid, setTotalPaid] = useState(0);
   const [totalCompleted, setTotalCompleted] = useState(0);
   const [totalCanceled, setTotalCanceled] = useState(0);
   const [totalRejected, setTotalRejected] = useState(0);
@@ -159,6 +161,7 @@ function OrderList() {
 
   useEffect(() => {
     setTotalWaiting(resGetNumOfOrdersStatus?.payload?.totalWaiting);
+    setTotalPaid(resGetNumOfOrdersStatus?.payload?.totalPaid);
     setTotalCompleted(resGetNumOfOrdersStatus?.payload?.totalCompleted);
     setTotalCanceled(resGetNumOfOrdersStatus?.payload?.totalCanceled);
     setTotalRejected(resGetNumOfOrdersStatus?.payload?.totalRejected);
@@ -167,6 +170,7 @@ function OrderList() {
     resGetNumOfOrdersStatus?.payload?.totalCanceled,
     resGetNumOfOrdersStatus?.payload?.totalCompleted,
     resGetNumOfOrdersStatus?.payload?.totalDelivering,
+    resGetNumOfOrdersStatus?.payload?.totalPaid,
     resGetNumOfOrdersStatus?.payload?.totalRejected,
     resGetNumOfOrdersStatus?.payload?.totalWaiting,
   ]);
@@ -214,6 +218,9 @@ function OrderList() {
         case "WAITING":
           return totalWaiting;
 
+        case "PAID":
+          return totalPaid;
+
         case "COMPLETED":
           return totalCompleted;
 
@@ -234,6 +241,7 @@ function OrderList() {
       totalCanceled,
       totalCompleted,
       totalDelivering,
+      totalPaid,
       totalRejected,
       totalWaiting,
     ]
@@ -380,6 +388,9 @@ function OrderList() {
       case "COMPLETED":
         return <StatusCompleted />;
 
+      case "PAID":
+        return <StatusPaid />;
+
       case "WAITING":
         return <StatusWaiting />;
 
@@ -431,6 +442,10 @@ function OrderList() {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+  console.log('««««« currentItem »»»»»', currentItem);
+  }, [currentItem]);
 
   // handle click cancel on condition find status
   const handleClickCancelOnStatus = useCallback(() => {
@@ -510,9 +525,7 @@ function OrderList() {
     <div className="container-fluid">
       <div className="row custom_row">
         {/* Order List Title */}
-        <div className="col-12 custom_col order_list_title">
-          Order list
-        </div>
+        <div className="col-12 custom_col order_list_title">Order list</div>
 
         {/* Order List Path */}
         <div className="col-12 custom_col order_list_path">

@@ -193,29 +193,6 @@ function CheckoutPage() {
   );
 
   useEffect(() => {
-    if (createCustomerOrder?.message) {
-      switch (createCustomerOrder?.statusCode) {
-        case 400:
-          openNotificationWithIcon("error", createCustomerOrder?.message);
-          break;
-
-        case 500:
-          openNotificationWithIcon("error", createCustomerOrder?.message);
-          break;
-
-        case 200:
-          openNotificationWithIcon("success", createCustomerOrder?.message);
-
-          setIsOpenModalCreateCustomer(false);
-          break;
-
-        default:
-          break;
-      }
-    }
-  }, [api, createCustomerOrder, dispatch, openNotificationWithIcon]);
-
-  useEffect(() => {
     if (Object.keys(customerDetails).length > 0) {
       setIsOpenModalSearchCustomer(false);
     }

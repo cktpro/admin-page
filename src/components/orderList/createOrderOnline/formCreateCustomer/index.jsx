@@ -49,33 +49,6 @@ function FormCreateCustomer(props) {
     });
   };
 
-  const provinceList = [
-    {
-      value: "1",
-      label: "Not Identified",
-    },
-    {
-      value: "2",
-      label: "Closed",
-    },
-    {
-      value: "3",
-      label: "Communicated",
-    },
-    {
-      value: "4",
-      label: "Identified",
-    },
-    {
-      value: "5",
-      label: "Resolved",
-    },
-    {
-      value: "6",
-      label: "Cancelled",
-    },
-  ];
-
   const dateFormat = "DD/MM/YYYY";
 
   const onFinish = useCallback(
@@ -182,33 +155,6 @@ function FormCreateCustomer(props) {
         </Form.Item>
 
         <Form.Item
-          label="Address"
-          name="address"
-          rules={[
-            { required: true, message: "Please type Address" },
-            { max: 500, message: "Max 500 characters" },
-          ]}
-        >
-          <Select
-            showSearch
-            style={{
-              width: "100%",
-            }}
-            placeholder="Select Province"
-            optionFilterProp="children"
-            filterOption={(input, option) =>
-              (option?.label ?? "").includes(input)
-            }
-            filterSort={(optionA, optionB) =>
-              (optionA?.label ?? "")
-                .toLowerCase()
-                .localeCompare((optionB?.label ?? "").toLowerCase())
-            }
-            options={provinceList}
-          />
-        </Form.Item>
-
-        <Form.Item
           style={{
             width: "100%",
             display: "flex",
@@ -216,7 +162,6 @@ function FormCreateCustomer(props) {
             justifyContent: "center",
           }}
         >
-
           <Button
             className={styles.btn_create_customer}
             type="primary"

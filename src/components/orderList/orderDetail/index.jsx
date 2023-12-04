@@ -26,6 +26,10 @@ function OrderDetail(props) {
 
   const [isOpenEditOrder, setIsOpenEditOrder] = useState(false);
 
+  useEffect(() => {
+  console.log('««««« resGetOrderDetail »»»»»', resGetOrderDetail);
+  }, [resGetOrderDetail]);
+
   const getOrderDetail = useCallback(() => {
     dispatch(actiongetOrderDetail(params.id));
   }, [dispatch, params.id]);
@@ -215,22 +219,24 @@ function OrderDetail(props) {
 
                 <div className={styles.cover_total}>
                   <div className={styles.cover_field}>
-                    <span className={styles.temp_total}>Tạm tính</span>
+                    <span className={styles.temp_total}>Sub total</span>
 
-                    <span className={styles.temp_total}>Giảm giá</span>
+                    {/* <span className={styles.temp_total}>Giảm giá</span> */}
 
-                    <span className={styles.total}>Tổng cộng</span>
+                    <span className={styles.total}>Total</span>
                   </div>
 
                   <div className={styles.cover_price}>
                     <span className={styles.temp_price}>
-                      ${parseFloat(rederTotalOriginPrice()).toFixed(2)}
+                      {/* ${parseFloat(rederTotalOriginPrice()).toFixed(2)} */}
+                      ${parseFloat(resGetOrderDetail?.payload?.payload?.totalPrice).toFixed(2)}
                     </span>
 
-                    <span className={styles.discount}>-0%</span>
+                    {/* <span className={styles.discount}>-0%</span> */}
 
                     <span className={styles.total_price}>
-                      ${parseFloat(renderTotalPrice()).toFixed(2)}
+                      {/* ${parseFloat(renderTotalPrice()).toFixed(2)} */}
+                      ${parseFloat(resGetOrderDetail?.payload?.payload?.totalPrice).toFixed(2)}
                     </span>
                   </div>
                 </div>

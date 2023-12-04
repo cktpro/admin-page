@@ -96,7 +96,7 @@ function ReturnCheckoutPage() {
 
             <div className={styles.products_details}>
               {checkReturnVnpay?.toString() === "24" && (
-                <span className={styles.success}>
+                <span className={styles.failed}>
                   Payment failed, please try again!
                 </span>
               )}
@@ -106,7 +106,7 @@ function ReturnCheckoutPage() {
               )}
 
               {checkReturnVnpay?.toString() === "00" && (
-                <span className={styles.failed}>
+                <span className={styles.success}>
                   Payment successful, thank you!
                 </span>
               )}

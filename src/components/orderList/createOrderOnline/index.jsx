@@ -212,15 +212,15 @@ function CreateOrderOnline() {
     if (createCustomerOrder?.message) {
       switch (createCustomerOrder?.statusCode) {
         case 400:
-          openNotificationWithIcon("error", createCustomerOrder?.message);
+          // openNotificationWithIcon("error", createCustomerOrder?.message);
           break;
 
         case 500:
-          openNotificationWithIcon("error", createCustomerOrder?.message);
+          // openNotificationWithIcon("error", createCustomerOrder?.message);
           break;
 
         case 200:
-          openNotificationWithIcon("success", createCustomerOrder?.message);
+          // openNotificationWithIcon("success", createCustomerOrder?.message);
 
           dispatch(actionAddCustomer(createCustomerOrder?.payload));
 
