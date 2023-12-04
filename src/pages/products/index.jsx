@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Popconfirm, Table, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
-import { getProduct, getProductDetail } from "api/productApi";
+import { getProductDetail } from "api/productApi";
 import Loading from "components/loading";
 import EditIcon from "components/svg/edit";
 import ClearIcon from "components/svg/clear";
@@ -223,7 +223,7 @@ function ProductList() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const res = await getProduct();
+      const res = await axiosAdmin.get("products?page=1&pageSize=100") 
       setProduct(res?.data?.payload);
       setIsLoading(false);
     };

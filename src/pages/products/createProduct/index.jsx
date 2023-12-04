@@ -13,9 +13,6 @@ import {
 } from "antd";
 import {
   UploadOutlined,
-  MinusCircleOutlined,
-  DeleteFilled,
-  PlusOutlined,
 } from "@ant-design/icons";
 import { getCategory } from "api/categoryApi";
 import { getSupplier } from "api/supplierApi";
@@ -320,7 +317,7 @@ function CreateProduct(props) {
                   { required: true, message: "Discount is required" },
                 ]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }}  />
               </Form.Item>
             </div>
           </div>
@@ -345,7 +342,7 @@ function CreateProduct(props) {
             name="images"
             rules={[{ required: true, message: "Missing cover image" }]}
           >
-            <Upload name="list" beforeUpload={true} multiple listType="picture">
+            <Upload name="list" beforeUpload={true} multiple  listType="picture">
               <Button icon={<UploadOutlined />}>Image list</Button>
             </Upload>
           </Form.Item>
