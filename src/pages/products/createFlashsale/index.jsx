@@ -37,17 +37,7 @@ import {
 import Loading from "components/svg/loading";
 
 function CreateFlashsalePage() {
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
+  const dispatch = useDispatch();  
 
   const [isInitialRender, setIsInitialRender] = useState(true);
 

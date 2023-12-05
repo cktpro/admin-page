@@ -10,13 +10,6 @@ import { getSupplierDetail, updateSupplier } from "api/supplierApi";
 function UpdateSupplier() {
   const navigate = useNavigate();
   
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
   const { id } = useParams();
   const supplierId = id;
   const [name, setName] = useState("");

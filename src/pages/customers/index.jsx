@@ -11,16 +11,6 @@ import { actionDeleteUser, actionGetListUser } from "store/User/action";
 import { array } from "yup";
 
 function ListUser() {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   const {
     listStatus: { isLoading },
     list,

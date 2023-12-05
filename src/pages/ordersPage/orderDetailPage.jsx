@@ -7,16 +7,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function OrderDetailPage() {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   return <OrderDetail />;
 }
 

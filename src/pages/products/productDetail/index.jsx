@@ -8,15 +8,6 @@ import Loading from "components/loading";
 import "./productDetail.scss";
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 function ProductDetail(props) {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
 
   const [isLoading, setIsLoading] = useState(null);
   const [currentTab, setCurrentTab] = useState("btn-desc");

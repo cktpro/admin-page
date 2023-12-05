@@ -25,15 +25,6 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 function CreateProduct(props) {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
 
   const [productForm] = Form.useForm();
   const [categories, setCategory] = useState([]);

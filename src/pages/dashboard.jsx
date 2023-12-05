@@ -38,7 +38,6 @@ function Dashboard(props) {
         "Order canceled",
         "Order paid",
         "Order delivering",
-        
       ],
     },
     series: [44, 55, 41, 17, 15, 17],
@@ -76,16 +75,14 @@ function Dashboard(props) {
           data: revenue,
         },
       ];
-      setBarChar((prev)=>({
+      setBarChar((prev) => ({
         ...prev,
-        options:({...prev.options,
-          xaxis:({...prev.categories,
-            categories:month
-        })
-        
-        }),
-        series:seriess
-      }))
+        options: {
+          ...prev.options,
+          xaxis: { ...prev.categories, categories: month },
+        },
+        series: seriess,
+      }));
       // setDonut((prev)=>({
       //   ...prev,
       //   series:res.data.payload
@@ -94,28 +91,21 @@ function Dashboard(props) {
       console.log("◀◀◀ error ▶▶▶", error);
     }
   };
-  const getSoldOut=async()=>{
-   try {
-    const res = await axiosAdmin.get("/query-orders/getProductSold");
-const data=res.data.payload
-    const arr=[((data?.productSold/data?.totalProduct)*100).toFixed(2)]
-    setCircle((prev)=>({...prev,series:arr}))
-   } catch (error) {
-    console.log('◀◀◀ errror ▶▶▶',error);
-   }
-  }
+  const getSoldOut = async () => {
+    try {
+      const res = await axiosAdmin.get("/query-orders/getProductSold");
+      const data = res.data.payload;
+      const arr = [((data?.productSold / data?.totalProduct) * 100).toFixed(2)];
+      setCircle((prev) => ({ ...prev, series: arr }));
+    } catch (error) {
+      console.log("◀◀◀ errror ▶▶▶", error);
+    }
+  };
   useEffect(() => {
     getRevenue();
     getTotalOrder();
     getSoldOut();
   }, []);
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
 
   const state = {
     options: {

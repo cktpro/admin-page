@@ -4,9 +4,9 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { routers, unAuthRouter } from "router/router";
 
 function App() {
+  const navigate = useNavigate(); //khai báo sử dụng hàm chuyển trang
   
   const token = localStorage.getItem('TOKEN');
-  const navigate = useNavigate(); //khai báo sử dụng hàm chuyển trang
   
   useEffect(() => {
     if (!token){ //nếu không tồn tại token trên localStorage
@@ -52,7 +52,7 @@ function App() {
 
       return <Route path={route.path} element={route.element} key={index} />;
     });
-  }, []);
+  }, [token]);
 
   return <Routes>{renderRoutes(routers)}</Routes>;
 }

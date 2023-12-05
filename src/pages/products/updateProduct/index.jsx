@@ -22,14 +22,6 @@ import { Link } from "react-router-dom";
 function UpdateProduct() {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   const { id } = useParams();
   const params = useParams();
   const productId = id;

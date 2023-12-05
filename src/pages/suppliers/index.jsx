@@ -87,15 +87,7 @@ const columns = [
   },
 ];
 function SupplierList() {
-  const navigate = useNavigate();
   
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
 
   const [isLoading, setIsLoading] = useState(null);
   const [supplier, setSupplier] = useState([]);

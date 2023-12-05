@@ -20,9 +20,7 @@ function Login(props) {
 
       localStorage.setItem("REFRESH_TOKEN", result.data.refreshToken);
 
-      // navigate("/dashboard");
-      // setLoading(false);
-      window.location.reload();
+      navigate("/");
     } catch (error) {
       console.log("««««« error »»»»»", error);
       setLoading(false);
@@ -38,7 +36,7 @@ function Login(props) {
     const token = localStorage.getItem("TOKEN");
 
     if (token) {
-      navigate("/dashboard");
+      navigate("/");
     }
   }, [navigate]);
 

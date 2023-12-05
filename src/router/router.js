@@ -35,7 +35,7 @@ export const routers = [
         name: "Layout",
         element: < Layout />,
         children: [
-            { isRoot: true, name: "Dashboard Page", element: < Dashboard /> },
+            { isRoot: true, name: "Dashboard Page", element: <Dashboard /> },
             { path: LOCATIONS.DASHBOARD, name: "Dashboard Page", element: <Dashboard /> },
             { path: LOCATIONS.ORDER, name: "Orders", element: <OrderListPage /> },
             { path: LOCATIONS.ORDER_DETAIL, name: "Order Detail", element: <OrderDetailPage /> },

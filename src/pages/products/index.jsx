@@ -9,16 +9,6 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 function ProductList() {
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   const deleteProduct = useCallback((id) => async () => {
     try {
       axiosAdmin.defaults.headers.common["Authorization"] =
@@ -187,8 +177,10 @@ function ProductList() {
       render: (_, record) => (
         <div className="d-flex gap-1">
           <Link to={`/update_product/${record._id}`}>
-            <button className="btn border"
-             onConfirm={() => getProductDetail(record._id)}>
+            <button
+              className="btn border"
+              onConfirm={() => getProductDetail(record._id)}
+            >
               <EditIcon />
             </button>
           </Link>
@@ -223,7 +215,7 @@ function ProductList() {
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      const res = await axiosAdmin.get("products?page=1&pageSize=100") 
+      const res = await axiosAdmin.get("products?page=1&pageSize=100");
       setProduct(res?.data?.payload);
       setIsLoading(false);
     };

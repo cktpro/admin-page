@@ -16,16 +16,7 @@ import styles from "./createCategory.module.scss";
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 
 function CreateCategory(props) {
-  const [CreateCategory] = Form.useForm();
-  const navigate = useNavigate();
-  
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
+  const [CreateCategory] = Form.useForm();  
 
   const asyncForEach = async (array, callback) => {
     for (let index = 0; index < array.length; index += 1) {

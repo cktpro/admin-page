@@ -30,16 +30,6 @@ import dayjs from "dayjs";
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
 function OrderStatisticsPage() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem("TOKEN");
-
-    if (!token) {
-      navigate("/login");
-    }
-  }, [navigate]);
-
   // declare useDispatch
   const dispatch = useDispatch();
 
