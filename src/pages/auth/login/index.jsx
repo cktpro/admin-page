@@ -20,9 +20,9 @@ function Login(props) {
 
       localStorage.setItem("REFRESH_TOKEN", result.data.refreshToken);
 
-      navigate("/dashboard");
+      // navigate("/dashboard");
       // setLoading(false);
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.log("««««« error »»»»»", error);
       setLoading(false);
@@ -53,7 +53,7 @@ function Login(props) {
       {isHaveRes && (
         <div className={styles.is_have_res}>
           <div className={styles.res_info}>
-            <span className={styles.res_message}>authentication failed</span>
+            <span className={styles.res_message}>Authentication Failed</span>
 
             <Button
               className={styles.btn_ok}
