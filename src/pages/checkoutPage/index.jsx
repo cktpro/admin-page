@@ -243,12 +243,13 @@ function CheckoutPage() {
       };
 
       dispatch(actionCheckoutVnpay(data));
-      dispatch(actionResetOrderDetailList());
-      dispatch(actionResetPhoneNumber());
-      dispatch(actionResetCustomer());
-      dispatch(actionResetCustomer());
-      dispatch(actionResetAddress());
-      dispatch(actionResetCreateOrder());
+      
+      // dispatch(actionResetOrderDetailList());
+      // dispatch(actionResetPhoneNumber());
+      // dispatch(actionResetCustomer());
+      // dispatch(actionResetCustomer());
+      // dispatch(actionResetAddress());
+      // dispatch(actionResetCreateOrder());
       setIsHaveRes(false);
     }
   }, [dispatch, navigate, paymentType, total]);
