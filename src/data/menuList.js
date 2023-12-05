@@ -82,23 +82,23 @@ const menuList=[
           },
         ],
       },
-    {
-      label: "Notifications",
-      active: false,
-      icon: require("assets/icon-slide/notification-svgrepo-com.png"),
-      src: LOCATIONS.MESSAGES,
-    },
-    {
-      label: "Setting",
-      active: false,
-      icon: require("assets/icon-slide/setting-setting-svgrepo-com.png"),
-      src: LOCATIONS.SETTING,
-    },
-    {
-      label: "Sign Out",
-      active: false,
-      icon: require("assets/icon-slide/door-svgrepo-com.png"),
-      src: LOCATIONS.SIGNOUT,
-    },
+    // {
+    //   label: "Notifications",
+    //   active: false,
+    //   icon: require("assets/icon-slide/notification-svgrepo-com.png"),
+    //   src: LOCATIONS.MESSAGES,
+    // },
+    // {
+    //   label: "Setting",
+    //   active: false,
+    //   icon: require("assets/icon-slide/setting-setting-svgrepo-com.png"),
+    //   src: LOCATIONS.SETTING,
+    // },
+    // {
+    //   label: "Sign Out",
+    //   active: false,
+    //   icon: require("assets/icon-slide/door-svgrepo-com.png"),
+    //   src: LOCATIONS.SIGNOUT,
+    // },
   ]
   export default menuList
