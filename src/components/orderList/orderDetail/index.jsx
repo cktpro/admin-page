@@ -27,7 +27,7 @@ function OrderDetail(props) {
   const [isOpenEditOrder, setIsOpenEditOrder] = useState(false);
 
   useEffect(() => {
-  console.log('««««« resGetOrderDetail »»»»»', resGetOrderDetail);
+    console.log("««««« resGetOrderDetail »»»»»", resGetOrderDetail);
   }, [resGetOrderDetail]);
 
   const getOrderDetail = useCallback(() => {
@@ -166,7 +166,7 @@ function OrderDetail(props) {
             <div className={styles.cover_detail_history}>
               <div className={styles.detail}>
                 <div className={styles.cover_detail_edit}>
-                  <span className={styles.detail_title}>Hóa đơn</span>
+                  <span className={styles.detail_title}>Bill</span>
                 </div>
 
                 <div className={styles.cover_products}>
@@ -228,15 +228,19 @@ function OrderDetail(props) {
 
                   <div className={styles.cover_price}>
                     <span className={styles.temp_price}>
-                      {/* ${parseFloat(rederTotalOriginPrice()).toFixed(2)} */}
-                      ${parseFloat(resGetOrderDetail?.payload?.payload?.totalPrice).toFixed(2)}
+                      {/* ${parseFloat(rederTotalOriginPrice()).toFixed(2)} */}$
+                      {parseFloat(
+                        resGetOrderDetail?.payload?.payload?.totalPrice
+                      ).toFixed(2)}
                     </span>
 
                     {/* <span className={styles.discount}>-0%</span> */}
 
                     <span className={styles.total_price}>
-                      {/* ${parseFloat(renderTotalPrice()).toFixed(2)} */}
-                      ${parseFloat(resGetOrderDetail?.payload?.payload?.totalPrice).toFixed(2)}
+                      {/* ${parseFloat(renderTotalPrice()).toFixed(2)} */}$
+                      {parseFloat(
+                        resGetOrderDetail?.payload?.payload?.totalPrice
+                      ).toFixed(2)}
                     </span>
                   </div>
                 </div>
@@ -244,14 +248,14 @@ function OrderDetail(props) {
 
               <div className={styles.shipping_payment}>
                 <div className={styles.cover_detail_edit}>
-                  <span className={styles.detail_title}>Giao hàng</span>
+                  <span className={styles.detail_title}>Delivery</span>
                 </div>
 
                 <div className={styles.cover_address}>
                   <span className={styles.address_field}>Address</span>
 
                   <span className={styles.address}>
-                    {orderDetail?.customer?.address}
+                    {orderDetail?.shippingAddress}
                   </span>
                 </div>
 
@@ -266,11 +270,11 @@ function OrderDetail(props) {
                 <div className={styles.hr_bottom}></div>
 
                 <div className={styles.cover_detail_edit}>
-                  <span className={styles.detail_title}>Thanh toán</span>
+                  <span className={styles.detail_title}>Pay</span>
                 </div>
 
                 <div className={styles.cover_address}>
-                  <span className={styles.address_field}>Phương thức</span>
+                  <span className={styles.address_field}>Payment type</span>
 
                   <span className={styles.address}>
                     {orderDetail?.paymentType}
@@ -313,16 +317,6 @@ function OrderDetail(props) {
               </div>
 
               <div className={styles.hr_bottom}></div>
-
-              <div className={styles.cover_detail_edit}>
-                <span className={styles.detail_title}>Đơn vị vận chuyển</span>
-              </div>
-
-              <div className={styles.cover_address}>
-                <span className={styles.address_field}>Đơn vị</span>
-
-                <span className={styles.address}>Giao hàng nhanh</span>
-              </div>
             </div>
           </div>
         </div>
