@@ -99,22 +99,6 @@ function FormSearchCustomer(props) {
 
   const columns = [
     {
-      // width: "10%",
-      title: "Name",
-      dataIndex: "fullName",
-      key: "fullName",
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "phoneNumber",
-      key: "phoneNumber",
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
-    },
-    {
       title: " ",
       key: "actions",
       width: "1%",
@@ -129,6 +113,22 @@ function FormSearchCustomer(props) {
           </Button>
         );
       },
+    },
+    {
+      // width: "10%",
+      title: "Name",
+      dataIndex: "fullName",
+      key: "fullName",
+    },
+    {
+      title: "Phone Number",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
+    },
+    {
+      title: "Email",
+      dataIndex: "email",
+      key: "email",
     },
   ];
 
@@ -167,7 +167,7 @@ function FormSearchCustomer(props) {
         </Space>
       </Form>
 
-      <div>
+      <div className={styles.cover_table_search_customer}>
         <Table
           rowKey="_id"
           columns={columns}
