@@ -12,6 +12,8 @@ import { actionResetAddress } from "store/Orders/storeAddress/action";
 import { actionResetCreateOrder } from "store/Orders/createOrder/action";
 import { actionResetBill } from "store/Orders/storeBill/action";
 
+import "./checkout.scss";
+
 function CheckoutCashPage() {
   const navigate = useNavigate();
 
@@ -28,10 +30,6 @@ function CheckoutCashPage() {
   const dispatch = useDispatch();
 
   const getBill = useSelector((state) => state.storeBillReducer.payload);
-
-  const onBack = useCallback(() => {
-    navigate(LOCATIONS.CREATE_ORDER_ON);
-  }, [navigate]);
 
   const changeAmount = useCallback(
     (value) => {
@@ -187,23 +185,24 @@ function CheckoutCashPage() {
                       Money received from customers
                     </span>
 
-                    <span
+                    <div
                       className={
                         isErrorAmount ? styles.cover_error : styles.cover_amount
                       }
                     >
-                      <InputNumber
-                        style={{
-                          width: 200,
-                          textAlign: "end",
-                        }}
-                        // className={styles.amount}
-                        min={0}
-                        onChange={changeAmount}
-                        controls={false}
-                        placeholder="Type the amount"
-                      />
-                    </span>
+                      <div className="amount">
+                        <InputNumber
+                          style={{
+                            width: 200,
+                            textAlign: "end",
+                          }}
+                          min={0}
+                          onChange={changeAmount}
+                          controls={false}
+                          placeholder="Type the amount"
+                        />
+                      </div>
+                    </div>
                   </div>
 
                   <div className={styles.cover_total}>
