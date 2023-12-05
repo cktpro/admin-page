@@ -31,7 +31,7 @@ import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
 
 function OrderStatisticsPage() {
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const token = localStorage.getItem("TOKEN");
 
@@ -62,6 +62,8 @@ function OrderStatisticsPage() {
   const resGetNumOfOrdersStatus = useSelector(
     (state) => state.getNumOfOrdersStatusReducer
   );
+
+  const [totalOrder, setTotalOrder] = useState("");
 
   // declare resSearchOrders?.payload of searchOrdersReducer state
   const resSearchOrders = useSelector((state) => state.searchOrdersReducer);
@@ -259,6 +261,8 @@ function OrderStatisticsPage() {
 
     setOrdersList(resQuery.data.payload);
 
+    setTotalOrder(resQuery.data.totalResult);
+
     console.log("««««« resQuery.data »»»»»", resQuery.data);
   }, [endDate, startDate, status]);
 
@@ -296,18 +300,6 @@ function OrderStatisticsPage() {
     },
     [asignInputToState]
   );
-
-  useEffect(() => {
-    console.log("««««« status »»»»»", status);
-  }, [status]);
-
-  useEffect(() => {
-    console.log("««««« startDate »»»»»", startDate);
-  }, [startDate]);
-
-  useEffect(() => {
-    console.log("««««« endDate »»»»»", endDate);
-  }, [endDate]);
 
   // declare columns of antd table
   // rendering expandedRowRender content
@@ -641,6 +633,8 @@ function OrderStatisticsPage() {
                 </label>
               </div>
             </div>
+
+            <span className="total_order">Total Order: <span className="order_number">{totalOrder}</span></span>
 
             <div className="col-12 custom_col cover_table_orders">
               <Table

@@ -31,6 +31,18 @@
   color: rgb(33, 43, 54);
 }
 
+.total_order {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  font-family: "Public Sans", sans-serif;
+  color: rgb(33, 43, 54);
+}
+
+.order_number {
+  color: rgb(0, 167, 111);
+}
+
 .order_list_path {
   display: flex;
   align-items: center;
@@ -599,7 +611,7 @@
 }
 
 .today {
-  line-height: 1.5rem  !important;
+  line-height: 1.5rem !important;
   font-size: 1.5rem !important;
   font-family: "Public Sans", sans-serif !important;
   font-weight: bold !important;
