@@ -408,6 +408,8 @@ function CreateFlashsalePage() {
 
             <h4 className="title_products_flashsale">Products Flashsale</h4>
 
+            <span className="total_product">Total products: <span className="num_total_product">{flashsaleList.length}</span></span>
+
             <div className="cover_table_flashsale">
               <Table
                 rowKey="productId"
