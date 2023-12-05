@@ -14,6 +14,16 @@ function App() {
     }
   }, [navigate, token]);
 
+  window.onbeforeunload = (event) => {
+    const e = event || window.event;
+    // Cancel the event
+    e.preventDefault();
+    if (e) {
+      e.returnValue = ''; // Legacy method for cross browser support
+    }
+    return ''; // Legacy method for cross browser support
+  };
+
   const renderRoutes = useCallback((routers) => {
     if (!token) { //router khi chưa đăng nhập
       return unAuthRouter.map((route, index) => {
