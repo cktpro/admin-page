@@ -4,8 +4,8 @@ function Loading() {
   return (
     <svg
       version="1.0"
-      width="64px"
-      height="64px"
+      width="32"
+      height="32"
       viewBox="0 0 128 128"
     >
       <g>
