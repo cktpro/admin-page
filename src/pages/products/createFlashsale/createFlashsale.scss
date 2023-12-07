@@ -27,6 +27,7 @@
   margin-top: 1rem;
   padding-bottom: 1rem;
   border-bottom: dashed rgb(195, 195, 195) 0.1rem;
+  margin-bottom: 1rem;
 
   font-size: 1.125rem;
   font-weight: 700;
@@ -61,6 +62,7 @@
 }
 
 .cover_table_flashsale {
+  margin-top: 1rem;
   margin-bottom: 4rem;
 }
 
@@ -95,6 +97,19 @@
   font-size: 0.875rem;
   font-family: "Public Sans", sans-serif;
   font-weight: 400;
+}
+
+.total_product {
+  color: rgb(33, 43, 54) !important;
+  line-height: 1.5rem;
+  font-size: 1.1rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.num_total_product {
+  color: rgb(0, 167, 111);
 }
 
 .cover_stock_flashsale_error {
@@ -237,6 +252,7 @@
   // width: 100%;
   height: fit-content;
   background-color: white;
+  margin-top: 0.5rem !important;
 }
 
 .title_flashsale_info {

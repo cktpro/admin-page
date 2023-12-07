@@ -7,6 +7,12 @@ import styles from "./return.module.scss";
 import { LOCATIONS } from "constants/index";
 import PathDot from "components/svg/pathDot";
 import { Button } from "antd";
+import { actionCheckoutVnpay } from "store/Orders/checkoutVnpay/action";
+import { actionResetOrderDetailList } from "store/Orders/storeProductsArray/action";
+import { actionResetPhoneNumber } from "store/Orders/storePhoneNumber/action";
+import { actionResetCustomer } from "store/Orders/storeCustomer/action";
+import { actionResetAddress } from "store/Orders/storeAddress/action";
+import { actionResetCreateOrder } from "store/Orders/createOrder/action";
 
 function ReturnCheckoutPage() {
   const navigate = useNavigate();
@@ -46,6 +52,13 @@ function ReturnCheckoutPage() {
       dispatch(actionCheckIpnVnpay(data));
 
       localStorage.removeItem("orderId");
+
+      dispatch(actionResetOrderDetailList());
+      dispatch(actionResetPhoneNumber());
+      dispatch(actionResetCustomer());
+      dispatch(actionResetCustomer());
+      dispatch(actionResetAddress());
+      dispatch(actionResetCreateOrder());
     }
   }, [dispatch, searchParams]);
 
@@ -88,7 +101,7 @@ function ReturnCheckoutPage() {
 
             <div className={styles.products_details}>
               {checkReturnVnpay?.toString() === "24" && (
-                <span className={styles.success}>
+                <span className={styles.failed}>
                   Payment failed, please try again!
                 </span>
               )}
@@ -98,7 +111,7 @@ function ReturnCheckoutPage() {
               )}
 
               {checkReturnVnpay?.toString() === "00" && (
-                <span className={styles.failed}>
+                <span className={styles.success}>
                   Payment successful, thank you!
                 </span>
               )}

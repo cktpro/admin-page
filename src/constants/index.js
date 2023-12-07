@@ -37,7 +37,7 @@ export const pageSize = 20;
 // listStatus of orders status menu 
 // Created by Man Nguyen
 // 19/10/2023
-export const listStatus = ['WAITING', 'COMPLETED', 'CANCELED', 'REJECTED', 'DELIVERING'];
+export const listStatus = ['WAITING', 'PAID', 'COMPLETED', 'CANCELED', 'REJECTED', 'DELIVERING'];
 
 // district code send
 // Created by Man Nguyen

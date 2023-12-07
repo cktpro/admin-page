@@ -13,9 +13,6 @@ import {
 } from "antd";
 import {
   UploadOutlined,
-  MinusCircleOutlined,
-  DeleteFilled,
-  PlusOutlined,
 } from "@ant-design/icons";
 import { getCategory } from "api/categoryApi";
 import { getSupplier } from "api/supplierApi";
@@ -24,9 +21,11 @@ import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 // import styles
 import styles from "./createProduct.module.scss";
 import { min } from "lodash";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 function CreateProduct(props) {
+
   const [productForm] = Form.useForm();
   const [categories, setCategory] = useState([]);
   const [suppliers, setSupplier] = useState([]);
@@ -309,7 +308,7 @@ function CreateProduct(props) {
                   { required: true, message: "Discount is required" },
                 ]}
               >
-                <InputNumber style={{ width: "100%" }} />
+                <InputNumber style={{ width: "100%" }}  />
               </Form.Item>
             </div>
           </div>
@@ -334,7 +333,7 @@ function CreateProduct(props) {
             name="images"
             rules={[{ required: true, message: "Missing cover image" }]}
           >
-            <Upload name="list" beforeUpload={true} multiple listType="picture">
+            <Upload name="list" beforeUpload={true} multiple  listType="picture">
               <Button icon={<UploadOutlined />}>Image list</Button>
             </Upload>
           </Form.Item>

@@ -31,6 +31,9 @@ const initialUser = {
 };
 
 function Account() {
+
+  const navigate = useNavigate();
+
   const {
     actionStatus: { isLoading, isSuccess },
     deleteStatus,
@@ -44,7 +47,6 @@ function Account() {
   const onDeleteUser = (params) => dispatch(actionDeleteUser(params));
 
   const { pathname } = useLocation();
-  const navigate = useNavigate();
   const { id } = useParams();
   const [editable, setEdit] = useState(false);
   const [user, setUser] = useState(initialUser);

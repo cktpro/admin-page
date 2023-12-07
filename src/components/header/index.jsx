@@ -1,10 +1,36 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import "./header.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 function Footer(props) {
+  const navigate = useNavigate()
   const [isActive, setIsActive] = useState(false);
   const { children } = props;
+
+  const [user, setUser] = useState("");
+
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem("TOKEN")
+    localStorage.removeItem("REFRESH_TOKEN")
+
+    navigate("/login")
+  }, [navigate]);
+
+  const getMe = useCallback(async () => {
+    try {
+      const res = await axiosAdmin.get("/authEmployees/profile")
+
+      console.log('««««« res.data »»»»»', res.data);
+      setUser(res.data.payload.fullName)
+    } catch (error) {
+      console.log('««««« error.response.data »»»»»', error.response.data);
+    }
+  }, []);
+
+  useEffect(() => {
+    getMe();
+  }, []);
 
   return (
     <div className="header">
@@ -58,7 +84,7 @@ function Footer(props) {
             />
             <div className="account-info">
               <p  className="user-name m-0">
-                <b>Kim Trầm</b>
+                <b>{user}</b>
               </p>
               <p className="user-role m-0">Admin</p>
             </div>
@@ -72,14 +98,14 @@ function Footer(props) {
                 !isActive ? "d-none" : ""
               } sub-menu-account list-unstyled`}
             >
-              <li>
+              {/* <li>
                 <Link>My Profile</Link>
               </li>
               <li>
                 <Link>Setting</Link>
-              </li>
-              <li>
-                <Link>Logout</Link>
+              </li> */}
+              <li onClick={() => handleLogout()}>
+                <Link >Logout</Link>
               </li>
             </ul>
           </div>

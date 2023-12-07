@@ -9,6 +9,7 @@ import { getSupplierDetail, updateSupplier } from "api/supplierApi";
 
 function UpdateSupplier() {
   const navigate = useNavigate();
+  
   const { id } = useParams();
   const supplierId = id;
   const [name, setName] = useState("");

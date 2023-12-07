@@ -9,6 +9,7 @@ import { getSupplierDetail, onAddSupplier, updateSupplier } from "api/supplierAp
 
 function CreateSupplier() {
   const navigate = useNavigate();
+
   const [form] = Form.useForm();
   // const [loading, setLoading] = useState(null);
 

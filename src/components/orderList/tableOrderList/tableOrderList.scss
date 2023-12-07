@@ -32,6 +32,21 @@
   font-weight: 700;
 }
 
+.table_PAID {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.25rem 1rem;
+  color: rgb(17, 141, 87);
+  background-color: rgba(34, 197, 94, 0.16);
+  border-radius: 6px;
+  font-family: "Public Sans", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
 .table_CANCELED {
   display: flex;
   align-items: center;

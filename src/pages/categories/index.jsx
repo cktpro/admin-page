@@ -90,7 +90,6 @@ function CategoryList() {
   const [isLoading, setIsLoading] = useState(null);
   const [category, setCategory] = useState([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-  const navigate = useNavigate()
 
   const handleRowClick = (record) => {
     const categoryId = record._id;

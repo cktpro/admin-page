@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getProductDetail } from "api/productApi";
 import { Link } from "react-router-dom";
 import { Rate, Progress } from "antd";
@@ -8,6 +8,7 @@ import Loading from "components/loading";
 import "./productDetail.scss";
 const url = process.env.REACT_APP_BASE_URL_ADMIN;
 function ProductDetail(props) {
+
   const [isLoading, setIsLoading] = useState(null);
   const [currentTab, setCurrentTab] = useState("btn-desc");
   const [product, setProduct] = useState([]);

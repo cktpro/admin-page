@@ -35,7 +35,7 @@ export const routers = [
         name: "Layout",
         element: < Layout />,
         children: [
-            { isRoot: true, name: "Dashboard Page", element: < Dashboard /> },
+            { isRoot: true, name: "Dashboard Page", element: <Dashboard /> },
             { path: LOCATIONS.DASHBOARD, name: "Dashboard Page", element: <Dashboard /> },
             { path: LOCATIONS.ORDER, name: "Orders", element: <OrderListPage /> },
             { path: LOCATIONS.ORDER_DETAIL, name: "Order Detail", element: <OrderDetailPage /> },
@@ -49,9 +49,9 @@ export const routers = [
             { path: LOCATIONS.ADD_PRODUCT, name: "Product Detail", element: <CreateProduct /> },
             { path: LOCATIONS.UPDATE_PRODUCT, name: "Product Update", element: <UpdateProduct /> },
             { path: LOCATIONS.CREATE_FLASH_SALE, name: "Create Flash Sale", element: <CreateFlashsalePage /> },
-            { path: LOCATIONS.CUSTOMERS, name: "Add User", element: <Users/ > },
-            { path: LOCATIONS.ADD_CUSTOMER, name: "Add User", element: <CreUpUser/ > },
-            { path: LOCATIONS.UPDATE_CUSTOMER, name: "Update User", element: <CreUpUser/ > },
+            { path: LOCATIONS.CUSTOMERS, name: "Add User", element: <Users /> },
+            { path: LOCATIONS.ADD_CUSTOMER, name: "Add User", element: <CreUpUser /> },
+            { path: LOCATIONS.UPDATE_CUSTOMER, name: "Update User", element: <CreUpUser /> },
             {
               path: LOCATIONS.ADD_CATEGORY,
               name: "Category Detail",
@@ -91,4 +91,14 @@ export const routers = [
         name: "Login",
         element: <Login/>,
     }
+]
+
+export const unAuthRouter = [
+  //   { path: LOCATIONS.LOGIN, name: "Login Page", element: <Login /> },
+  { isRoot: true, element: <Login /> },
+  {
+    path: LOCATIONS.LOGIN,
+      name: "Login",
+      element: <Login/>,
+  }
 ]

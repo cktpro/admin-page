@@ -1,0 +1,25 @@
+.amount .ant-input-number input {
+  text-align: right !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  font-size: 1rem !important;
+  font-family: "Public Sans", sans-serif !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.amount .ant-input-number,
+.amount .ant-input-number-input-wrap {
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.amount .ant-input-number input:hover,
+.amount .ant-input-number input:focus {
+  text-align: right !important;
+  font-weight: 600 !important;
+  line-height: 1.5 !important;
+  font-size: 1rem !important;
+  font-family: "Public Sans", sans-serif !important;
+  // border: solid black 1px !important;
+}

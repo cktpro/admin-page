@@ -1,7 +1,7 @@
 import PathDot from "components/svg/pathDot";
 import { LOCATIONS } from "constants/index";
 import React, { useCallback, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
   Form,
@@ -37,7 +37,7 @@ import {
 import Loading from "components/svg/loading";
 
 function CreateFlashsalePage() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
 
   const [isInitialRender, setIsInitialRender] = useState(true);
 
@@ -408,6 +408,8 @@ function CreateFlashsalePage() {
 
             <h4 className="title_products_flashsale">Products Flashsale</h4>
 
+            <span className="total_product">Total products: <span className="num_total_product">{flashsaleList.length}</span></span>
+
             <div className="cover_table_flashsale">
               <Table
                 rowKey="productId"
@@ -503,7 +505,7 @@ function CreateFlashsalePage() {
         </div>
 
         <div className="row custom_row cover_setting">
-          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 custom_col cover_create_flashsale_info">
+          <div className="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 cover_create_flashsale_info">
             <Modal
               open={isOpenModalEditTimeFlashsale}
               centered

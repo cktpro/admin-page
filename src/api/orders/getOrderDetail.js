@@ -10,7 +10,17 @@ const getOrderDetail = async (id) => {
 
   const response = await axiosAdminMan.get(url);
 
-  // console.log('««««« response.data »»»»»', response.data);
+  return {
+    ...response.data, //tạo ra một đối tượng mới bao gồm dữ liệu từ phản hồi (response.data)
+  };
+}
+
+const updateOrderDetail = async (data) => {
+  const { id } = data;
+  delete data.id;
+  let url = `/orders-admin/${id}`;
+
+  const response = await axiosAdminMan.put(url, data);
 
   return {
     ...response.data, //tạo ra một đối tượng mới bao gồm dữ liệu từ phản hồi (response.data)
@@ -19,4 +29,5 @@ const getOrderDetail = async (id) => {
 
 export default {
   getOrderDetail,
+  updateOrderDetail,
 };
