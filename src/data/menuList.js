@@ -28,10 +28,10 @@ const menuList=[
       icon: require("assets/icon-slide/phone-svgrepo-com.png"),
       sub: [
         { label: "List of products", src: LOCATIONS.PRODUCTS },
-        {
-          label: "Product details",
-          src: LOCATIONS.PRODUCT_DETAIL,
-        },
+        // {
+        //   label: "Product details",
+        //   src: LOCATIONS.PRODUCT_DETAIL,
+        // },
         {
           label: "Add new Product",
           src: LOCATIONS.ADD_PRODUCT,
@@ -76,10 +76,10 @@ const menuList=[
             label: "Add user",
             src: LOCATIONS.ADD_CUSTOMER,
           },
-          {
-            label: "Update user",
-            src: LOCATIONS.UPDATE_CUSTOMER,
-          },
+          // {
+          //   label: "Update user",
+          //   src: LOCATIONS.UPDATE_CUSTOMER,
+          // },
         ],
       },
     // {
