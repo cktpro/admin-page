@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionGetAllOrdersCompleted } from "store/Orders/getOrderListCompleted/action";
 import "./tableOrderList.scss";
 import Loading from "components/svg/loading";
+import { formattedMoney } from "helper/formatDocuments";
 
 function StatusCompleted() {
   // declare useDispatch
@@ -289,7 +290,7 @@ function StatusCompleted() {
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          ${parseFloat(text).toFixed(2)}
+          {formattedMoney(text)}
         </span>
       ),
     },

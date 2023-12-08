@@ -315,7 +315,7 @@
 }
 
 .item_discount {
-  color: rgb(255, 86, 48);
+  color: red;
   line-height: 1.57143;
   font-size: 0.875rem;
   font-family: "Public Sans", sans-serif;
@@ -366,6 +366,15 @@
   gap: 1rem;
 }
 
+.flashsale {
+  color: red;
+  text-align: right;
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+  font-weight: 400;
+}
+
 .temp_total {
   color: rgb(99, 115, 129);
   text-align: right;
@@ -399,8 +408,17 @@
   font-family: "Public Sans", sans-serif;
 }
 
+.flashsale_number {
+  color: red;
+  text-align: right;
+  font-weight: 600;
+  line-height: 1.57143;
+  font-size: 0.875rem;
+  font-family: "Public Sans", sans-serif;
+}
+
 .discount {
-  color: rgb(255, 86, 48);
+  color: red;
   text-align: right;
   line-height: 1.57143;
   font-size: 0.875rem;

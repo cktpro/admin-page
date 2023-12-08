@@ -10,8 +10,6 @@ function FormEditOrder(props) {
 
   const dispatch = useDispatch();
 
-  console.log("««««« orderDetail »»»»»", orderDetail);
-
   const orderStatus = [
     {
       value: "WAITING",
@@ -56,7 +54,7 @@ function FormEditOrder(props) {
       dispatch(actionUpdateOrderDetail(data));
       closeModal();
     },
-    [dispatch]
+    [closeModal, dispatch, orderDetail?._id]
   );
 
   return (

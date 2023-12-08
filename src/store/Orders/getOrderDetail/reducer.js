@@ -15,6 +15,9 @@ const getOrderDetailReducer = (state = defaultState, action) => {
         case ActionTypes.GET_ORDER_DETAIL:
             return { ...state, isLoading: true };
 
+        case ActionTypes.UPDATE_ORDER_DETAIL:
+            return { ...state, isLoading: true };
+
         case ActionTypes.GET_ORDER_DETAIL_SUCCESS:
             return { ...state, payload: action.payload, isLoading: false };
 

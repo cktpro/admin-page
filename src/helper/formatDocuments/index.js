@@ -1,3 +1,5 @@
+const formattedMoney = (number) => `$${Intl.NumberFormat("en-US", { maximumFractionDigits: 2 }).format(number)}`;
+
 function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -11,4 +13,4 @@ function formatDate(date) {
 
     return [year, month, day].join('-');
 }
-export {formatDate}
+export {formatDate, formattedMoney}

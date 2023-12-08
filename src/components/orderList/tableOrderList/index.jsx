@@ -5,12 +5,11 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Table } from "antd";
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
-import numeral from "numeral";
-import "numeral/locales/vi";
 import { Link } from "react-router-dom";
 
 import { LOCATIONS } from "constants/index";
 import "./tableOrderList.scss";
+import { formattedMoney } from "helper/formatDocuments";
 
 function TableOrderList(props) {
   // get orderList from props
@@ -220,7 +219,7 @@ function TableOrderList(props) {
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          ${parseFloat(text).toFixed(2)}
+          {formattedMoney(text)}
         </span>
       ),
     },
