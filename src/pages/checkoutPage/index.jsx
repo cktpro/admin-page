@@ -29,7 +29,7 @@ import { actionAddBill } from "store/Orders/storeBill/action";
 
 function CheckoutPage() {
   const navigate = useNavigate();
-  
+
   const dispatch = useDispatch();
 
   const [api, contextHolder] = notification.useNotification();
@@ -235,7 +235,7 @@ function CheckoutPage() {
       };
 
       dispatch(actionCheckoutVnpay(data));
-      
+
       // dispatch(actionResetOrderDetailList());
       // dispatch(actionResetPhoneNumber());
       // dispatch(actionResetCustomer());
@@ -271,34 +271,41 @@ function CheckoutPage() {
       dataIndex: "quantity",
       key: "quantity",
       render: (text, record, index) => {
-        if (record.quantity > record.stock || record.quantity <= 0) {
-          return (
-            <div className={styles.cover_quantity_error}>
-              <span className={styles.product_quantity}>{text}</span>
-
-              <button
-                onClick={() => handleClickChangeQuantity(record)}
-                className={styles.btn_quantity_edit}
-              >
-                <EditIcon />
-              </button>
-            </div>
-          );
-        }
-
         return (
           <div className={styles.cover_quantity}>
             <span className={styles.product_quantity}>{text}</span>
-
-            <button
-              onClick={() => handleClickChangeQuantity(record)}
-              className={styles.btn_quantity_edit}
-            >
-              <EditIcon />
-            </button>
           </div>
         );
       },
+      // render: (text, record, index) => {
+      //   if (record.quantity > record.stock || record.quantity <= 0) {
+      //     return (
+      //       <div className={styles.cover_quantity_error}>
+      //         <span className={styles.product_quantity}>{text}</span>
+
+      //         <button
+      //           onClick={() => handleClickChangeQuantity(record)}
+      //           className={styles.btn_quantity_edit}
+      //         >
+      //           <EditIcon />
+      //         </button>
+      //       </div>
+      //     );
+      //   }
+
+      //   return (
+      //     <div className={styles.cover_quantity}>
+      //       <span className={styles.product_quantity}>{text}</span>
+
+      //       <button
+      //         onClick={() => handleClickChangeQuantity(record)}
+      //         className={styles.btn_quantity_edit}
+      //       >
+      //         <EditIcon />
+      //       </button>
+      //     </div>
+      //   );
+      // },
     },
     {
       title: "Price",
