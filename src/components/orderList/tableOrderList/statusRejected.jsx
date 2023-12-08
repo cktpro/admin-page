@@ -19,6 +19,7 @@ import { actionGetAllOrdersRejected } from "store/Orders/getOrderListRejected/ac
 import "./tableOrderList.scss";
 import ArrowDown from "components/svg/arrowDown";
 import Loading from "components/svg/loading";
+import { formattedMoney } from "helper/formatDocuments";
 
 function StatusRejected() {
   // declare useDispatch
@@ -292,7 +293,7 @@ function StatusRejected() {
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          ${parseFloat(text).toFixed(2)}
+          {formattedMoney(text)}
         </span>
       ),
     },

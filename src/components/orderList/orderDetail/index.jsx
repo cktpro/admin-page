@@ -13,6 +13,9 @@ import { actiongetOrderDetail } from "store/Orders/getOrderDetail/action";
 import EditIcon from "components/svg/edit";
 import { Form, Modal } from "antd";
 import FormEditOrder from "./formEditOrder";
+import { formattedMoney } from "helper/formatDocuments";
+import Loading from "components/svg/loading";
+import { axiosAdminMan } from "helper/axios";
 
 function OrderDetail(props) {
   const params = useParams();
@@ -22,16 +25,23 @@ function OrderDetail(props) {
 
   const resGetOrderDetail = useSelector((state) => state.getOrderDetailReducer);
 
+  const isLoadingGetOrderDetail = useSelector(
+    (state) => state.getOrderDetailReducer.isLoading
+  );
+
   const [orderDetail, setOrderDetail] = useState({});
 
   const [isOpenEditOrder, setIsOpenEditOrder] = useState(false);
 
-  useEffect(() => {
-    console.log("««««« resGetOrderDetail »»»»»", resGetOrderDetail);
-  }, [resGetOrderDetail]);
+  const [isFlashsale, setIsFlashsale] = useState(false);
+
+  const [flashsale, setFlashsale] = useState(0);
+
+  // const [isLoading, setIsLoading] = useState(false);
 
   const getOrderDetail = useCallback(() => {
     dispatch(actiongetOrderDetail(params.id));
+    // setIsLoading(isLoadingGetOrderDetail);
   }, [dispatch, params.id]);
 
   useEffect(() => {
@@ -41,6 +51,27 @@ function OrderDetail(props) {
   useEffect(() => {
     setOrderDetail(resGetOrderDetail?.payload?.payload);
   }, [resGetOrderDetail]);
+
+  useEffect(() => {
+    console.log("««««« orderDetail »»»»»", orderDetail);
+  }, [orderDetail]);
+
+  const checkFlashsale = useCallback(async () => {
+    const check = await axiosAdminMan.get(
+      `/flashsale/check-flashsale?productId=${orderDetail.orderDetails[0].productId}`
+    );
+    console.log("««««« check.data »»»»»", check.data);
+    if (check.data.message === "found") {
+      setIsFlashsale(true);
+      setFlashsale(check.data.discount);
+    }
+  }, [orderDetail]);
+
+  useEffect(() => {
+    if (orderDetail?.orderDetails) {
+      checkFlashsale();
+    }
+  }, [orderDetail]);
 
   const getStyleStatus = useCallback((text) => {
     switch (text) {
@@ -100,6 +131,12 @@ function OrderDetail(props) {
 
   return (
     <>
+      {isLoadingGetOrderDetail && (
+        <div className="cover_loading">
+          <Loading />
+        </div>
+      )}
+
       <Modal
         open={isOpenEditOrder}
         centered
@@ -201,15 +238,14 @@ function OrderDetail(props) {
                           </span>
 
                           <span className={styles.item_origin_price}>
-                            ${parseFloat(item.price).toFixed(2)}
+                            {formattedMoney(item.price)}
                           </span>
 
                           <span className={styles.item_price}>
-                            $
-                            {parseFloat(
+                            {formattedMoney(
                               ((item.price * (100 - item.discount)) / 100) *
                                 item.quantity
-                            ).toFixed(2)}
+                            )}
                           </span>
                         </div>
                       </div>
@@ -219,28 +255,58 @@ function OrderDetail(props) {
 
                 <div className={styles.cover_total}>
                   <div className={styles.cover_field}>
-                    <span className={styles.temp_total}>Sub total</span>
+                    {isFlashsale && (
+                      <span className={styles.flashsale}>Flashsale: </span>
+                    )}
 
-                    {/* <span className={styles.temp_total}>Giảm giá</span> */}
+                    <span className={styles.temp_total}>Subtotal</span>
+
+                    <span className={styles.temp_total}>Shipping</span>
 
                     <span className={styles.total}>Total</span>
                   </div>
 
                   <div className={styles.cover_price}>
+                    {isFlashsale && (
+                      <span className={styles.flashsale_number}>
+                        {!isNaN(parseFloat(flashsale)) ? `${flashsale}%` : 0}
+                      </span>
+                    )}
                     <span className={styles.temp_price}>
-                      {/* ${parseFloat(rederTotalOriginPrice()).toFixed(2)} */}$
-                      {parseFloat(
-                        resGetOrderDetail?.payload?.payload?.totalPrice
-                      ).toFixed(2)}
+                      {!isNaN(
+                        parseFloat(
+                          resGetOrderDetail?.payload?.payload?.totalPrice
+                        )
+                      )
+                        ? formattedMoney(
+                            resGetOrderDetail?.payload?.payload?.totalPrice
+                          )
+                        : 0}
                     </span>
 
-                    {/* <span className={styles.discount}>-0%</span> */}
+                    <span className={styles.temp_price}>
+                      {!isNaN(
+                        parseFloat(
+                          resGetOrderDetail?.payload?.payload?.shippingFee
+                        )
+                      )
+                        ? formattedMoney(
+                            resGetOrderDetail?.payload?.payload?.shippingFee
+                          )
+                        : 0}
+                    </span>
 
                     <span className={styles.total_price}>
-                      {/* ${parseFloat(renderTotalPrice()).toFixed(2)} */}$
-                      {parseFloat(
-                        resGetOrderDetail?.payload?.payload?.totalPrice
-                      ).toFixed(2)}
+                      {!isNaN(
+                        parseFloat(
+                          resGetOrderDetail?.payload?.payload?.shippingFee
+                        )
+                      )
+                        ? formattedMoney(
+                            +resGetOrderDetail?.payload?.payload?.totalPrice +
+                              +resGetOrderDetail?.payload?.payload?.shippingFee
+                          )
+                        : 0}
                     </span>
                   </div>
                 </div>

@@ -21,7 +21,6 @@ function Footer(props) {
     try {
       const res = await axiosAdmin.get("/authEmployees/profile")
 
-      console.log('««««« res.data »»»»»', res.data);
       setUser(res.data.payload.fullName)
     } catch (error) {
       console.log('««««« error.response.data »»»»»', error.response.data);

@@ -28,6 +28,7 @@ import Loading from "components/svg/loading";
 import { axiosAdminMan } from "helper/axios";
 import dayjs from "dayjs";
 import { CaretDownOutlined, CaretUpOutlined } from "@ant-design/icons";
+import { formattedMoney } from "helper/formatDocuments";
 
 function OrderStatisticsPage() {
   // declare useDispatch
@@ -54,6 +55,8 @@ function OrderStatisticsPage() {
   );
 
   const [totalOrder, setTotalOrder] = useState("");
+
+  const [isLoading, setIsLoading] = useState("");
 
   // declare resSearchOrders?.payload of searchOrdersReducer state
   const resSearchOrders = useSelector((state) => state.searchOrdersReducer);
@@ -245,15 +248,22 @@ function OrderStatisticsPage() {
   }, [getRevenue]);
 
   const doQuery = useCallback(async () => {
-    const url = `/query-orders/getOrder?endDate=${endDate}&startDate=${startDate}&status=${status}`;
+    try {
+      setIsLoading(true);
 
-    let resQuery = await axiosAdminMan.get(url);
+      const url = `/query-orders/getOrder?endDate=${endDate}&startDate=${startDate}&status=${status}`;
 
-    setOrdersList(resQuery.data.payload);
+      let resQuery = await axiosAdminMan.get(url);
 
-    setTotalOrder(resQuery.data.totalResult);
+      setOrdersList(resQuery.data.payload);
 
-    console.log("««««« resQuery.data »»»»»", resQuery.data);
+      setTotalOrder(resQuery.data.totalResult);
+
+      setIsLoading(false);
+    } catch (error) {
+      console.log("««««« error.response.data »»»»»", error.response.data);
+      setIsLoading(false);
+    }
   }, [endDate, startDate, status]);
 
   useEffect(() => {
@@ -439,7 +449,9 @@ function OrderStatisticsPage() {
       key: "totalPrice",
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
-        <span className="order_totalPrice">${parseFloat(text).toFixed(2)}</span>
+        <span className="order_totalPrice">
+          {formattedMoney(+record.totalPrice + +record.shippingFee)}
+        </span>
       ),
     },
     {
@@ -471,186 +483,196 @@ function OrderStatisticsPage() {
   ];
 
   return (
-    // Order List
-    <div className="container-fluid">
-      <div className="row custom_row">
-        {/* Order List Title */}
-        <div className="col-12 custom_col order_list_title">
-          Order statistics
+    <>
+      {isLoading && (
+        <div className="cover_loading">
+          <Loading />
         </div>
+      )}
 
-        {/* Order List Path */}
-        <div className="col-12 custom_col order_list_path">
-          <span className="order_list_path_dashboard">
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              to={LOCATIONS.DASHBOARD}
-            >
-              Dashboard
-            </Link>
-          </span>
-
-          <span className="order_list_path_dot">
-            <PathDot />
-          </span>
-
-          <span className="order_list_path_order">Order statistics</span>
-        </div>
-      </div>
-
-      {/* Order List Content */}
-      <div className="row custom_row">
-        <div className="col-12 custom_col cover_order_content">
-          <div className="cover_revenue">
-            <span className="yesterday">
-              Yesterday's Revenue:{" "}
-              <span>${parseFloat(yesterdayRevenue).toFixed(2)}</span>
-            </span>
-            <span className="today">
-              Today's Revenue:{" "}
-              <span className="today_number">
-                ${parseFloat(todayRevenue).toFixed(2)}
-              </span>
-            </span>
+      <div className="container-fluid">
+        <div className="row custom_row">
+          {/* Order List Title */}
+          <div className="col-12 custom_col order_list_title">
+            Order statistics
           </div>
 
-          <ul className="ul_statistics">
-            <li
-              className={status === "" ? "li_active" : ""}
-              onClick={() => setStatus("")}
-              value="All"
-            >
-              All Order
-            </li>
-            <li
-              className={status === "PAID" ? "li_active" : ""}
-              onClick={() => setStatus("PAID")}
-              value="PAID"
-            >
-              Paid
-            </li>
-            <li
-              className={status === "COMPLETED" ? "li_active" : ""}
-              onClick={() => setStatus("COMPLETED")}
-              value="COMPLETED"
-            >
-              Completed
-            </li>
-            <li
-              className={status === "WAITING" ? "li_active" : ""}
-              onClick={() => setStatus("WAITING")}
-              value="WAITING"
-            >
-              Waiting
-            </li>
-            <li
-              className={status === "CANCELED" ? "li_active" : ""}
-              onClick={() => setStatus("CANCELED")}
-              value="CANCELED"
-            >
-              Canceled
-            </li>
-            <li
-              className={status === "REJECTED" ? "li_active" : ""}
-              onClick={() => setStatus("REJECTED")}
-              value="REJECTED"
-            >
-              Rejected
-            </li>
-            <li
-              className={status === "DELIVERING" ? "li_active" : ""}
-              onClick={() => setStatus("DELIVERING")}
-              value="DELIVERING"
-            >
-              Delivering
-            </li>
-          </ul>
+          {/* Order List Path */}
+          <div className="col-12 custom_col order_list_path">
+            <span className="order_list_path_dashboard">
+              <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                to={LOCATIONS.DASHBOARD}
+              >
+                Dashboard
+              </Link>
+            </span>
 
-          {/* render order table */}
-          <div className="row custom_row">
-            {/* input group */}
-            <div className="row custom_row cover_input_group">
-              {/* input start date */}
-              <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 custom_col form-floating cover_input">
-                <input
-                  ref={inputStartDateRef}
-                  type="text"
-                  className={`form-control input_group`}
-                  id="start_date"
-                  name="start_date"
-                  placeholder="From date"
-                  onFocus={() => changeType("start_date", "date")}
-                  onBlur={() => {
-                    changeType("start_date", "text");
-                  }}
-                  onChange={(e) => {
-                    handleChangeInput(e, "start_date");
-                  }}
-                />
+            <span className="order_list_path_dot">
+              <PathDot />
+            </span>
 
-                <label className="label_input_group" htmlFor="start_date">
-                  From date
-                </label>
+            <span className="order_list_path_order">Order statistics</span>
+          </div>
+        </div>
 
-                {/* {isErrorInfo("start_date") && (
+        {/* Order List Content */}
+        <div className="row custom_row">
+          <div className="col-12 custom_col cover_order_content">
+            <div className="cover_revenue">
+              <span className="yesterday">
+                Yesterday's Revenue:{" "}
+                <span>{formattedMoney(yesterdayRevenue)}</span>
+              </span>
+              <span className="today">
+                Today's Revenue:{" "}
+                <span className="today_number">
+                  {formattedMoney(todayRevenue)}
+                </span>
+              </span>
+            </div>
+
+            <ul className="ul_statistics">
+              <li
+                className={status === "" ? "li_active" : ""}
+                onClick={() => setStatus("")}
+                value="All"
+              >
+                All Order
+              </li>
+              <li
+                className={status === "PAID" ? "li_active" : ""}
+                onClick={() => setStatus("PAID")}
+                value="PAID"
+              >
+                Paid
+              </li>
+              <li
+                className={status === "COMPLETED" ? "li_active" : ""}
+                onClick={() => setStatus("COMPLETED")}
+                value="COMPLETED"
+              >
+                Completed
+              </li>
+              <li
+                className={status === "WAITING" ? "li_active" : ""}
+                onClick={() => setStatus("WAITING")}
+                value="WAITING"
+              >
+                Waiting
+              </li>
+              <li
+                className={status === "CANCELED" ? "li_active" : ""}
+                onClick={() => setStatus("CANCELED")}
+                value="CANCELED"
+              >
+                Canceled
+              </li>
+              <li
+                className={status === "REJECTED" ? "li_active" : ""}
+                onClick={() => setStatus("REJECTED")}
+                value="REJECTED"
+              >
+                Rejected
+              </li>
+              <li
+                className={status === "DELIVERING" ? "li_active" : ""}
+                onClick={() => setStatus("DELIVERING")}
+                value="DELIVERING"
+              >
+                Delivering
+              </li>
+            </ul>
+
+            {/* render order table */}
+            <div className="row custom_row">
+              {/* input group */}
+              <div className="row custom_row cover_input_group">
+                {/* input start date */}
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 custom_col form-floating cover_input">
+                  <input
+                    ref={inputStartDateRef}
+                    type="text"
+                    className={`form-control input_group`}
+                    id="start_date"
+                    name="start_date"
+                    placeholder="From date"
+                    onFocus={() => changeType("start_date", "date")}
+                    onBlur={() => {
+                      changeType("start_date", "text");
+                    }}
+                    onChange={(e) => {
+                      handleChangeInput(e, "start_date");
+                    }}
+                  />
+
+                  <label className="label_input_group" htmlFor="start_date">
+                    From date
+                  </label>
+
+                  {/* {isErrorInfo("start_date") && (
                 <div className="input_error">
                   {validation.errors.start_date}
                 </div>
               )} */}
+                </div>
+
+                {/* input end date */}
+                <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 custom_col form-floating cover_input">
+                  <input
+                    ref={inputEndDateRef}
+                    type="text"
+                    className={`form-control input_group`}
+                    id="end_date"
+                    name="end_date"
+                    placeholder="To date"
+                    onFocus={() => changeType("end_date", "date")}
+                    onBlur={() => {
+                      changeType("end_date", "text");
+                    }}
+                    onChange={(e) => {
+                      handleChangeInput(e, "end_date");
+                    }}
+                  />
+
+                  <label className="label_input_group" htmlFor="end_date">
+                    To date
+                  </label>
+                </div>
               </div>
 
-              {/* input end date */}
-              <div className="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3 custom_col form-floating cover_input">
-                <input
-                  ref={inputEndDateRef}
-                  type="text"
-                  className={`form-control input_group`}
-                  id="end_date"
-                  name="end_date"
-                  placeholder="To date"
-                  onFocus={() => changeType("end_date", "date")}
-                  onBlur={() => {
-                    changeType("end_date", "text");
+              <span className="total_order">
+                Total Order: <span className="order_number">{totalOrder}</span>
+              </span>
+
+              <div className="col-12 custom_col cover_table_orders">
+                <Table
+                  rowKey="_id"
+                  columns={columns}
+                  expandable={{
+                    expandedRowRender,
+                    expandIcon,
                   }}
-                  onChange={(e) => {
-                    handleChangeInput(e, "end_date");
-                  }}
+                  dataSource={ordersList}
+                  pagination={false}
                 />
 
-                <label className="label_input_group" htmlFor="end_date">
-                  To date
-                </label>
-              </div>
-            </div>
-
-            <span className="total_order">Total Order: <span className="order_number">{totalOrder}</span></span>
-
-            <div className="col-12 custom_col cover_table_orders">
-              <Table
-                rowKey="_id"
-                columns={columns}
-                expandable={{
-                  expandedRowRender,
-                  expandIcon,
-                }}
-                dataSource={ordersList}
-                pagination={false}
-              />
-
-              <div className="cover_total">
-                <span className="today">
-                  Total:{" "}
-                  <span className="today_number">
-                    ${parseFloat(total).toFixed(2)}
+                <div className="cover_total">
+                  <span className="today">
+                    Total:{" "}
+                    <span className="today_number">
+                      {formattedMoney(total)}
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
+    // Order List
   );
 }
 

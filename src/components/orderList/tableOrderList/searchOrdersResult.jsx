@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 
 import { LOCATIONS } from "constants/index";
 import "./tableOrderList.scss";
+import { formattedMoney } from "helper/formatDocuments";
 
 function SearchOrderResult(props) {
   //get searchResult from props
@@ -232,7 +233,7 @@ function SearchOrderResult(props) {
       sorter: (a, b) => a.totalPrice - b.totalPrice,
       render: (text, record, index) => (
         <span className="order_totalPrice">
-          ${parseFloat(text).toFixed(2)}
+          {formattedMoney(text)}
         </span>
       ),
     },
