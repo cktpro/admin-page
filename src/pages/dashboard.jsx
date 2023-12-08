@@ -1,8 +1,10 @@
+import Loading from "components/loading";
 import { axiosAdmin } from "helper/axiosAdmin/axiosAdmin";
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { useNavigate } from "react-router-dom";
 function Dashboard(props) {
+  const[isLoading,setLoading]=useState(false)
   const navigate = useNavigate();
   const [barChar, setBarChar] = useState({
     options: {
@@ -50,17 +52,21 @@ function Dashboard(props) {
   });
 
   const getTotalOrder = async () => {
+    setLoading(true)
     try {
       const res = await axiosAdmin.get("/query-orders/getTotalOrder");
       setDonut((prev) => ({
         ...prev,
         series: res.data.payload,
       }));
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log("◀◀◀ error ▶▶▶", error);
     }
   };
   const getRevenue = async () => {
+    setLoading(true)
     try {
       const res = await axiosAdmin.get("/query-orders/getRevenueOfYear");
       const month = res?.data?.payload?.map((item) => {
@@ -87,17 +93,21 @@ function Dashboard(props) {
       //   ...prev,
       //   series:res.data.payload
       // }))
+      setLoading(false)
     } catch (error) {
+      setLoading(false)
       console.log("◀◀◀ error ▶▶▶", error);
     }
   };
   const getSoldOut = async () => {
+    setLoading(true)
     try {
       const res = await axiosAdmin.get("/query-orders/getProductSold");
       const data = res.data.payload;
       const arr = [((data?.productSold / data?.totalProduct) * 100).toFixed(2)];
       setCircle((prev) => ({ ...prev, series: arr }));
     } catch (error) {
+      setLoading(false)
       console.log("◀◀◀ errror ▶▶▶", error);
     }
   };
@@ -135,8 +145,8 @@ function Dashboard(props) {
 
   return (
     <>
-      <div className="row">
-        <div className="col-xxl-6 col-lg-6 col-md-6 col-xs-12">
+      {!isLoading?<div className="row">
+        <div className="col-12">
           <h2> Revenue 2023</h2>
           <div className="mixed-chart">
             <Chart
@@ -175,7 +185,7 @@ function Dashboard(props) {
             width="100%"
           />
         </div>
-      </div>
+      </div>:<Loading/>}
     </>
   );
 }
